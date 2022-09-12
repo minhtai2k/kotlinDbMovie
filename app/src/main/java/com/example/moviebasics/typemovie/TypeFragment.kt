@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.FragmentTypeMovieBinding
@@ -20,6 +21,16 @@ class TypeFragment : Fragment() {
     ): View? {
         binding = FragmentTypeMovieBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
+
+//        Status update
+        viewModel.status.observe(viewLifecycleOwner){
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+
+//        TypeMovies update
+        viewModel.typeMovies.observe(viewLifecycleOwner) {
+
+        }
 
         return binding.root
     }

@@ -17,7 +17,7 @@ class TypeViewModel : ViewModel() {
     val typeMovies : LiveData<Results> = _typeMovies
 
     init {
-
+        getTypeMovies()
     }
 
     private fun getTypeMovies(){
