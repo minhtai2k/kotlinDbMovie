@@ -17,6 +17,7 @@ import java.lang.reflect.Type
 
 class TypeMoviesAdapter(private val dataSet : Results, val genreId : Int, val onClick : (Result) -> Unit) :
     RecyclerView.Adapter<TypeMoviesAdapter.TypeMoviesAdapterViewHolder>(){
+
     inner class TypeMoviesAdapterViewHolder(private val binding : ItemNewMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         private val textView: TextView = binding.textviewItem
         private val imgView: ImageView = binding.imageviewItem

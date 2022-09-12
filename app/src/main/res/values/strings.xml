@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MovieBasics</string>
     <string name="textview_test">TextView</string>
+    <string name="production_companies">Production companies:</string>
+    <string name="production_countries">Production countries:</string>
+    <string name="review_movie">Reviews: %f | %d</string>
 </resources>

@@ -21,8 +21,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    var getGenreId : Int = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +40,6 @@ class HomeFragment : Fragment() {
         viewModel.genres.observe(viewLifecycleOwner) {
             val adapter = GenreAdapter(it) {
                 val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
-                getGenreId = it.id
                 findNavController().navigate(direction)
             }
 
@@ -52,7 +49,10 @@ class HomeFragment : Fragment() {
 
 //        UpcomingMovie Class
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
-            val adapter = UpcomingMovieAdapter(it)
+            val adapter = UpcomingMovieAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
             binding.fragmentContainerViewUpcomingMovie.adapter = adapter
         }
 //        findNavController().navigate(R.id.action_homeFragment_to_detailFragment)

@@ -1,5 +1,6 @@
 package com.example.moviebasics.adapter
 
+import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,17 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
+import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.model.Result
 import com.example.moviebasics.model.Results
 import com.example.moviebasics.network.BASE_IMAGE_URL
 
-class UpcomingMovieAdapter(private val dataSet : Results) :
+class UpcomingMovieAdapter(private val dataSet : Results, val onClick : (Result) -> Unit) :
     RecyclerView.Adapter<UpcomingMovieAdapter.NewMovieAdapterViewHolder>() {
 
-    class NewMovieAdapterViewHolder(private val binding : ItemNewMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        val cardView : CardView = binding.cardviewItem
-        val imgView : ImageView = binding.imageviewItem
-        val textView : TextView = binding.textviewItem
+    inner class NewMovieAdapterViewHolder(private val binding : ItemNewMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val cardView : CardView = binding.cardviewItem
+        private val imgView : ImageView = binding.imageviewItem
+        private val textView : TextView = binding.textviewItem
 
         fun bind(item : Result){
 //            binding.executePendingBindings()
@@ -27,6 +29,9 @@ class UpcomingMovieAdapter(private val dataSet : Results) :
             imgView.load(BASE_IMAGE_URL+""+item.poster_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)
+            }
+            cardView.setOnClickListener {
+                onClick(item)
             }
         }
     }
