@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.moviebasics.R
 import com.example.moviebasics.adapter.TypeMoviesAdapter
 import com.example.moviebasics.databinding.FragmentTypeMovieBinding
+import com.example.moviebasics.detailmovie.DetailFragmentArgs
 
 class TypeFragment : Fragment() {
 
@@ -22,6 +23,9 @@ class TypeFragment : Fragment() {
 
     private val args: TypeFragmentArgs by navArgs()
     private val genreId by lazy { args.genreId }
+
+//    private val argsDetail: DetailFragmentArgs by navArgs()
+//    private val movieId by lazy { argsDetail.movieId }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +44,8 @@ class TypeFragment : Fragment() {
 //        TypeMovies update
         viewModel.typeMovies.observe(viewLifecycleOwner) {
             val adapter = TypeMoviesAdapter(it, genreId){
-                findNavController().navigate(R.id.action_typeFragment_to_homeFragment)
+                val direction = TypeFragmentDirections.actionTypeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
             }
             binding.fragmentContainerViewTypeMovie.adapter = adapter
         }

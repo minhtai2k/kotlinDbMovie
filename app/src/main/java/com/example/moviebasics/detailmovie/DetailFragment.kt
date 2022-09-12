@@ -1,17 +1,22 @@
 package com.example.moviebasics.detailmovie
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.FragmentDetailBinding
 import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.network.BASE_IMAGE_URL
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class DetailFragment : Fragment() {
 
@@ -42,21 +47,27 @@ class DetailFragment : Fragment() {
         }
         binding.nameMovieDetail.text = item.title
         binding.taglineMovieDetail.text = item.tagline
-        binding.releasedateMovieDetail.text = item.release_date
-        binding.statusMovieDetail.text = item.status
         binding.overviewMovieDetail.text = item.overview
-        binding.reviewMovieDetail.text = item.vote_average.toString()
+
+        binding.releasedateMovieDetail.setText(Html.fromHtml(getString(R.string.release_date_movie, item.release_date)))
+        binding.statusMovieDetail.setText(Html.fromHtml(getString(R.string.status_movie, item.status)))
+        binding.reviewMovieDetail.setText(Html.fromHtml(getString(R.string.review_movie, item.vote_average, item.vote_count)))
+
 
         val listProduction : MutableList<String> = mutableListOf()
         for (item in item.production_companies){
             listProduction.add(item.name)
         }
-        binding.productionMovieDetail.text = listProduction.joinToString(" | ")
+        binding.productionMovieDetail.setText(Html.fromHtml(
+            getString(R.string.companies_production, listProduction.joinToString(" | "))
+        ))
 
         val listCountries : MutableList<String> = mutableListOf()
         for (item in item.production_countries){
             listCountries.add(item.name)
         }
-        binding.countryMovieDetail.text = listCountries.joinToString(" | ")
+        binding.countryMovieDetail.setText(Html.fromHtml(
+            getString(R.string.companies_countries, listCountries.joinToString(" | "))
+        ))
     }
 }

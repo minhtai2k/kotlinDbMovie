@@ -46,5 +46,8 @@
             android:name="genreId"
             app:argType="integer"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_typeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

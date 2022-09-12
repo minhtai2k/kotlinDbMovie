@@ -7,6 +7,13 @@
 
     </data>
 
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--        -->
+
+<!--    </ScrollView>-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,104 +40,122 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline">
 
-            <TextView
-                android:id="@+id/nameMovieDetail"
-                android:layout_margin="@dimen/margin_default"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:textSize="@dimen/textview_name_movie_size"
-                tools:text="Name Movie"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/taglineMovieDetail"
-                android:layout_margin="@dimen/margin_default"
-                style="@style/TextAppearance.AppCompat.Body1"
-                tools:text="Tagline Movie"
-                app:layout_constraintTop_toBottomOf="@+id/nameMovieDetail"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginLeft="@dimen/margin_default"
-                app:layout_constraintTop_toBottomOf="@+id/taglineMovieDetail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/releasedateMovieDetail"
-                android:id="@+id/statusMovieDetail"
-                tools:text="Status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/releasedateMovieDetail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_default"
-                android:layout_marginRight="@dimen/margin_default"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/statusMovieDetail"
-                app:layout_constraintTop_toBottomOf="@+id/taglineMovieDetail"
-                tools:text="Release Date" />
-
-            <!--        <androidx.recyclerview.widget.RecyclerView-->
-            <!--            android:layout_margin="@dimen/margin_default"-->
-            <!--            android:id="@+id/genresMovieDetail"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="0dp"-->
-            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintStart_toStartOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@+id/overviewMovieDetail" />-->
-
-            <TextView
-                android:id="@+id/overviewMovieDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_default"
-                android:lines="3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/releasedateMovieDetail"
-                tools:text="The Red Ribbon Army, an evil organization that was once destroyed by Goku in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2, and seek vengeance against Goku and his family." />
+                app:layout_constraintTop_toBottomOf="@id/guideline">
 
-            <TextView
-                android:id="@+id/countryMovieDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/overviewMovieDetail"
-                android:layout_margin="@dimen/margin_default"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="Country Movie" />
+                <TextView
+                    android:id="@+id/nameMovieDetail"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    android:textSize="@dimen/textview_name_movie_size"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Name Movie" />
 
-            <TextView
-                android:id="@+id/productionMovieDetail"
-                app:layout_constraintTop_toBottomOf="@+id/countryMovieDetail"
-                android:layout_margin="@dimen/margin_default"
-                app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="@string/production_companies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/taglineMovieDetail"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nameMovieDetail"
+                    tools:text="Tagline Movie" />
 
-            <TextView
-                android:id="@+id/reviewMovieDetail"
-                tools:text="9.999 | 9999"
-                android:text="@string/review_movie"
-                android:layout_margin="@dimen/margin_default"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productionMovieDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/statusMovieDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_default"
+                    android:text="@string/status_movie"
+                    app:layout_constraintEnd_toStartOf="@+id/releasedateMovieDetail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/taglineMovieDetail"
+                    tools:text="Status: Related" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/releasedateMovieDetail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_default"
+                    android:layout_marginRight="@dimen/margin_default"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/statusMovieDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/taglineMovieDetail"
+                    tools:text="Release Date" />
+
+                <!--        <androidx.recyclerview.widget.RecyclerView-->
+                <!--            android:layout_margin="@dimen/margin_default"-->
+                <!--            android:id="@+id/genresMovieDetail"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="0dp"-->
+                <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--            app:layout_constraintEnd_toEndOf="parent"-->
+                <!--            app:layout_constraintStart_toStartOf="parent"-->
+                <!--            app:layout_constraintTop_toBottomOf="@+id/overviewMovieDetail" />-->
+
+                <TextView
+                    android:id="@+id/overviewMovieDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    android:lines="3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/releasedateMovieDetail"
+                    tools:text="The Red Ribbon Army, an evil organization that was once destroyed by Goku in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2, and seek vengeance against Goku and his family." />
+
+                <TextView
+                    android:id="@+id/countryMovieDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/overviewMovieDetail"
+                    android:text="@string/companies_countries" />
+
+                <TextView
+                    android:id="@+id/productionMovieDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/countryMovieDetail"
+                    android:text="@string/companies_production" />
+
+                <TextView
+                    android:id="@+id/reviewMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    android:text="@string/review_movie"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productionMovieDetail"
+                    tools:text="9.999 | 9999" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
