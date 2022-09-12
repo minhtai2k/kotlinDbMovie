@@ -21,6 +21,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    var getGenreId : Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,8 +41,11 @@ class HomeFragment : Fragment() {
 //        Genre Class
         viewModel.genres.observe(viewLifecycleOwner) {
             val adapter = GenreAdapter(it) {
-                findNavController().navigate(R.id.action_homeFragment_to_typeFragment)
+                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
+                getGenreId = it.id
+                findNavController().navigate(direction)
             }
+
             binding.fragmentContainerViewType.adapter = adapter
         }
 

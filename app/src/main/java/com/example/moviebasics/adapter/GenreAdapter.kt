@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemTypeBinding
 import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres

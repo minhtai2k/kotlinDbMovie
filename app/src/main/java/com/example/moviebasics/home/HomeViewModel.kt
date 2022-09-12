@@ -39,6 +39,7 @@ class HomeViewModel : ViewModel() {
                 _genres.value = GenresApi.retrofitService.getGenres()
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
+                Log.d("GenresList", "${e.message}")
             }
         }
     }

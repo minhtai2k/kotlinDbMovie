@@ -1,5 +1,6 @@
 package com.example.moviebasics.typemovie
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,16 +17,17 @@ class TypeViewModel : ViewModel() {
     private val _typeMovies = MutableLiveData<Results>()
     val typeMovies : LiveData<Results> = _typeMovies
 
-    init {
-        getTypeMovies()
-    }
+//    init {
+//        getTypeMovies()
+//    }
 
-    private fun getTypeMovies(){
+    fun getTypeMovies(id: Int){
         viewModelScope.launch {
             try {
-                _typeMovies.value = TypeMoviesApi.retrofitService.getTypeMovies()
+                _typeMovies.value = TypeMoviesApi.retrofitService.getTypeMovies(withGenres = id)
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
+                Log.d("TypeViewModel", "${e.message}")
             }
         }
     }

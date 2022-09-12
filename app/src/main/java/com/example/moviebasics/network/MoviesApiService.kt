@@ -1,14 +1,11 @@
 package com.example.moviebasics.network
 
-import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
 import com.example.moviebasics.model.Results
-import com.example.moviebasics.model.UpcomingMovie
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -30,12 +27,12 @@ private val retrofit = Retrofit.Builder()
 interface GenreApiService {
     @GET("genre/movie/list")
     suspend fun getGenres(
-        @Query ("api_key") apiKey: String = API_KEY
-    ) : Genres
+        @Query("api_key") apiKey: String = API_KEY
+    ): Genres
 }
 
 object GenresApi {
-    val retrofitService : GenreApiService by lazy {
+    val retrofitService: GenreApiService by lazy {
         retrofit.create(GenreApiService::class.java)
     }
 }
@@ -45,12 +42,12 @@ object GenresApi {
 interface UpcomingMovieApiService {
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
-        @Query ("api_key") apiKey: String = API_KEY
-    ) : Results
+        @Query("api_key") apiKey: String = API_KEY
+    ): Results
 }
 
 object UpcomingMovieApi {
-    val retrofitService : UpcomingMovieApiService by lazy {
+    val retrofitService: UpcomingMovieApiService by lazy {
         retrofit.create(UpcomingMovieApiService::class.java)
     }
 }
@@ -58,14 +55,15 @@ object UpcomingMovieApi {
 //Type List Movie API Connect
 
 interface TypeMoviesApiService {
-    @GET("/discover/movie")
+    @GET("discover/movie")
     suspend fun getTypeMovies(
-        @Query ("api_key") apiKey: String = API_KEY
-    ) : Results
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("with_genres") withGenres: Int
+    ): Results
 }
 
 object TypeMoviesApi {
-    val retrofitService : TypeMoviesApiService by lazy {
+    val retrofitService: TypeMoviesApiService by lazy {
         retrofit.create(TypeMoviesApiService::class.java)
     }
 }
