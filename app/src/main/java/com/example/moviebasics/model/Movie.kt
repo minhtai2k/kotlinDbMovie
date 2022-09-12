@@ -4,8 +4,8 @@ import java.util.*
 
 data class MovieDetail(
     val adult: Boolean,
-    val backdrop_path: String,
-    val belongs_to_collection: belongs_to_collection,
+    val backdrop_path: String?,
+    val belongs_to_collection: belongs_to_collection?,
     val budget: Int,
     val genres: List<Genre>,
     val homepage: String,
@@ -59,10 +59,10 @@ data class Result(
 )
 
 data class belongs_to_collection(
-    val id: Int,
-    val name: String,
-    val poster_path: String,
-    val backdrop_path: String
+    val id: Int?,
+    val name: String?,
+    val poster_path: String?,
+    val backdrop_path: String?
 )
 
 data class production_companies(

@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.FragmentDetailBinding
 import com.example.moviebasics.model.MovieDetail
+import com.example.moviebasics.network.BASE_IMAGE_URL
 
 class DetailFragment : Fragment() {
 
@@ -34,14 +36,27 @@ class DetailFragment : Fragment() {
     }
 
     private fun bindData(item : MovieDetail){
+        binding.imageviewMovieDetail.load(BASE_IMAGE_URL+""+item.poster_path){
+            placeholder(R.drawable.loading_img)
+            error(R.drawable.ic_broken_image)
+        }
         binding.nameMovieDetail.text = item.title
         binding.taglineMovieDetail.text = item.tagline
         binding.releasedateMovieDetail.text = item.release_date
         binding.statusMovieDetail.text = item.status
         binding.overviewMovieDetail.text = item.overview
-        binding.countryMovieDetail.text = item.production_countries.toString()
-        binding.productionMovieDetail.text = item.production_companies.toString()
         binding.reviewMovieDetail.text = item.vote_average.toString()
 
+        val listProduction : MutableList<String> = mutableListOf()
+        for (item in item.production_companies){
+            listProduction.add(item.name)
+        }
+        binding.productionMovieDetail.text = listProduction.joinToString(" | ")
+
+        val listCountries : MutableList<String> = mutableListOf()
+        for (item in item.production_countries){
+            listCountries.add(item.name)
+        }
+        binding.countryMovieDetail.text = listCountries.joinToString(" | ")
     }
 }

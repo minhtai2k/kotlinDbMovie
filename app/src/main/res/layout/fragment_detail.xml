@@ -21,7 +21,7 @@
             android:orientation="horizontal" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageviewMovieDetail"
             android:padding="@dimen/padding_sm"
             android:layout_width="match_parent"
             android:layout_height="0dp"
