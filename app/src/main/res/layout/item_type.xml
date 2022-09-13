@@ -15,24 +15,26 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_item"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/cardview_genre_height"
             android:layout_margin="2.5dp"
-            app:cardBackgroundColor="#528AB6"
+            app:cardBackgroundColor="@color/green"
             app:cardCornerRadius="@dimen/cardview_radius"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
+            <!--            app:layout_constraintDimensionRatio="1:1"-->
             <TextView
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/textview_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_default"
                 android:gravity="center"
                 android:text="@string/textview_test"
+                android:textColor="@color/white"
                 tools:text="@tools:sample/cities" />
 
         </androidx.cardview.widget.CardView>
