@@ -11,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebasics.R
-import com.example.moviebasics.adapter.GenreAdapter
-import com.example.moviebasics.adapter.UpcomingMovieAdapter
+import com.example.moviebasics.adapter.*
 import com.example.moviebasics.databinding.FragmentHomeBinding
+import com.example.moviebasics.model.Results
 
 class HomeFragment : Fragment() {
 
@@ -42,10 +42,8 @@ class HomeFragment : Fragment() {
                 val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
                 findNavController().navigate(direction)
             }
-
             binding.fragmentContainerViewType.adapter = adapter
         }
-
 
 //        UpcomingMovie Class
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
@@ -57,6 +55,32 @@ class HomeFragment : Fragment() {
         }
 //        findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
 
+//        PopularMovie Class
+        viewModel.popularMovies.observe(viewLifecycleOwner) {
+            val adapter = PopularMoviesAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
+            setUpViewPager()
+            binding.viewpagerPopularMovie.adapter = adapter
+        }
+
+
+//        TopRatedMovie Class
+        viewModel.topRatedMovies.observe(viewLifecycleOwner) {
+            val adapter = TopRatedMoviesAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
+            binding.recyclerviewTopRatedMovie.adapter = adapter
+        }
+
         return binding.root
+    }
+
+    private fun setUpViewPager() {
+        binding.viewpagerPopularMovie.offscreenPageLimit = 3
+        binding.viewpagerPopularMovie.clipToPadding = false
+        binding.viewpagerPopularMovie.clipChildren = false
     }
 }

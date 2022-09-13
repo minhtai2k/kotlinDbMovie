@@ -87,3 +87,33 @@ object MovieDetailApi {
     }
 }
 
+//Popular Movie API Connect
+
+interface PopularMovieApiService {
+    @GET("movie/popular")
+    suspend fun getPopularMovies (
+        @Query("api_key")api_key : String = API_KEY
+    ) : Results
+}
+
+object PopularMovieApi {
+    val retrofitService : PopularMovieApiService by lazy {
+        retrofit.create(PopularMovieApiService::class.java)
+    }
+}
+
+//Top Rated Movie API Connect
+
+interface TopRatedMovieApiService {
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("api_key")api_key: String = API_KEY
+    ) : Results
+}
+
+object TopRatedMovieApi {
+    val retrofitService : TopRatedMovieApiService by lazy {
+        retrofit.create(TopRatedMovieApiService::class.java)
+    }
+}
+

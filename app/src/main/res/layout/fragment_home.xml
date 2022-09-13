@@ -22,19 +22,17 @@
                 android:layout_marginBottom="@dimen/margin_default"
                 android:orientation="horizontal" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewPopularMovie"
+            <androidx.viewpager2.widget.ViewPager2
+                android:layoutDirection="ltr"
+                android:id="@+id/viewpagerPopularMovie"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="@dimen/margin_imageview_home"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/textviewGenreTitle"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
                 tools:listitem="@layout/item_popular_movie" />
 
             <TextView

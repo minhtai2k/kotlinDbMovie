@@ -1,18 +1,13 @@
 package com.example.moviebasics.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
 import com.example.moviebasics.model.Results
-import com.example.moviebasics.network.GenresApi
-import com.example.moviebasics.network.UpcomingMovieApi
-import com.example.moviebasics.network.UpcomingMovieApiService
+import com.example.moviebasics.network.*
 import kotlinx.coroutines.launch
 
 
@@ -25,11 +20,20 @@ class HomeViewModel : ViewModel() {
     val genres: LiveData<Genres> = _genres
 
     private val _resultsUpcoming = MutableLiveData<Results>()
-    val resultsUpcoming = _resultsUpcoming
+//        val resultsUpcoming : LiveData<Results> = _resultsUpcoming ==> khong su dung cung duoc
+    val resultsUpcoming : LiveData<Results> = _resultsUpcoming
+
+    private val _popularMovies = MutableLiveData<Results>()
+    val popularMovies : LiveData<Results> = _popularMovies
+
+    private val _topRatedMovies = MutableLiveData<Results>()
+    val topRatedMovies : LiveData<Results> = _topRatedMovies
 
     init {
         getGenresList()
         getUpcomingMovieList()
+        getPopularMovies()
+        getTopRatedMovies()
     }
 
     private fun getGenresList() {
@@ -51,6 +55,27 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
                 Log.d("UpcomingMovieList", "${e.message}")
+            }
+        }
+    }
+
+    private fun getPopularMovies() {
+        viewModelScope.launch {
+            try {
+                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
+            } catch (e: Exception) {
+                _status.value = "Failure: ${e.message}"
+                Log.d("PopularMovies", "${e.message}")
+            }
+        }
+    }
+
+    private fun getTopRatedMovies() {
+        viewModelScope.launch {
+            try {
+                _topRatedMovies.value = TopRatedMovieApi.retrofitService.getTopRatedMovies()
+            } catch (e: Exception) {
+                _status.value = "Failure: ${e.message}"
             }
         }
     }
