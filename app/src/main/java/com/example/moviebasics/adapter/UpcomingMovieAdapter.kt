@@ -37,7 +37,7 @@ class UpcomingMovieAdapter(private val dataSet : Results, val onClick : (Result)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewMovieAdapterViewHolder {
-        return NewMovieAdapterViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context)))
+        return NewMovieAdapterViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: NewMovieAdapterViewHolder, position: Int) {

@@ -36,7 +36,7 @@ class TypeMoviesAdapter(private val dataSet : Results, val genreId : Int, val on
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TypeMoviesAdapterViewHolder {
-        return TypeMoviesAdapterViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context)))
+        return TypeMoviesAdapterViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: TypeMoviesAdapterViewHolder, position: Int) {

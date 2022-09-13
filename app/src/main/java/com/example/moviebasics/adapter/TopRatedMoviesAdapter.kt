@@ -28,7 +28,7 @@ class TopRatedMoviesAdapter(private val dataSet : Results, val onClick : (Result
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedMoviesViewHolder {
-        return TopRatedMoviesViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context)))
+        return TopRatedMoviesViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: TopRatedMoviesViewHolder, position: Int) {
