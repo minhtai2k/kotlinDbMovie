@@ -21,11 +21,11 @@ class UpcomingMovieAdapter(private val dataSet : Results, val onClick : (Result)
     inner class NewMovieAdapterViewHolder(private val binding : ItemNewMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         private val cardView : CardView = binding.cardviewItem
         private val imgView : ImageView = binding.imageviewItem
-        private val textView : TextView = binding.textviewItem
+//        private val textView : TextView = binding.textviewItem
 
         fun bind(item : Result){
 //            binding.executePendingBindings()
-            textView.text = item.title
+//            textView.text = item.title
             imgView.load(BASE_IMAGE_URL+""+item.poster_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)

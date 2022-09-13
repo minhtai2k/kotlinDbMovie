@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    Genre dimens-->
+<!--  CardView Genre dimens-->
     <dimen name="cardview_genre_width">100dp</dimen>
-    <dimen name="cardview_genre_height">40dp</dimen>
+    <dimen name="cardview_genre_height">35dp</dimen>
     <dimen name="textview_genre_padding"></dimen>
 
     <dimen name="cardview_image_movie_width">150dp</dimen>
@@ -11,8 +11,16 @@
     <dimen name="cardview_radius">15dp</dimen>
 
     <dimen name="padding_size">70dp</dimen>
-    <dimen name="margin_default">10dp</dimen>
     <dimen name="padding_sm">5dp</dimen>
     <dimen name="image_newmovie">130dp</dimen>
     <dimen name="textview_name_movie_size">25dp</dimen>
+
+    <!--    TextView Title dimens-->
+    <dimen name="textview_title_size">20sp</dimen>
+    <dimen name="textview_see_all_size">15sp</dimen>
+
+    <!--    Margin-->
+    <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_imageview_home">15dp</dimen>
+    <dimen name="margin_default_item">8dp</dimen>
 </resources>

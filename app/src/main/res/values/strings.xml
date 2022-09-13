@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MovieBasics</string>
-    <string name="textview_test">TextView</string>
+    <string name="textview_test">Text View</string>
 <!--    <string name="production_companies">Production companies:</string>-->
 <!--    <string name="production_countries">Production countries:</string>-->
     <string name="companies_production"><![CDATA[<b>Companies productions:</b>]]> %s</string>
@@ -8,4 +8,9 @@
     <string name="review_movie"><![CDATA[<b>Review:</b>]]> %f | %d</string>
     <string name="status_movie"><![CDATA[<b>Status:</b>]]> %s</string>
     <string name="release_date_movie"><![CDATA[<b>Release date:</b>]]> %s</string>
+
+    <string name="textview_genre_title"><b>Genres</b></string>
+    <string name="textview_upcoming_movie"><b>Upcoming Movie</b></string>
+    <string name="textview_see_all"><b>See all</b></string>
+    <string name="textview_top_rated_movie"><b>Top Rated Movie</b></string>
 </resources>
