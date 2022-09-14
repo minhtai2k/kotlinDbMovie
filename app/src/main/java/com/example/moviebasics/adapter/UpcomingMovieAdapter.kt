@@ -1,16 +1,13 @@
 package com.example.moviebasics.adapter
 
-import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
-import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.model.Result
 import com.example.moviebasics.model.Results
 import com.example.moviebasics.network.BASE_IMAGE_URL
@@ -37,7 +34,13 @@ class UpcomingMovieAdapter(private val dataSet : Results, val onClick : (Result)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewMovieAdapterViewHolder {
-        return NewMovieAdapterViewHolder(ItemNewMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return NewMovieAdapterViewHolder(
+            ItemNewMovieBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: NewMovieAdapterViewHolder, position: Int) {

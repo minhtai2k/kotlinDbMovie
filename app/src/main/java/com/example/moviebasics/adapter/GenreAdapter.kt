@@ -25,7 +25,7 @@ class GenreAdapter(private val dataSet: Genres, val onClick : (Genre) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreGridAdapterViewHolder {
-        return GenreGridAdapterViewHolder(ItemTypeBinding.inflate(LayoutInflater.from(parent.context)))
+        return GenreGridAdapterViewHolder(ItemTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: GenreGridAdapterViewHolder, position: Int) {

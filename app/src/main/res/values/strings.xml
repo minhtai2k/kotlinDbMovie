@@ -13,4 +13,8 @@
     <string name="textview_upcoming_movie"><b>Upcoming Movie</b></string>
     <string name="textview_see_all"><b>See all</b></string>
     <string name="textview_top_rated_movie"><b>Top Rated Movie</b></string>
+
+    <string name="title_item_search_action_bar">Search</string>
+    <string name="title_item_notification_action_bar">Notification</string>
+    <string name="page_title">UI Android</string>
 </resources>

@@ -1,5 +1,9 @@
 package com.example.moviebasics.home
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +12,30 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.example.moviebasics.R
-import com.example.moviebasics.adapter.*
+import androidx.room.Room
+import com.example.moviebasics.adapter.GenreAdapter
+import com.example.moviebasics.adapter.PopularMoviesAdapter
+import com.example.moviebasics.adapter.TopRatedMoviesAdapter
+import com.example.moviebasics.adapter.UpcomingMovieAdapter
+import com.example.moviebasics.dao.AppDatabase
+import com.example.moviebasics.dao.DATABASE_NAME
+import com.example.moviebasics.dao.GenreEntity
 import com.example.moviebasics.databinding.FragmentHomeBinding
-import com.example.moviebasics.model.Results
+import com.example.moviebasics.model.Genre
 
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
     private lateinit var binding: FragmentHomeBinding
+
+    private val db by lazy {
+        Room.databaseBuilder(
+            requireActivity().applicationContext,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +44,9 @@ class HomeFragment : Fragment() {
 //        return inflater.inflate(R.layout.fragment_home, container, false)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
+//        viewModel.getTopRatedMovies(db, checkForInternet(requireContext()))
+        viewModel.getGenresList(db, checkForInternet(requireContext()))
 
 //        binding.homeViewModel = viewModel su dung data variable moi su dung duoc
 
@@ -74,7 +93,6 @@ class HomeFragment : Fragment() {
             }
             binding.recyclerviewTopRatedMovie.adapter = adapter
         }
-
         return binding.root
     }
 
@@ -82,5 +100,47 @@ class HomeFragment : Fragment() {
         binding.viewpagerPopularMovie.offscreenPageLimit = 3
         binding.viewpagerPopularMovie.clipToPadding = false
         binding.viewpagerPopularMovie.clipChildren = false
+    }
+
+
+
+    fun checkForInternet(context: Context): Boolean {
+
+        // register activity with the connectivity manager service
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        // if the android version is equal to M
+        // or greater we need to use the
+        // NetworkCapabilities to check what type of
+        // network has the internet connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // Returns a Network object corresponding to
+            // the currently active default data network.
+            val network = connectivityManager.activeNetwork ?: return false
+
+            // Representation of the capabilities of an active network.
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            return when {
+                // Indicates this network uses a Wi-Fi transport,
+                // or WiFi has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+                // Indicates this network uses a Cellular transport. or
+                // Cellular has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+                // else return false
+                else -> false
+            }
+        } else {
+            // if the android version is below M
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
     }
 }

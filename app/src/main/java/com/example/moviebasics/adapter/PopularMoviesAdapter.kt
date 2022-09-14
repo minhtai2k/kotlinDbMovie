@@ -17,7 +17,7 @@ class PopularMoviesAdapter(private val dataSet: Results, val onClick: (Result) -
         RecyclerView.ViewHolder(binding.root) {
         private val imageView = binding.imageviewItem
         fun bind(item: Result) {
-            imageView.load(BASE_IMAGE_URL + "" + item.poster_path) {
+            imageView.load(BASE_IMAGE_URL + "" + item.backdrop_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)
             }

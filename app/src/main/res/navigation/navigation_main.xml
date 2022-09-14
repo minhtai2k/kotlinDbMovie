@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/homeFragment"
+        android:label=""
         android:name="com.example.moviebasics.home.HomeFragment"
-        android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
         <action
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.moviebasics.detailmovie.DetailFragment"
-        android:label="fragment_detail"
+        android:label=""
         tools:layout="@layout/fragment_detail">
 
         <action
@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/typeFragment"
         android:name="com.example.moviebasics.typemovie.TypeFragment"
-        android:label="fragment_type_movie"
+        android:label="Genre Movies"
         tools:layout="@layout/fragment_type_movie">
 
         <action
