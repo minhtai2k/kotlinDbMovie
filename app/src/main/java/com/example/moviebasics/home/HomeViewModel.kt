@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.TypeConverter
 import com.example.moviebasics.dao.AppDatabase
 import com.example.moviebasics.dao.GenreEntity
+import com.example.moviebasics.dao.PopularMovieEntity
 import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
+import com.example.moviebasics.model.Result
 import com.example.moviebasics.model.Results
 import com.example.moviebasics.network.GenresApi
 import com.example.moviebasics.network.PopularMovieApi
@@ -30,8 +33,6 @@ class HomeViewModel : ViewModel() {
     val genres: LiveData<Genres> = _genres
 
     private val _resultsUpcoming = MutableLiveData<Results>()
-
-    //        val resultsUpcoming : LiveData<Results> = _resultsUpcoming ==> khong su dung cung duoc
     val resultsUpcoming: LiveData<Results> = _resultsUpcoming
 
     private val _popularMovies = MutableLiveData<Results>()
@@ -43,7 +44,7 @@ class HomeViewModel : ViewModel() {
     init {
 //        getGenresList()
         getUpcomingMovieList()
-        getPopularMovies()
+//        getPopularMovies()
         getTopRatedMovies()
     }
 
@@ -61,12 +62,12 @@ class HomeViewModel : ViewModel() {
                             it.toGenreEntity()
                         })
                     _isLoading.postValue(true)
-                    Log.d("ConnectStatus", "isConnected")
+                    Log.d("Connect Genres Status", "isConnected")
                 } else {
                     val genreList: List<Genre> = genreDao.getAll().map { it.toGenre() }
                     _genres.postValue(Genres(genreList))
                     _isLoading.postValue(true)
-                    Log.d("ConnectStatus", "!isConnected")
+                    Log.d("Connect Genres Status", "!isConnected")
                 }
             } catch (e: Exception) {
                 _status.postValue("Failure Status: ${e.message}")
@@ -88,11 +89,26 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    private fun getPopularMovies() {
+    fun getPopularMovies(isConnected: Boolean, db: AppDatabase) {
+        val popularMovieDao = db.popularMovieDao()
         viewModelScope.launch {
             try {
+                if(isConnected) {
 //                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
-                _popularMovies.postValue(PopularMovieApi.retrofitService.getPopularMovies())
+                    val data = PopularMovieApi.retrofitService.getPopularMovies()
+                    _popularMovies.postValue(data)
+                    popularMovieDao.insertAll(
+                        data.results.map {
+                            it.toPopularMovieEntity()
+                        })
+                    _isLoading.postValue(true)
+                } else {
+                    val popularMovieList : List<Result> = popularMovieDao.getAll().map {
+                        it.toResult()
+                    }
+                    _popularMovies.postValue(Results(popularMovieList))
+                    _isLoading.postValue(true)
+                }
             } catch (e: Exception) {
 //                _status.value = "Failure: ${e.message}"
                 _status.postValue("Failure: ${e.message}")
@@ -121,4 +137,39 @@ class HomeViewModel : ViewModel() {
         id = gid,
         name = name
     )
+
+    private fun Result.toPopularMovieEntity() = PopularMovieEntity(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        pid = id,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
+    private fun PopularMovieEntity.toResult() = Result(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        id = pid,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
 }

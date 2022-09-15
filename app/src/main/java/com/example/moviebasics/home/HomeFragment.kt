@@ -36,7 +36,9 @@ class HomeFragment : Fragment() {
             requireActivity().applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        )
+            .allowMainThreadQueries()
+            .build()
     }
 
     override fun onCreateView(
@@ -47,15 +49,19 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
+        viewModel.getGenresList(checkForInternet(requireContext()), db)
+        viewModel.getPopularMovies(checkForInternet(requireContext()), db)
+
         binding.homeSwipeRefreshLayout.setOnRefreshListener {
-            viewModel.getGenresList(checkForInternet(requireContext()), db)
+//            viewModel.getGenresList(checkForInternet(requireContext()), db)
             if(viewModel.isLoading.value == true) {
+                viewModel.getGenresList(checkForInternet(requireContext()), db)
                 binding.homeSwipeRefreshLayout.isRefreshing = false
             }
+//            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
         }
 
 //        viewModel.getTopRatedMovies(db, checkForInternet(requireContext()))
-        viewModel.getGenresList(checkForInternet(requireContext()), db)
 
 //        binding.homeViewModel = viewModel su dung data variable moi su dung duoc
 
