@@ -36,9 +36,7 @@ class HomeFragment : Fragment() {
             requireActivity().applicationContext,
             AppDatabase::class.java,
             DATABASE_NAME
-        )
-            .allowMainThreadQueries()
-            .build()
+        ).build()
     }
 
     override fun onCreateView(
@@ -56,6 +54,7 @@ class HomeFragment : Fragment() {
 //            viewModel.getGenresList(checkForInternet(requireContext()), db)
             if(viewModel.isLoading.value == true) {
                 viewModel.getGenresList(checkForInternet(requireContext()), db)
+                viewModel.getPopularMovies(checkForInternet(requireContext()), db)
                 binding.homeSwipeRefreshLayout.isRefreshing = false
             }
 //            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
@@ -87,7 +86,6 @@ class HomeFragment : Fragment() {
             }
             binding.fragmentContainerViewUpcomingMovie.adapter = adapter
         }
-//        findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
 
 //        PopularMovie Class
         viewModel.popularMovies.observe(viewLifecycleOwner) {
@@ -95,10 +93,9 @@ class HomeFragment : Fragment() {
                 val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
                 findNavController().navigate(direction)
             }
-            setUpViewPager()
+//            setUpViewPager()
             binding.viewpagerPopularMovie.adapter = adapter
         }
-
 
 //        TopRatedMovie Class
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
@@ -111,11 +108,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun setUpViewPager() {
-        binding.viewpagerPopularMovie.offscreenPageLimit = 3
-        binding.viewpagerPopularMovie.clipToPadding = false
-        binding.viewpagerPopularMovie.clipChildren = false
-    }
+//    private fun setUpViewPager() {
+//        binding.viewpagerPopularMovie.offscreenPageLimit = 3
+//        binding.viewpagerPopularMovie.clipToPadding = false
+//        binding.viewpagerPopularMovie.clipChildren = false
+//    }
 
 
 

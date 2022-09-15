@@ -6,7 +6,11 @@ import androidx.room.TypeConverters
 
 const val DATABASE_NAME = "MovieBasicDb"
 
-@Database(entities = [GenreEntity::class, PopularMovieEntity::class], version = 2)
+@Database(
+    entities = [GenreEntity::class, PopularMovieEntity::class],
+    exportSchema = true,
+    version = 1,
+)
 //@TypeConverters(PopularMovieConverter::class)
 @TypeConverters(PopularMovieGenreIdsConverter::class)
 abstract class AppDatabase : RoomDatabase() {

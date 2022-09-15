@@ -70,8 +70,8 @@ class HomeViewModel : ViewModel() {
                     Log.d("Connect Genres Status", "!isConnected")
                 }
             } catch (e: Exception) {
-                _status.postValue("Failure Status: ${e.message}")
-                Log.d("FailureStatus", "${e.message}")
+                _status.postValue("Genre Status: ${e.message}")
+                Log.d("Genre Status E", "${e.message}")
             }
         }
     }
@@ -91,7 +91,7 @@ class HomeViewModel : ViewModel() {
 
     fun getPopularMovies(isConnected: Boolean, db: AppDatabase) {
         val popularMovieDao = db.popularMovieDao()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 if(isConnected) {
 //                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
@@ -112,7 +112,7 @@ class HomeViewModel : ViewModel() {
             } catch (e: Exception) {
 //                _status.value = "Failure: ${e.message}"
                 _status.postValue("Failure: ${e.message}")
-                Log.d("PopularMovies", "${e.message}")
+                Log.d("PopularMoviesStatusE", "${e.message}")
             }
         }
     }
