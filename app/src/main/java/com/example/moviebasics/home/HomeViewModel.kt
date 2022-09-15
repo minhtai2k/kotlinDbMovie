@@ -23,6 +23,9 @@ class HomeViewModel : ViewModel() {
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean> = _isLoading
+
     private val _genres = MutableLiveData<Genres>()
     val genres: LiveData<Genres> = _genres
 
@@ -44,25 +47,30 @@ class HomeViewModel : ViewModel() {
         getTopRatedMovies()
     }
 
-    fun getGenresList(db: AppDatabase, isConnected: Boolean) {
+    fun getGenresList(isConnected: Boolean, db: AppDatabase) {
         val genreDao = db.genreDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isConnected) {
 //                _status.value = "Load data success"
 //                _genres.value = GenresApi.retrofitService.getGenres()
-                    _genres.postValue(GenresApi.retrofitService.getGenres())
-                    genreDao.insertAll(_genres.value!!.genres.map {
-                        it.toGenreEntity()
-                    })
+                    val data = GenresApi.retrofitService.getGenres()
+                    _genres.postValue(data)
+                    genreDao.insertAll(
+                        data.genres.map {
+                            it.toGenreEntity()
+                        })
+                    _isLoading.postValue(true)
+                    Log.d("ConnectStatus", "isConnected")
                 } else {
                     val genreList: List<Genre> = genreDao.getAll().map { it.toGenre() }
                     _genres.postValue(Genres(genreList))
+                    _isLoading.postValue(true)
+                    Log.d("ConnectStatus", "!isConnected")
                 }
-
             } catch (e: Exception) {
-                _status.postValue("Failure: ${e.message}")
-                Log.d("GenresList", "${e.message}")
+                _status.postValue("Failure Status: ${e.message}")
+                Log.d("FailureStatus", "${e.message}")
             }
         }
     }
@@ -93,7 +101,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getTopRatedMovies() {
+    private fun getTopRatedMovies() {
         viewModelScope.launch {
             try {
                 _topRatedMovies.postValue(TopRatedMovieApi.retrofitService.getTopRatedMovies())
@@ -104,12 +112,12 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun Genre.toGenreEntity() = GenreEntity(
+    private fun Genre.toGenreEntity() = GenreEntity(
         gid = id,
         name = name
     )
 
-    fun GenreEntity.toGenre() = Genre(
+    private fun GenreEntity.toGenre() = Genre(
         id = gid,
         name = name
     )

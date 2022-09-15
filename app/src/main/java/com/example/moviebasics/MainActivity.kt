@@ -1,20 +1,15 @@
 package com.example.moviebasics
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.room.Room
-import com.example.moviebasics.dao.AppDatabase
-import com.example.moviebasics.dao.DATABASE_NAME
-import com.example.moviebasics.dao.GenreEntity
-import com.google.android.material.appbar.AppBarLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity(){
     private lateinit var navController: NavController

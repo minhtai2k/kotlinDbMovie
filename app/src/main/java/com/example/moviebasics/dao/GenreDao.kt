@@ -21,17 +21,13 @@ interface GenreDao {
     @Query("select * from genres where name like :alphabet limit 1")
     fun findByName(alphabet: String): GenreEntity
 
-    @Insert
-    fun insertAll(vararg genres: GenreEntity)
+//    @Insert
+//    fun insertAll(vararg genres: GenreEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(genres: List<GenreEntity>)
 
     @Delete
     fun delete(genre: GenreEntity)
 }
 
-fun GenreEntity.toGenre() = Genre(
-    id = gid,
-    name = name
-)

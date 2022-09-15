@@ -73,7 +73,7 @@ class DetailFragment : Fragment() {
         binding.productionMovieDetail.text = HtmlCompat.fromHtml(
             getString(
                 R.string.companies_production,
-                listProduction.joinToString {" | "}
+                listProduction.joinToString (" | ")
             ), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
@@ -85,8 +85,8 @@ class DetailFragment : Fragment() {
         binding.countryMovieDetail.text = HtmlCompat.fromHtml(
             getString(
                 R.string.companies_countries,
-                listCountries.joinToString {" | "}
-            ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                listCountries.joinToString (" | ")
+            ), HtmlCompat.FROM_HTML_MODE_COMPACT
         )
     }
 }

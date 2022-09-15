@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.moviebasics.R
 import com.example.moviebasics.adapter.GenreAdapter
 import com.example.moviebasics.adapter.PopularMoviesAdapter
 import com.example.moviebasics.adapter.TopRatedMoviesAdapter
@@ -45,8 +47,15 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
+        binding.homeSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.getGenresList(checkForInternet(requireContext()), db)
+            if(viewModel.isLoading.value == true) {
+                binding.homeSwipeRefreshLayout.isRefreshing = false
+            }
+        }
+
 //        viewModel.getTopRatedMovies(db, checkForInternet(requireContext()))
-        viewModel.getGenresList(db, checkForInternet(requireContext()))
+        viewModel.getGenresList(checkForInternet(requireContext()), db)
 
 //        binding.homeViewModel = viewModel su dung data variable moi su dung duoc
 
@@ -104,7 +113,7 @@ class HomeFragment : Fragment() {
 
 
 
-    fun checkForInternet(context: Context): Boolean {
+    private fun checkForInternet(context: Context): Boolean {
 
         // register activity with the connectivity manager service
         val connectivityManager =
