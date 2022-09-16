@@ -17,11 +17,14 @@ import com.example.moviebasics.network.GenresApi
 import com.example.moviebasics.network.PopularMovieApi
 import com.example.moviebasics.network.TopRatedMovieApi
 import com.example.moviebasics.network.UpcomingMovieApi
+import com.example.moviebasics.repository.GenreRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() {
 
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
@@ -57,6 +60,10 @@ class HomeViewModel : ViewModel() {
 //                _genres.value = GenresApi.retrofitService.getGenres()
                     val data = GenresApi.retrofitService.getGenres()
                     _genres.postValue(data)
+                    genreRepository.genreLatestData
+                        .collect{
+                            it
+                        }
                     genreDao.insertAll(
                         data.genres.map {
                             it.toGenreEntity()

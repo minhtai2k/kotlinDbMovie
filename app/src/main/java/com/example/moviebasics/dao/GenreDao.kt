@@ -3,6 +3,7 @@ package com.example.moviebasics.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.moviebasics.model.Genre
+import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "genres")
 data class GenreEntity(
@@ -13,7 +14,7 @@ data class GenreEntity(
 @Dao
 interface GenreDao {
     @Query("select * from genres")
-    fun getAll(): List<GenreEntity>
+    fun getAll(): Flow<List<GenreEntity>>
 
     @Query("select * from genres where gid in (:genreIds)")
     fun loadAllByIds(genreIds: IntArray): List<GenreEntity>
