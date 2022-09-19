@@ -1,15 +1,8 @@
-package com.example.moviebasics.dao
+package com.example.moviebasics.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.moviebasics.model.Genre
+import com.example.moviebasics.database.model.GenreEntity
 import kotlinx.coroutines.flow.Flow
-
-@Entity(tableName = "genres")
-data class GenreEntity(
-    @PrimaryKey val gid: Int,
-    @ColumnInfo(name = "name") val name: String?
-)
 
 @Dao
 interface GenreDao {
@@ -17,10 +10,10 @@ interface GenreDao {
     fun getAll(): Flow<List<GenreEntity>>
 
     @Query("select * from genres where gid in (:genreIds)")
-    fun loadAllByIds(genreIds: IntArray): List<GenreEntity>
+    fun loadAllByIds(genreIds: IntArray): Flow<List<GenreEntity>>
 
     @Query("select * from genres where name like :alphabet limit 1")
-    fun findByName(alphabet: String): GenreEntity
+    fun findByName(alphabet: String): Flow<GenreEntity>
 
 //    @Insert
 //    fun insertAll(vararg genres: GenreEntity)

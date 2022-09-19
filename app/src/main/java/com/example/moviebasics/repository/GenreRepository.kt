@@ -1,12 +1,15 @@
 package com.example.moviebasics.repository
 
-import com.example.moviebasics.model.Genre
-import kotlinx.coroutines.flow.Flow
+import com.example.moviebasics.network.GenreApiService
 
-class GenreRepository (
-    private val genreDataSource : GenreDataSource,
-    private val genreData : Genre
+class GenreRepository(
+    private val localDataSource: GenreLocalDataSource,
+    private val remoteDataSource: GenreRemoteDataSource
 ) {
-   val genreLatestData : Flow<List<Genre>> =
-       genreDataSource.latestMessages
+
+}
+
+class GenreLocalDataSource {}
+class GenreRemoteDataSource(private val loginService: GenreApiService) {
+
 }

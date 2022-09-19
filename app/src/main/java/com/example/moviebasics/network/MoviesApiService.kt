@@ -1,16 +1,25 @@
 package com.example.moviebasics.network
 
+import android.content.Context
+import androidx.room.Room
+import com.example.moviebasics.database.AppDatabase
+import com.example.moviebasics.database.DATABASE_NAME
 import com.example.moviebasics.model.Genres
 import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.model.Results
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import javax.inject.Singleton
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 private const val API_KEY = "ac879a639703afa0f68ae199252bd055"
@@ -34,10 +43,29 @@ interface GenreApiService {
     ): Genres
 }
 
+//@Module
+//@InstallIn(ActivityComponent::class)
+//object GenresApi {
+//    val retrofitService: GenreApiService by lazy {
+//        retrofit.create(GenreApiService::class.java)
+//    }
+//}
+
+@Module
+@InstallIn(SingletonComponent::class)
 object GenresApi {
-    val retrofitService: GenreApiService by lazy {
-        retrofit.create(GenreApiService::class.java)
+    @Provides @Singleton fun retrofitService(): GenreApiService {
+        return retrofit.create(GenreApiService::class.java)
+
     }
+    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
+
 }
 
 //Upcoming Movie API Connect

@@ -36,7 +36,17 @@ data class UpcomingMovie(
     val results: List<Results>,
     val total_pages: Int,
     val total_result: Int
-)
+) {
+//    DI ==> Thu cong
+    lateinit var getResults: Results
+
+    fun getData() {
+        getResults.results
+    }
+
+//    DI ==> Dagger
+
+}
 
 data class Dates(val maximum: Date, val minimum: Date)
 
@@ -75,3 +85,4 @@ data class production_companies(
 data class production_countries(val iso_3166_1: String, val name: String)
 
 data class spoken_languages(val english_name: String, val iso_639_1: String, val name: String)
+

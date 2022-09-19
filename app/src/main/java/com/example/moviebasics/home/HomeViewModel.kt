@@ -5,10 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.TypeConverter
-import com.example.moviebasics.dao.AppDatabase
-import com.example.moviebasics.dao.GenreEntity
-import com.example.moviebasics.dao.PopularMovieEntity
+import com.example.moviebasics.database.AppDatabase
+import com.example.moviebasics.database.model.GenreEntity
+import com.example.moviebasics.database.model.PopularMovieEntity
 import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
 import com.example.moviebasics.model.Result
@@ -17,37 +16,37 @@ import com.example.moviebasics.network.GenresApi
 import com.example.moviebasics.network.PopularMovieApi
 import com.example.moviebasics.network.TopRatedMovieApi
 import com.example.moviebasics.network.UpcomingMovieApi
-import com.example.moviebasics.repository.GenreRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
-class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() {
+class HomeViewModel() : ViewModel() {
 
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading : LiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _genres = MutableLiveData<Genres>()
     val genres: LiveData<Genres> = _genres
 
     private val _resultsUpcoming = MutableLiveData<Results>()
+//    @Inject
     val resultsUpcoming: LiveData<Results> = _resultsUpcoming
 
     private val _popularMovies = MutableLiveData<Results>()
+//    @Inject
     val popularMovies: LiveData<Results> = _popularMovies
 
     private val _topRatedMovies = MutableLiveData<Results>()
+//    @Inject
     val topRatedMovies: LiveData<Results> = _topRatedMovies
 
     init {
 //        getGenresList()
-        getUpcomingMovieList()
 //        getPopularMovies()
+        getUpcomingMovieList()
         getTopRatedMovies()
     }
 
@@ -58,12 +57,8 @@ class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() 
                 if (isConnected) {
 //                _status.value = "Load data success"
 //                _genres.value = GenresApi.retrofitService.getGenres()
-                    val data = GenresApi.retrofitService.getGenres()
+                    val data = GenresApi.retrofitService().getGenres()
                     _genres.postValue(data)
-                    genreRepository.genreLatestData
-                        .collect{
-                            it
-                        }
                     genreDao.insertAll(
                         data.genres.map {
                             it.toGenreEntity()
@@ -71,8 +66,15 @@ class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() 
                     _isLoading.postValue(true)
                     Log.d("Connect Genres Status", "isConnected")
                 } else {
-                    val genreList: List<Genre> = genreDao.getAll().map { it.toGenre() }
-                    _genres.postValue(Genres(genreList))
+//                    Use LiveData
+//                    val genreList: List<Genre> = genreDao.getAll().map { it.toGenre() }
+//                    _genres.postValue(Genres(genreList))
+//                    collect van su dung dc
+
+//                    Use Flow
+                    genreDao.getAll().collectLatest {
+                        _genres.postValue(Genres(it.map { genre -> genre.toGenre() }))
+                    }
                     _isLoading.postValue(true)
                     Log.d("Connect Genres Status", "!isConnected")
                 }
@@ -100,7 +102,7 @@ class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() 
         val popularMovieDao = db.popularMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(isConnected) {
+                if (isConnected) {
 //                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
                     val data = PopularMovieApi.retrofitService.getPopularMovies()
                     _popularMovies.postValue(data)
@@ -110,7 +112,7 @@ class HomeViewModel(private val genreRepository: GenreRepository) : ViewModel() 
                         })
                     _isLoading.postValue(true)
                 } else {
-                    val popularMovieList : List<Result> = popularMovieDao.getAll().map {
+                    val popularMovieList: List<Result> = popularMovieDao.getAll().map {
                         it.toResult()
                     }
                     _popularMovies.postValue(Results(popularMovieList))

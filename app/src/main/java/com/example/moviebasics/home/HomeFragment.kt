@@ -13,31 +13,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.moviebasics.R
 import com.example.moviebasics.adapter.GenreAdapter
 import com.example.moviebasics.adapter.PopularMoviesAdapter
 import com.example.moviebasics.adapter.TopRatedMoviesAdapter
 import com.example.moviebasics.adapter.UpcomingMovieAdapter
-import com.example.moviebasics.dao.AppDatabase
-import com.example.moviebasics.dao.DATABASE_NAME
-import com.example.moviebasics.dao.GenreEntity
+import com.example.moviebasics.database.AppDatabase
+import com.example.moviebasics.database.DATABASE_NAME
 import com.example.moviebasics.databinding.FragmentHomeBinding
-import com.example.moviebasics.model.Genre
+import com.example.moviebasics.network.GenresApi
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+//    @Inject ==> Fail
     private val viewModel: HomeViewModel by viewModels()
 
+//    @Inject ==> Fail
     private lateinit var binding: FragmentHomeBinding
-
-    private val db by lazy {
-        Room.databaseBuilder(
-            requireActivity().applicationContext,
-            AppDatabase::class.java,
-            DATABASE_NAME
-        ).build()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,36 +41,29 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        viewModel.getGenresList(checkForInternet(requireContext()), db)
-        viewModel.getPopularMovies(checkForInternet(requireContext()), db)
+        viewModel.getGenresList(checkForInternet(requireContext()), getDatabase())
+        viewModel.getPopularMovies(checkForInternet(requireContext()), getDatabase())
 
-        binding.homeSwipeRefreshLayout.setOnRefreshListener {
-//            viewModel.getGenresList(checkForInternet(requireContext()), db)
-            if(viewModel.isLoading.value == true) {
-                viewModel.getGenresList(checkForInternet(requireContext()), db)
-                viewModel.getPopularMovies(checkForInternet(requireContext()), db)
-                binding.homeSwipeRefreshLayout.isRefreshing = false
-            }
-//            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
-        }
+        refreshLayout()
 
 //        viewModel.getTopRatedMovies(db, checkForInternet(requireContext()))
-
 //        binding.homeViewModel = viewModel su dung data variable moi su dung duoc
 
 //        Setup Status
-        viewModel.status.observe(viewLifecycleOwner) {
-            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
-        }
+//        viewModel.status?.observe(viewLifecycleOwner) {
+//            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
+//        }
+        setUpStatus()
 
 //        Genre Class
-        viewModel.genres.observe(viewLifecycleOwner) {
-            val adapter = GenreAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
-                findNavController().navigate(direction)
-            }
-            binding.fragmentContainerViewType.adapter = adapter
-        }
+//        viewModel.genres.observe(viewLifecycleOwner) {
+//             val adapter = GenreAdapter(it) {
+//                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
+//                findNavController().navigate(direction)
+//            }
+//            binding.fragmentContainerViewType.adapter = adapter
+//        }
+        setUpGenres()
 
 //        UpcomingMovie Class
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
@@ -108,13 +95,37 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-//    private fun setUpViewPager() {
-//        binding.viewpagerPopularMovie.offscreenPageLimit = 3
-//        binding.viewpagerPopularMovie.clipToPadding = false
-//        binding.viewpagerPopularMovie.clipChildren = false
-//    }
+    private fun getDatabase() : AppDatabase {
+        return GenresApi.getDatabase(requireActivity().applicationContext)
+    }
 
+    private fun refreshLayout() {
+        binding.homeSwipeRefreshLayout.setOnRefreshListener {
+//            viewModel.getGenresList(checkForInternet(requireContext()), db)
+            if(viewModel.isLoading.value == true) {
+                viewModel.getGenresList(checkForInternet(requireContext()), getDatabase())
+                viewModel.getPopularMovies(checkForInternet(requireContext()), getDatabase())
+                binding.homeSwipeRefreshLayout.isRefreshing = false
+            }
+//            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
+        }
+    }
 
+    private fun setUpStatus() {
+        viewModel.status?.observe(viewLifecycleOwner) {
+            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun setUpGenres() {
+        viewModel.genres.observe(viewLifecycleOwner) {
+            val adapter = GenreAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
+                findNavController().navigate(direction)
+            }
+            binding.fragmentContainerViewType.adapter = adapter
+        }
+    }
 
     private fun checkForInternet(context: Context): Boolean {
 
@@ -155,4 +166,18 @@ class HomeFragment : Fragment() {
             return networkInfo.isConnected
         }
     }
+
+//    private val db by lazy {
+//        Room.databaseBuilder(
+//            requireActivity().applicationContext,
+//            AppDatabase::class.java,
+//            DATABASE_NAME
+//        ).build()
+//    }
+
+//    private fun setUpViewPager() {
+//        binding.viewpagerPopularMovie.offscreenPageLimit = 3
+//        binding.viewpagerPopularMovie.clipToPadding = false
+//        binding.viewpagerPopularMovie.clipChildren = false
+//    }
 }
