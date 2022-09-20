@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviebasics.database.AppDatabase
 import com.example.moviebasics.model.Results
 import com.example.moviebasics.network.TypeMoviesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TypeViewModel : ViewModel() {
@@ -17,14 +19,14 @@ class TypeViewModel : ViewModel() {
     private val _typeMovies = MutableLiveData<Results>()
     val typeMovies : LiveData<Results> = _typeMovies
 
-//    init {
-//        getTypeMovies()
-//    }
-
-    fun getTypeMovies(id: Int){
-        viewModelScope.launch {
+    fun getTypeMovies(isConnected: Boolean, db : AppDatabase, id: Int){
+        viewModelScope.launch (Dispatchers.IO){
             try {
-                _typeMovies.value = TypeMoviesApi.retrofitService.getTypeMovies(withGenres = id)
+                if(isConnected) {
+                    val data = TypeMoviesApi.retrofitService.getTypeMovies(withGenres = id)
+                    _typeMovies.postValue(data)
+
+                }
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
                 Log.d("TypeViewModel", "${e.message}")

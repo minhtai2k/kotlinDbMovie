@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.moviebasics.database.AppDatabase
 import com.example.moviebasics.database.model.GenreEntity
 import com.example.moviebasics.database.model.PopularMovieEntity
+import com.example.moviebasics.database.model.TopRatedMovieEntity
+import com.example.moviebasics.database.model.UpcomingMovieEntity
 import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
 import com.example.moviebasics.model.Result
@@ -43,12 +45,12 @@ class HomeViewModel() : ViewModel() {
 //    @Inject
     val topRatedMovies: LiveData<Results> = _topRatedMovies
 
-    init {
+//    init {
 //        getGenresList()
 //        getPopularMovies()
-        getUpcomingMovieList()
-        getTopRatedMovies()
-    }
+//        getUpcomingMovieList()
+//        getTopRatedMovies()
+//    }
 
     fun getGenresList(isConnected: Boolean, db: AppDatabase) {
         val genreDao = db.genreDao()
@@ -85,11 +87,28 @@ class HomeViewModel() : ViewModel() {
         }
     }
 
-    private fun getUpcomingMovieList() {
+    fun getUpcomingMovieList(isConnected: Boolean, db: AppDatabase) {
+        val upComingMovieDao = db.upcomingMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-//                _resultsUpcoming.value = UpcomingMovieApi.retrofitService.getUpcomingMovies()
-                _resultsUpcoming.postValue(UpcomingMovieApi.retrofitService.getUpcomingMovies())
+                if(isConnected) {
+                    val data = UpcomingMovieApi.retrofitService.getUpcomingMovies()
+                    _resultsUpcoming.postValue(data)
+                    upComingMovieDao.insertAll(
+                        data.results.map {
+                            it.toUpcomingMovieEntity()
+                        }
+                    )
+                    _isLoading.postValue(true)
+                }
+                else {
+                    val upComingMovieList : List<Result> = upComingMovieDao.getAll().map {
+                        it.toResult()
+                    }
+                    _popularMovies.postValue(Results(upComingMovieList))
+                    _isLoading.postValue(true)
+                }
+
             } catch (e: Exception) {
 //                _status.value = "Failure: ${e.message}" ==> se bi crash ra khoi app su dung postValue
                 _status.postValue("Failure: ${e.message}")
@@ -104,7 +123,7 @@ class HomeViewModel() : ViewModel() {
             try {
                 if (isConnected) {
 //                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
-                    val data = PopularMovieApi.retrofitService.getPopularMovies()
+                    val data = PopularMovieApi.retrofitService().getPopularMovies()
                     _popularMovies.postValue(data)
                     popularMovieDao.insertAll(
                         data.results.map {
@@ -126,13 +145,30 @@ class HomeViewModel() : ViewModel() {
         }
     }
 
-    private fun getTopRatedMovies() {
-        viewModelScope.launch {
+    fun getTopRatedMovies(isConnected: Boolean, db: AppDatabase) {
+        val topRatedMovieDao = db.topRatedMovieDao()
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                _topRatedMovies.postValue(TopRatedMovieApi.retrofitService.getTopRatedMovies())
+                if(isConnected) {
+                    val data = TopRatedMovieApi.retrofitService().getTopRatedMovies()
+                    _topRatedMovies.postValue(data)
+                    topRatedMovieDao.insertAll(
+                        data.results.map {
+                            it.toTopRatedEntity()
+                        }
+                    )
+                    _isLoading.postValue(true)
+                } else {
+                    val topRatedMovieList : List<Result> = topRatedMovieDao.getAll().map {
+                        it.toResult()
+                    }
+                    _topRatedMovies.postValue(Results(topRatedMovieList))
+                    _isLoading.postValue(true)
+                }
             } catch (e: Exception) {
 //                _status.value = "Failure: ${e.message}"
                 _status.postValue("Failure: ${e.message}")
+                Log.d("TopRatedMovie", "${e.message}")
             }
         }
     }
@@ -165,6 +201,74 @@ class HomeViewModel() : ViewModel() {
     )
 
     private fun PopularMovieEntity.toResult() = Result(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        id = pid,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
+    private fun Result.toUpcomingMovieEntity() = UpcomingMovieEntity(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        pid = id,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
+    private fun UpcomingMovieEntity.toResult() = Result(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        id = pid,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
+    private fun Result.toTopRatedEntity() = TopRatedMovieEntity(
+        adult = adult,
+        backdrop_path = backdrop_path,
+        genre_ids = genre_ids,
+        pid = id,
+        original_language = original_language,
+        original_title = original_title,
+        overview = overview,
+        popularity = popularity,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title,
+        video = video,
+        vote_average = vote_average,
+        vote_count = vote_count
+    )
+
+    private fun TopRatedMovieEntity.toResult() = Result(
         adult = adult,
         backdrop_path = backdrop_path,
         genre_ids = genre_ids,

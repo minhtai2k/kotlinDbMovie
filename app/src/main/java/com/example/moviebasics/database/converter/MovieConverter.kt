@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-open class PopularMovieIdsConverter {
+open class MovieConverter {
     //    Moshi Converter
     private val moshi = Moshi.Builder().build()
     private val intType = Types.newParameterizedType(List::class.java, Int::class.javaObjectType)

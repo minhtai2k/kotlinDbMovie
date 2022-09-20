@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,6 @@ class HomeFragment : Fragment() {
 
 //    @Inject ==> Fail
     private val viewModel: HomeViewModel by viewModels()
-
 //    @Inject ==> Fail
     private lateinit var binding: FragmentHomeBinding
 
@@ -37,61 +37,22 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        return inflater.inflate(R.layout.fragment_home, container, false)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         viewModel.getGenresList(checkForInternet(requireContext()), getDatabase())
         viewModel.getPopularMovies(checkForInternet(requireContext()), getDatabase())
+        viewModel.getUpcomingMovieList(checkForInternet(requireContext()), getDatabase())
+        viewModel.getTopRatedMovies(checkForInternet(requireContext()), getDatabase())
+
+        setUpStatus()
+        setUpGenres()
+        setUpUpcomingMovies()
+        setUpPopularMovies()
+        setUpTopRatedMovies()
 
         refreshLayout()
 
-//        viewModel.getTopRatedMovies(db, checkForInternet(requireContext()))
-//        binding.homeViewModel = viewModel su dung data variable moi su dung duoc
-
-//        Setup Status
-//        viewModel.status?.observe(viewLifecycleOwner) {
-//            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
-//        }
-        setUpStatus()
-
-//        Genre Class
-//        viewModel.genres.observe(viewLifecycleOwner) {
-//             val adapter = GenreAdapter(it) {
-//                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
-//                findNavController().navigate(direction)
-//            }
-//            binding.fragmentContainerViewType.adapter = adapter
-//        }
-        setUpGenres()
-
-//        UpcomingMovie Class
-        viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
-            val adapter = UpcomingMovieAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
-                findNavController().navigate(direction)
-            }
-            binding.fragmentContainerViewUpcomingMovie.adapter = adapter
-        }
-
-//        PopularMovie Class
-        viewModel.popularMovies.observe(viewLifecycleOwner) {
-            val adapter = PopularMoviesAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
-                findNavController().navigate(direction)
-            }
-//            setUpViewPager()
-            binding.viewpagerPopularMovie.adapter = adapter
-        }
-
-//        TopRatedMovie Class
-        viewModel.topRatedMovies.observe(viewLifecycleOwner) {
-            val adapter = TopRatedMoviesAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
-                findNavController().navigate(direction)
-            }
-            binding.recyclerviewTopRatedMovie.adapter = adapter
-        }
         return binding.root
     }
 
@@ -101,7 +62,6 @@ class HomeFragment : Fragment() {
 
     private fun refreshLayout() {
         binding.homeSwipeRefreshLayout.setOnRefreshListener {
-//            viewModel.getGenresList(checkForInternet(requireContext()), db)
             if(viewModel.isLoading.value == true) {
                 viewModel.getGenresList(checkForInternet(requireContext()), getDatabase())
                 viewModel.getPopularMovies(checkForInternet(requireContext()), getDatabase())
@@ -114,6 +74,7 @@ class HomeFragment : Fragment() {
     private fun setUpStatus() {
         viewModel.status?.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
+            Log.d("Status","${it.toString()}")
         }
     }
 
@@ -124,6 +85,37 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(direction)
             }
             binding.fragmentContainerViewType.adapter = adapter
+        }
+    }
+
+    private fun setUpUpcomingMovies() {
+        viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
+            val adapter = UpcomingMovieAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
+            binding.fragmentContainerViewUpcomingMovie.adapter = adapter
+        }
+    }
+
+    private fun setUpPopularMovies() {
+        viewModel.popularMovies.observe(viewLifecycleOwner) {
+            val adapter = PopularMoviesAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
+//            setUpViewPager()
+            binding.viewpagerPopularMovie.adapter = adapter
+        }
+    }
+
+    private fun setUpTopRatedMovies() {
+        viewModel.topRatedMovies.observe(viewLifecycleOwner) {
+            val adapter = TopRatedMoviesAdapter(it) {
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                findNavController().navigate(direction)
+            }
+            binding.recyclerviewTopRatedMovie.adapter = adapter
         }
     }
 

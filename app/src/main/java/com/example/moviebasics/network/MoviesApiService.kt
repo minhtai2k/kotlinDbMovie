@@ -124,9 +124,21 @@ interface PopularMovieApiService {
     ) : Results
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
 object PopularMovieApi {
-    val retrofitService : PopularMovieApiService by lazy {
-        retrofit.create(PopularMovieApiService::class.java)
+    @Provides
+    @Singleton
+    fun retrofitService() : PopularMovieApiService  {
+        return retrofit.create(PopularMovieApiService::class.java)
+    }
+    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        )
+            .build()
     }
 }
 
@@ -139,9 +151,21 @@ interface TopRatedMovieApiService {
     ) : Results
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
 object TopRatedMovieApi {
-    val retrofitService : TopRatedMovieApiService by lazy {
-        retrofit.create(TopRatedMovieApiService::class.java)
+    @Provides
+    @Singleton
+    fun retrofitService() : TopRatedMovieApiService {
+        return retrofit.create(TopRatedMovieApiService::class.java)
+    }
+    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            DATABASE_NAME
+        )
+            .build()
     }
 }
 
