@@ -11,9 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.moviebasics.R
+import com.example.moviebasics.database.getDatabase
 import com.example.moviebasics.databinding.FragmentDetailBinding
 import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.network.BASE_IMAGE_URL
+import com.example.moviebasics.network.checkForInternet
 
 class DetailFragment : Fragment() {
 
@@ -30,7 +32,10 @@ class DetailFragment : Fragment() {
 //        return inflater.inflate(R.layout.fragment_detail, container, false)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        viewModel.getMovieDetail(movieId)
+        viewModel.getMovieDetail(
+            checkForInternet(requireContext()),
+            getDatabase(requireContext()),
+            movieId)
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             bindData(it)
         }

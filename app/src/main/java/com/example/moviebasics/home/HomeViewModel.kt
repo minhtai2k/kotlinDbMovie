@@ -21,6 +21,7 @@ import com.example.moviebasics.network.UpcomingMovieApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.reflect.InvocationTargetException
 
 class HomeViewModel() : ViewModel() {
 
@@ -34,23 +35,13 @@ class HomeViewModel() : ViewModel() {
     val genres: LiveData<Genres> = _genres
 
     private val _resultsUpcoming = MutableLiveData<Results>()
-//    @Inject
     val resultsUpcoming: LiveData<Results> = _resultsUpcoming
 
     private val _popularMovies = MutableLiveData<Results>()
-//    @Inject
     val popularMovies: LiveData<Results> = _popularMovies
 
     private val _topRatedMovies = MutableLiveData<Results>()
-//    @Inject
     val topRatedMovies: LiveData<Results> = _topRatedMovies
-
-//    init {
-//        getGenresList()
-//        getPopularMovies()
-//        getUpcomingMovieList()
-//        getTopRatedMovies()
-//    }
 
     fun getGenresList(isConnected: Boolean, db: AppDatabase) {
         val genreDao = db.genreDao()
@@ -92,7 +83,7 @@ class HomeViewModel() : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if(isConnected) {
-                    val data = UpcomingMovieApi.retrofitService.getUpcomingMovies()
+                    val data = UpcomingMovieApi.retrofitService().getUpcomingMovies()
                     _resultsUpcoming.postValue(data)
                     upComingMovieDao.insertAll(
                         data.results.map {
@@ -113,6 +104,8 @@ class HomeViewModel() : ViewModel() {
 //                _status.value = "Failure: ${e.message}" ==> se bi crash ra khoi app su dung postValue
                 _status.postValue("Failure: ${e.message}")
                 Log.d("UpcomingMovieList", "${e.message}")
+            } catch (e: InvocationTargetException) {
+                Log.d("Invocation","${e.message}")
             }
         }
     }
@@ -141,6 +134,8 @@ class HomeViewModel() : ViewModel() {
 //                _status.value = "Failure: ${e.message}"
                 _status.postValue("Failure: ${e.message}")
                 Log.d("PopularMoviesStatusE", "${e.message}")
+            } catch (e: InvocationTargetException) {
+                Log.d("Invocation","${e.message}")
             }
         }
     }
@@ -169,6 +164,8 @@ class HomeViewModel() : ViewModel() {
 //                _status.value = "Failure: ${e.message}"
                 _status.postValue("Failure: ${e.message}")
                 Log.d("TopRatedMovie", "${e.message}")
+            } catch (e: InvocationTargetException) {
+                Log.d("Invocation","${e.message}")
             }
         }
     }

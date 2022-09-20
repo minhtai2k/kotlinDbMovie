@@ -58,13 +58,13 @@ object GenresApi {
         return retrofit.create(GenreApiService::class.java)
 
     }
-    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            DATABASE_NAME
-        ).build()
-    }
+//    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
+//        return Room.databaseBuilder(
+//            context,
+//            AppDatabase::class.java,
+//            DATABASE_NAME
+//        ).build()
+//    }
 
 }
 
@@ -77,9 +77,13 @@ interface UpcomingMovieApiService {
     ): Results
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
 object UpcomingMovieApi {
-    val retrofitService: UpcomingMovieApiService by lazy {
-        retrofit.create(UpcomingMovieApiService::class.java)
+    @Provides
+    @Singleton
+    fun retrofitService(): UpcomingMovieApiService  {
+        return retrofit.create(UpcomingMovieApiService::class.java)
     }
 }
 
@@ -93,9 +97,13 @@ interface TypeMoviesApiService {
     ): Results
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
 object TypeMoviesApi {
-    val retrofitService: TypeMoviesApiService by lazy {
-        retrofit.create(TypeMoviesApiService::class.java)
+    @Provides
+    @Singleton
+    fun retrofitService(): TypeMoviesApiService {
+        return retrofit.create(TypeMoviesApiService::class.java)
     }
 }
 
@@ -109,9 +117,13 @@ interface MovieDetailApiService {
     ) : MovieDetail
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
 object MovieDetailApi {
-    val retrofitService : MovieDetailApiService by lazy {
-        retrofit.create(MovieDetailApiService::class.java)
+    @Provides
+    @Singleton
+    fun retrofitService() : MovieDetailApiService {
+        return retrofit.create(MovieDetailApiService::class.java)
     }
 }
 
@@ -132,14 +144,6 @@ object PopularMovieApi {
     fun retrofitService() : PopularMovieApiService  {
         return retrofit.create(PopularMovieApiService::class.java)
     }
-    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            DATABASE_NAME
-        )
-            .build()
-    }
 }
 
 //Top Rated Movie API Connect
@@ -158,14 +162,6 @@ object TopRatedMovieApi {
     @Singleton
     fun retrofitService() : TopRatedMovieApiService {
         return retrofit.create(TopRatedMovieApiService::class.java)
-    }
-    @Provides @Singleton fun getDatabase(@ApplicationContext context: Context) : AppDatabase{
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            DATABASE_NAME
-        )
-            .build()
     }
 }
 

@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.moviebasics.R
 import com.example.moviebasics.adapter.TypeMoviesAdapter
+import com.example.moviebasics.database.getDatabase
 import com.example.moviebasics.databinding.FragmentTypeMovieBinding
 import com.example.moviebasics.detailmovie.DetailFragmentArgs
+import com.example.moviebasics.network.checkForInternet
 
 class TypeFragment : Fragment() {
 
@@ -49,7 +51,7 @@ class TypeFragment : Fragment() {
             }
             binding.fragmentContainerViewTypeMovie.adapter = adapter
         }
-        viewModel.getTypeMovies(genreId)
+        viewModel.getTypeMovies(checkForInternet(requireContext()), getDatabase(requireActivity().applicationContext), genreId)
 
         return binding.root
     }
