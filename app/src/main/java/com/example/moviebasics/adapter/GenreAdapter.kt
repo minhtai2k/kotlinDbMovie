@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviebasics.databinding.ItemTypeBinding
 import com.example.moviebasics.model.Genre
 import com.example.moviebasics.model.Genres
-import javax.inject.Inject
 
-class GenreAdapter (private val dataSet: Genres, val onClick : (Genre) -> Unit) :
+class GenreAdapter(private val dataSet: Genres, val onClick: (Genre) -> Unit) :
     RecyclerView.Adapter<GenreAdapter.GenreGridAdapterViewHolder>() {
 
     inner class GenreGridAdapterViewHolder(val binding: ItemTypeBinding) :
@@ -26,7 +25,13 @@ class GenreAdapter (private val dataSet: Genres, val onClick : (Genre) -> Unit) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreGridAdapterViewHolder {
-        return GenreGridAdapterViewHolder(ItemTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return GenreGridAdapterViewHolder(
+            ItemTypeBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: GenreGridAdapterViewHolder, position: Int) {

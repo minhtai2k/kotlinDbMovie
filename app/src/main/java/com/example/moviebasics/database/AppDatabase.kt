@@ -1,16 +1,12 @@
 package com.example.moviebasics.database
 
-import android.content.Context
-import androidx.room.*
+import androidx.room.AutoMigration
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.moviebasics.database.converter.MovieConverter
-import com.example.moviebasics.database.dao.DetailMovieDao
-import com.example.moviebasics.database.dao.TopRatedMovieDao
-import com.example.moviebasics.database.dao.TypeMovieDao
-import com.example.moviebasics.database.dao.UpcomingMovieDao
+import com.example.moviebasics.database.dao.*
 import com.example.moviebasics.database.model.*
-import dagger.Provides
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Singleton
 
 const val DATABASE_NAME = "MovieBasicDb"
 

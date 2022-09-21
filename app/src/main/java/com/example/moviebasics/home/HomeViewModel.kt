@@ -10,8 +10,14 @@ import com.example.moviebasics.database.model.GenreEntity
 import com.example.moviebasics.database.model.PopularMovieEntity
 import com.example.moviebasics.database.model.TopRatedMovieEntity
 import com.example.moviebasics.database.model.UpcomingMovieEntity
-import com.example.moviebasics.model.*
-import com.example.moviebasics.network.*
+import com.example.moviebasics.model.Genre
+import com.example.moviebasics.model.Genres
+import com.example.moviebasics.model.Result
+import com.example.moviebasics.model.Results
+import com.example.moviebasics.network.GenreApiService
+import com.example.moviebasics.network.PopularMovieApiService
+import com.example.moviebasics.network.TopRatedMovieApiService
+import com.example.moviebasics.network.UpcomingMovieApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -20,13 +26,13 @@ import java.lang.reflect.InvocationTargetException
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor (
+class HomeViewModel @Inject constructor(
     val db: AppDatabase,
     private val retrofitGenre: GenreApiService,
     private val retrofitUpcomingMovie: UpcomingMovieApiService,
     private val retrofitPopularMovie: PopularMovieApiService,
     private val retrofitTopRatedMovie: TopRatedMovieApiService
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
@@ -85,7 +91,7 @@ class HomeViewModel @Inject constructor (
         val upComingMovieDao = db.upcomingMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(isConnected) {
+                if (isConnected) {
                     val data = retrofitUpcomingMovie.getUpcomingMovies()
                     _resultsUpcoming.postValue(data)
                     upComingMovieDao.insertAll(
@@ -94,9 +100,8 @@ class HomeViewModel @Inject constructor (
                         }
                     )
                     _isLoading.postValue(true)
-                }
-                else {
-                    val upComingMovieList : List<Result> = upComingMovieDao.getAll().map {
+                } else {
+                    val upComingMovieList: List<Result> = upComingMovieDao.getAll().map {
                         it.toResult()
                     }
                     _popularMovies.postValue(Results(upComingMovieList))
@@ -108,7 +113,7 @@ class HomeViewModel @Inject constructor (
                 _status.postValue("Failure: ${e.message}")
                 Log.d("UpcomingMovieList", "${e.message}")
             } catch (e: InvocationTargetException) {
-                Log.d("Invocation","${e.message}")
+                Log.d("Invocation", "${e.message}")
             }
         }
     }
@@ -138,7 +143,7 @@ class HomeViewModel @Inject constructor (
                 _status.postValue("Failure: ${e.message}")
                 Log.d("PopularMoviesStatusE", "${e.message}")
             } catch (e: InvocationTargetException) {
-                Log.d("Invocation","${e.message}")
+                Log.d("Invocation", "${e.message}")
             }
         }
     }
@@ -147,7 +152,7 @@ class HomeViewModel @Inject constructor (
         val topRatedMovieDao = db.topRatedMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(isConnected) {
+                if (isConnected) {
                     val data = retrofitTopRatedMovie.getTopRatedMovies()
                     _topRatedMovies.postValue(data)
                     topRatedMovieDao.insertAll(
@@ -157,7 +162,7 @@ class HomeViewModel @Inject constructor (
                     )
                     _isLoading.postValue(true)
                 } else {
-                    val topRatedMovieList : List<Result> = topRatedMovieDao.getAll().map {
+                    val topRatedMovieList: List<Result> = topRatedMovieDao.getAll().map {
                         it.toResult()
                     }
                     _topRatedMovies.postValue(Results(topRatedMovieList))
@@ -168,7 +173,7 @@ class HomeViewModel @Inject constructor (
                 _status.postValue("Failure: ${e.message}")
                 Log.d("TopRatedMovie", "${e.message}")
             } catch (e: InvocationTargetException) {
-                Log.d("Invocation","${e.message}")
+                Log.d("Invocation", "${e.message}")
             }
         }
     }

@@ -20,32 +20,32 @@ import javax.inject.Inject
 class TypeViewModel @Inject constructor(
     val db: AppDatabase,
     private val retrofitTypeMovie: TypeMoviesApiService
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _status = MutableLiveData<String>()
-    val status : LiveData<String> = _status
+    val status: LiveData<String> = _status
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _typeMovies = MutableLiveData<Results>()
-    val typeMovies : LiveData<Results> = _typeMovies
+    val typeMovies: LiveData<Results> = _typeMovies
 
-    fun getTypeMovies(isConnected: Boolean, id: Int){
+    fun getTypeMovies(isConnected: Boolean, id: Int) {
         val typeMovieDao = db.typeMovieDao()
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                if(isConnected) {
+                if (isConnected) {
                     val data = retrofitTypeMovie.getTypeMovies(withGenres = id)
                     _typeMovies.postValue(data)
                     typeMovieDao.insertAll(
-                        data.results.map { 
+                        data.results.map {
                             it.toTypeMovieEntity()
                         }
                     )
                     _isLoading.postValue(true)
                 } else {
-                    val data : List<Result> = typeMovieDao.getAll().map {
+                    val data: List<Result> = typeMovieDao.getAll().map {
                         it.toResult()
                     }
                     _typeMovies.postValue(Results(data))
@@ -55,7 +55,7 @@ class TypeViewModel @Inject constructor(
                 _status.postValue(e.message)
                 Log.d("TypeViewModel", "${e.message}")
             } catch (e: InvocationTargetException) {
-                Log.d("Invocation","${e.message}")
+                Log.d("Invocation", "${e.message}")
             }
         }
     }

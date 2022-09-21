@@ -1,9 +1,7 @@
-package com.example.moviebasics.database
+package com.example.moviebasics.database.dao
 
 import androidx.room.*
 import com.example.moviebasics.database.model.PopularMovieEntity
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 
 //open class PopularMovieGenreIdsConverter {
 //    //    Moshi Converter

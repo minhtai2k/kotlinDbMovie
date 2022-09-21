@@ -1,4 +1,4 @@
-package com.example.moviebasics.database
+package com.example.moviebasics.database.dao
 
 import androidx.room.*
 import com.example.moviebasics.database.model.GenreEntity

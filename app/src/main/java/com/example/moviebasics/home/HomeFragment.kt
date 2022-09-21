@@ -13,7 +13,6 @@ import com.example.moviebasics.adapter.GenreAdapter
 import com.example.moviebasics.adapter.PopularMoviesAdapter
 import com.example.moviebasics.adapter.TopRatedMoviesAdapter
 import com.example.moviebasics.adapter.UpcomingMovieAdapter
-import com.example.moviebasics.database.AppDatabase
 import com.example.moviebasics.databinding.FragmentHomeBinding
 import com.example.moviebasics.network.checkForInternet
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +66,6 @@ class HomeFragment : Fragment() {
 //        viewModel.getTopRatedMovies(
 //            checkForInternet(requireContext())
 //        )
-
 
 
         return binding.root

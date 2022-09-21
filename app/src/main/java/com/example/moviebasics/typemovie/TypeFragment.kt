@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TypeFragment : Fragment() {
 
-    // ==> lateinit property viewModel has not been initialized don't use by viewModels()
+    // ==> latent property viewModel has not been initialized don't use by viewModels()
     private val viewModel: TypeViewModel by viewModels()
 
     private lateinit var binding : FragmentTypeMovieBinding
@@ -42,9 +42,9 @@ class TypeFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
-//        TypeMovies update
-        viewModel.typeMovies.observe(viewLifecycleOwner) {
-            val adapter = TypeMoviesAdapter(it, genreId){
+//        TypeMovies update it ===> results
+        viewModel.typeMovies.observe(viewLifecycleOwner) { results ->
+            val adapter = TypeMoviesAdapter(results, genreId){
                 val direction = TypeFragmentDirections.actionTypeFragmentToDetailFragment(it.id)
                 findNavController().navigate(direction)
             }

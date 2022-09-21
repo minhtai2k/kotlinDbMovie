@@ -12,18 +12,19 @@ import com.example.moviebasics.model.Result
 import com.example.moviebasics.model.Results
 import com.example.moviebasics.network.BASE_IMAGE_URL
 
-class UpcomingMovieAdapter(private val dataSet : Results, val onClick : (Result) -> Unit) :
+class UpcomingMovieAdapter(private val dataSet: Results, val onClick: (Result) -> Unit) :
     RecyclerView.Adapter<UpcomingMovieAdapter.NewMovieAdapterViewHolder>() {
 
-    inner class NewMovieAdapterViewHolder(private val binding : ItemNewMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val cardView : CardView = binding.cardviewItem
-        private val imgView : ImageView = binding.imageviewItem
+    inner class NewMovieAdapterViewHolder(val binding: ItemNewMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val cardView: CardView = binding.cardviewItem
+        private val imgView: ImageView = binding.imageviewItem
 //        private val textView : TextView = binding.textviewItem
 
-        fun bind(item : Result){
+        fun bind(item: Result) {
 //            binding.executePendingBindings()
 //            textView.text = item.title
-            imgView.load(BASE_IMAGE_URL+""+item.poster_path) {
+            imgView.load(BASE_IMAGE_URL + "" + item.poster_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)
             }

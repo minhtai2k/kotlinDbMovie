@@ -28,13 +28,14 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 //        return inflater.inflate(R.layout.fragment_detail, container, false)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         viewModel.getMovieDetail(
             checkForInternet(requireContext()),
-            movieId)
+            movieId
+        )
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             bindData(it)
         }
@@ -50,7 +51,7 @@ class DetailFragment : Fragment() {
         binding.taglineMovieDetail.text = item.tagline
         binding.overviewMovieDetail.text = item.overview
 
-//        binding.releasedateMovieDetail.text = Html.fromHtml(getString(R.string.release_date_movie, item.release_date))
+//        binding.reLeaseDateMovieDetail.text = Html.fromHtml(getString(R.string.release_date_movie, item.release_date))
         binding.releasedateMovieDetail.text = HtmlCompat.fromHtml(
             getString(R.string.release_date_movie, item.release_date),
             HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -70,27 +71,48 @@ class DetailFragment : Fragment() {
         )
 
         val listProduction: MutableList<String> = mutableListOf()
-        for (item in item.production_companies) {
-            listProduction.add(item.name)
+        for (data in item.production_companies) {
+            listProduction.add(data.name)
         }
 //        binding.productionMovieDetail.setText(Html.fromHtml(getString(R.string.companies_production, listProduction.joinToString(" | "))))
         binding.productionMovieDetail.text = HtmlCompat.fromHtml(
             getString(
                 R.string.companies_production,
-                listProduction.joinToString (" | ")
+                listProduction.joinToString(" | ")
             ), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
         val listCountries: MutableList<String> = mutableListOf()
-        for (item in item.production_countries) {
-            listCountries.add(item.name)
+        for (data in item.production_countries) {
+            listCountries.add(data.name)
         }
 //        binding.countryMovieDetail.setText(Html.fromHtml(getString(R.string.companies_countries, listCountries.joinToString(" | "))))
         binding.countryMovieDetail.text = HtmlCompat.fromHtml(
             getString(
                 R.string.companies_countries,
-                listCountries.joinToString (" | ")
+                listCountries.joinToString(" | ")
             ), HtmlCompat.FROM_HTML_MODE_COMPACT
         )
     }
+
+//    private fun refreshLayout() {
+//        binding.homeSwipeRefreshLayout.setOnRefreshListener {
+//            if (viewModel.isLoading.value == true) {
+//                viewModel.getGenresList(
+//                    checkForInternet(requireContext())
+//                )
+//                viewModel.getPopularMovies(
+//                    checkForInternet(requireContext())
+//                )
+//                viewModel.getUpcomingMovieList(
+//                    checkForInternet(requireContext())
+//                )
+//                viewModel.getTopRatedMovies(
+//                    checkForInternet(requireContext())
+//                )
+//                binding.homeSwipeRefreshLayout.isRefreshing = false
+//            }
+////            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
+//        }
+//    }
 }

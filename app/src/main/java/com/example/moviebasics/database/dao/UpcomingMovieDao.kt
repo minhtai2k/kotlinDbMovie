@@ -1,7 +1,6 @@
 package com.example.moviebasics.database.dao
 
 import androidx.room.*
-import com.example.moviebasics.database.model.PopularMovieEntity
 import com.example.moviebasics.database.model.UpcomingMovieEntity
 
 @Dao
