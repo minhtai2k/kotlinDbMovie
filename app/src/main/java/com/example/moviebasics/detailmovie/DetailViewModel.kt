@@ -24,7 +24,7 @@ class DetailViewModel @Inject constructor(
     val status: LiveData<String> = _status
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+//    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
     val movieDetail: LiveData<MovieDetail> = _movieDetail

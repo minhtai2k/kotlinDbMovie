@@ -1,11 +1,9 @@
 package com.example.moviebasics.model
 
-import java.util.*
-
 data class MovieDetail(
     val adult: Boolean,
     val backdrop_path: String?,
-    val belongs_to_collection: belongs_to_collection?,
+    val belongs_to_collection: BelongsToCollection?,
     val budget: Int,
     val genres: List<Genre>,
     val homepage: String,
@@ -16,12 +14,12 @@ data class MovieDetail(
     val overview: String,
     val popularity: Double,
     val poster_path: String,
-    val production_companies: List<production_companies>,
-    val production_countries: List<production_countries>,
+    val production_companies: List<ProductionCompanies>,
+    val production_countries: List<ProductionCountries>,
     val release_date: String,
     val revenue: Int,
     val runtime: Int,
-    val spoken_languages: List<spoken_languages>,
+    val spoken_languages: List<SpokenLanguages>,
     val status: String,
     val tagline: String,
     val title: String,
@@ -30,25 +28,25 @@ data class MovieDetail(
     val vote_count: Int
 )
 
-data class UpcomingMovie(
-    val dates: Dates,
-    val page: Int,
-    val results: List<Results>,
-    val total_pages: Int,
-    val total_result: Int
-) {
-//    DI ==> Thu cong
-    lateinit var getResults: Results
+//data class UpcomingMovie(
+//    val dates: Dates,
+//    val page: Int,
+//    val results: List<Results>,
+//    val total_pages: Int,
+//    val total_result: Int
+//) {
+////    DI ==> Thu cong
+//    latent var getResults: Results
+//
+//    fun getData() {
+//        getResults.results
+//    }
+//
+////    DI ==> Dagger
+//
+//}
 
-    fun getData() {
-        getResults.results
-    }
-
-//    DI ==> Dagger
-
-}
-
-data class Dates(val maximum: Date, val minimum: Date)
+//data class Dates(val maximum: Date, val minimum: Date)
 
 data class Results(val results: List<Result>)
 data class Result(
@@ -68,21 +66,21 @@ data class Result(
     val vote_count: Int
 )
 
-data class belongs_to_collection(
+data class BelongsToCollection(
     val id: Int,
     val name: String,
     val poster_path: String,
     val backdrop_path: String?
 )
 
-data class production_companies(
+data class ProductionCompanies(
     val id: Int,
     val logo_path: String?,
     val name: String,
     val original_country: String?
 )
 
-data class production_countries(val iso_3166_1: String, val name: String)
+data class ProductionCountries(val iso_3166_1: String, val name: String)
 
-data class spoken_languages(val english_name: String, val iso_639_1: String, val name: String)
+data class SpokenLanguages(val english_name: String, val iso_639_1: String, val name: String)
 

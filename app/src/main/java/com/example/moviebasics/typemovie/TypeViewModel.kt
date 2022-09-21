@@ -26,7 +26,7 @@ class TypeViewModel @Inject constructor(
     val status: LiveData<String> = _status
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+//    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _typeMovies = MutableLiveData<Results>()
     val typeMovies: LiveData<Results> = _typeMovies
