@@ -1,7 +1,6 @@
 package com.example.moviebasics.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,10 +92,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpStatus() {
-
-        viewModel.status.observe(viewLifecycleOwner) {
-            Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
-            Log.d("Status", "${it.toString()}")
+        viewModel.status.observe(viewLifecycleOwner) { data ->
+            Toast.makeText(this.context, data, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -106,8 +103,8 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.genres.observe(viewLifecycleOwner) {
-            val adapter = GenreAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
+            val adapter = GenreAdapter(it) { data ->
+                val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(data.id)
                 findNavController().navigate(direction)
             }
             binding.fragmentContainerViewType.adapter = adapter
@@ -120,8 +117,8 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
-            val adapter = UpcomingMovieAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+            val adapter = UpcomingMovieAdapter(it) { data ->
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
                 findNavController().navigate(direction)
             }
             binding.fragmentContainerViewUpcomingMovie.adapter = adapter
@@ -134,8 +131,8 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.popularMovies.observe(viewLifecycleOwner) {
-            val adapter = PopularMoviesAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+            val adapter = PopularMoviesAdapter(it) { data ->
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
                 findNavController().navigate(direction)
             }
 //            setUpViewPager()
@@ -149,8 +146,8 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
-            val adapter = TopRatedMoviesAdapter(it) {
-                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+            val adapter = TopRatedMoviesAdapter(it) { data ->
+                val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
                 findNavController().navigate(direction)
             }
             binding.recyclerviewTopRatedMovie.adapter = adapter

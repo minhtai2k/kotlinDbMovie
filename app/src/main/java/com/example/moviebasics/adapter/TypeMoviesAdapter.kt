@@ -14,7 +14,7 @@ import com.example.moviebasics.network.BASE_IMAGE_URL
 
 class TypeMoviesAdapter(
     private val dataSet: Results,
-    val genreId: Int,
+//    val genreId: Int,
     val onClick: (Result) -> Unit
 ) :
     RecyclerView.Adapter<TypeMoviesAdapter.TypeMoviesAdapterViewHolder>() {
