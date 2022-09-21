@@ -21,7 +21,8 @@ const val DATABASE_NAME = "MovieBasicDb"
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
-        AutoMigration(from = 3, to = 4)
+        AutoMigration(from = 3, to = 4),
+//        AutoMigration(from = 4, to = 5)
     ]
 )
 //@TypeConverters(PopularMovieConverter::class)
@@ -36,14 +37,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun topRatedMovieDao(): TopRatedMovieDao
     abstract fun typeMovieDao(): TypeMovieDao
     abstract fun detailMovieDao(): DetailMovieDao
-}
-
-@Provides
-@Singleton
-fun getDatabase(@ApplicationContext context: Context): AppDatabase {
-    return Room.databaseBuilder(
-        context,
-        AppDatabase::class.java,
-        DATABASE_NAME
-    ).build()
 }

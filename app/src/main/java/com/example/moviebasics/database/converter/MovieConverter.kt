@@ -5,7 +5,6 @@ import com.example.moviebasics.model.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Module
 
 open class MovieConverter {
     //    Moshi Converter
@@ -24,9 +23,9 @@ open class MovieConverter {
         return intAdapter.fromJson(value).orEmpty()
     }
 
-    //  DetailMovieDao Converter
-//    private val belongsToCollectionType = Types.newParameterizedType(belongs_to_collection::class.java)
-    private val belongsToCollectionAdapter = moshi.adapter(belongs_to_collection::class.java)
+//      DetailMovieDao Converter
+    private val belongsToCollectionType = Types.newParameterizedType(List::class.java, belongs_to_collection::class.java)
+    private val belongsToCollectionAdapter = moshi.adapter<belongs_to_collection>(belongsToCollectionType)
 
     private val genreType = Types.newParameterizedType(List::class.java, Genre::class.java)
     private val genreAdapter = moshi.adapter<List<Genre>>(genreType)

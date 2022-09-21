@@ -9,13 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.moviebasics.R
 import com.example.moviebasics.adapter.TypeMoviesAdapter
-import com.example.moviebasics.database.getDatabase
 import com.example.moviebasics.databinding.FragmentTypeMovieBinding
-import com.example.moviebasics.detailmovie.DetailFragmentArgs
 import com.example.moviebasics.network.checkForInternet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TypeFragment : Fragment() {
 
     // ==> lateinit property viewModel has not been initialized don't use by viewModels()
@@ -51,7 +50,7 @@ class TypeFragment : Fragment() {
             }
             binding.fragmentContainerViewTypeMovie.adapter = adapter
         }
-        viewModel.getTypeMovies(checkForInternet(requireContext()), getDatabase(requireActivity().applicationContext), genreId)
+        viewModel.getTypeMovies(checkForInternet(requireContext()), genreId)
 
         return binding.root
     }

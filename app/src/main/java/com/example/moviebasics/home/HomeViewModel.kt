@@ -10,20 +10,23 @@ import com.example.moviebasics.database.model.GenreEntity
 import com.example.moviebasics.database.model.PopularMovieEntity
 import com.example.moviebasics.database.model.TopRatedMovieEntity
 import com.example.moviebasics.database.model.UpcomingMovieEntity
-import com.example.moviebasics.model.Genre
-import com.example.moviebasics.model.Genres
-import com.example.moviebasics.model.Result
-import com.example.moviebasics.model.Results
-import com.example.moviebasics.network.GenresApi
-import com.example.moviebasics.network.PopularMovieApi
-import com.example.moviebasics.network.TopRatedMovieApi
-import com.example.moviebasics.network.UpcomingMovieApi
+import com.example.moviebasics.model.*
+import com.example.moviebasics.network.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.reflect.InvocationTargetException
+import javax.inject.Inject
 
-class HomeViewModel() : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor (
+    val db: AppDatabase,
+    private val retrofitGenre: GenreApiService,
+    private val retrofitUpcomingMovie: UpcomingMovieApiService,
+    private val retrofitPopularMovie: PopularMovieApiService,
+    private val retrofitTopRatedMovie: TopRatedMovieApiService
+    ) : ViewModel() {
 
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
@@ -43,14 +46,14 @@ class HomeViewModel() : ViewModel() {
     private val _topRatedMovies = MutableLiveData<Results>()
     val topRatedMovies: LiveData<Results> = _topRatedMovies
 
-    fun getGenresList(isConnected: Boolean, db: AppDatabase) {
+    fun getGenresList(isConnected: Boolean) {
         val genreDao = db.genreDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isConnected) {
 //                _status.value = "Load data success"
 //                _genres.value = GenresApi.retrofitService.getGenres()
-                    val data = GenresApi.retrofitService().getGenres()
+                    val data = retrofitGenre.getGenres()
                     _genres.postValue(data)
                     genreDao.insertAll(
                         data.genres.map {
@@ -73,17 +76,17 @@ class HomeViewModel() : ViewModel() {
                 }
             } catch (e: Exception) {
                 _status.postValue("Genre Status: ${e.message}")
-                Log.d("Genre Status E", "${e.message}")
+                Log.d("GenreStatus", "${e.message}")
             }
         }
     }
 
-    fun getUpcomingMovieList(isConnected: Boolean, db: AppDatabase) {
+    fun getUpcomingMovieList(isConnected: Boolean) {
         val upComingMovieDao = db.upcomingMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if(isConnected) {
-                    val data = UpcomingMovieApi.retrofitService().getUpcomingMovies()
+                    val data = retrofitUpcomingMovie.getUpcomingMovies()
                     _resultsUpcoming.postValue(data)
                     upComingMovieDao.insertAll(
                         data.results.map {
@@ -110,13 +113,13 @@ class HomeViewModel() : ViewModel() {
         }
     }
 
-    fun getPopularMovies(isConnected: Boolean, db: AppDatabase) {
+    fun getPopularMovies(isConnected: Boolean) {
         val popularMovieDao = db.popularMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isConnected) {
 //                _popularMovies.value = PopularMovieApi.retrofitService.getPopularMovies()
-                    val data = PopularMovieApi.retrofitService().getPopularMovies()
+                    val data = retrofitPopularMovie.getPopularMovies()
                     _popularMovies.postValue(data)
                     popularMovieDao.insertAll(
                         data.results.map {
@@ -140,12 +143,12 @@ class HomeViewModel() : ViewModel() {
         }
     }
 
-    fun getTopRatedMovies(isConnected: Boolean, db: AppDatabase) {
+    fun getTopRatedMovies(isConnected: Boolean) {
         val topRatedMovieDao = db.topRatedMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if(isConnected) {
-                    val data = TopRatedMovieApi.retrofitService().getTopRatedMovies()
+                    val data = retrofitTopRatedMovie.getTopRatedMovies()
                     _topRatedMovies.postValue(data)
                     topRatedMovieDao.insertAll(
                         data.results.map {

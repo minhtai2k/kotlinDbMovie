@@ -9,12 +9,18 @@ import com.example.moviebasics.database.AppDatabase
 import com.example.moviebasics.database.model.TypeMovieEntity
 import com.example.moviebasics.model.Result
 import com.example.moviebasics.model.Results
-import com.example.moviebasics.network.TypeMoviesApi
+import com.example.moviebasics.network.TypeMoviesApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.reflect.InvocationTargetException
+import javax.inject.Inject
 
-class TypeViewModel : ViewModel() {
+@HiltViewModel
+class TypeViewModel @Inject constructor(
+    val db: AppDatabase,
+    private val retrofitTypeMovie: TypeMoviesApiService
+    ) : ViewModel() {
 
     private val _status = MutableLiveData<String>()
     val status : LiveData<String> = _status
@@ -25,12 +31,12 @@ class TypeViewModel : ViewModel() {
     private val _typeMovies = MutableLiveData<Results>()
     val typeMovies : LiveData<Results> = _typeMovies
 
-    fun getTypeMovies(isConnected: Boolean, db : AppDatabase, id: Int){
+    fun getTypeMovies(isConnected: Boolean, id: Int){
         val typeMovieDao = db.typeMovieDao()
         viewModelScope.launch (Dispatchers.IO){
             try {
                 if(isConnected) {
-                    val data = TypeMoviesApi.retrofitService().getTypeMovies(withGenres = id)
+                    val data = retrofitTypeMovie.getTypeMovies(withGenres = id)
                     _typeMovies.postValue(data)
                     typeMovieDao.insertAll(
                         data.results.map { 
@@ -46,7 +52,7 @@ class TypeViewModel : ViewModel() {
                     _isLoading.postValue(true)
                 }
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _status.postValue(e.message)
                 Log.d("TypeViewModel", "${e.message}")
             } catch (e: InvocationTargetException) {
                 Log.d("Invocation","${e.message}")

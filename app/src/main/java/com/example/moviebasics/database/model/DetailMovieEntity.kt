@@ -34,24 +34,24 @@ data class DetailMovieEntity (
     @ColumnInfo(name = "voteCount") val vote_count: Int
 )
 
-@Entity(tableName = "belongToCollections")
-data class BeLongsToCollectionEntity(
-    val id: Int,
-    val name: String,
-    val poster_path: String,
-    val backdrop_path: String?
-)
-
-@Entity(tableName = "productionCompanies")
-data class ProductionCompanies(
-    val id: Int,
-    val logo_path: String?,
-    val name: String,
-    val original_country: String?
-)
-
-@Entity(tableName = "productionCountries")
-data class ProductionCountries(val iso_3166_1: String, val name: String)
+//@Entity(tableName = "belongToCollections")
+//data class BeLongsToCollectionEntity(
+//    val id: Int,
+//    val name: String,
+//    val poster_path: String,
+//    val backdrop_path: String?
+//)
+//
+//@Entity(tableName = "productionCompanies")
+//data class ProductionCompanies(
+//    val id: Int,
+//    val logo_path: String?,
+//    val name: String,
+//    val original_country: String?
+//)
+//
+//@Entity(tableName = "productionCountries")
+//data class ProductionCountries(val iso_3166_1: String, val name: String)
 
 //@Entity(tableName = "spokenLanguages")
 //data class SpokenLanguages(val english_name: String, val iso_639_1: String, val name: String)

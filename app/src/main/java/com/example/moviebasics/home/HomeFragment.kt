@@ -13,7 +13,7 @@ import com.example.moviebasics.adapter.GenreAdapter
 import com.example.moviebasics.adapter.PopularMoviesAdapter
 import com.example.moviebasics.adapter.TopRatedMoviesAdapter
 import com.example.moviebasics.adapter.UpcomingMovieAdapter
-import com.example.moviebasics.database.getDatabase
+import com.example.moviebasics.database.AppDatabase
 import com.example.moviebasics.databinding.FragmentHomeBinding
 import com.example.moviebasics.network.checkForInternet
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,30 +27,22 @@ class HomeFragment : Fragment() {
     //    @Inject ==> Fail
     private lateinit var binding: FragmentHomeBinding
 
+//    init {
+//        setUpStatus()
+//        setUpGenres()
+//        setUpUpcomingMovies()
+//        setUpPopularMovies()
+//        setUpTopRatedMovies()
+//
+//        refreshLayout()
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
-        viewModel.getGenresList(
-            checkForInternet(requireContext()),
-            getDatabase(requireActivity().applicationContext)
-        )
-
-        viewModel.getPopularMovies(
-            checkForInternet(requireContext()),
-            getDatabase(requireActivity().applicationContext)
-        )
-        viewModel.getUpcomingMovieList(
-            checkForInternet(requireContext()),
-            getDatabase(requireActivity().applicationContext)
-        )
-        viewModel.getTopRatedMovies(
-            checkForInternet(requireContext()),
-            getDatabase(requireActivity().applicationContext)
-        )
 
         setUpStatus()
         setUpGenres()
@@ -60,6 +52,24 @@ class HomeFragment : Fragment() {
 
         refreshLayout()
 
+//        viewModel.getGenresList(
+//            checkForInternet(requireContext())
+//        )
+
+//        viewModel.getPopularMovies(
+//            checkForInternet(requireContext())
+//        )
+
+//        viewModel.getUpcomingMovieList(
+//            checkForInternet(requireContext())
+//        )
+
+//        viewModel.getTopRatedMovies(
+//            checkForInternet(requireContext())
+//        )
+
+
+
         return binding.root
     }
 
@@ -67,12 +77,16 @@ class HomeFragment : Fragment() {
         binding.homeSwipeRefreshLayout.setOnRefreshListener {
             if (viewModel.isLoading.value == true) {
                 viewModel.getGenresList(
-                    checkForInternet(requireContext()),
-                    getDatabase(requireActivity().applicationContext)
+                    checkForInternet(requireContext())
                 )
                 viewModel.getPopularMovies(
-                    checkForInternet(requireContext()),
-                    getDatabase(requireActivity().applicationContext)
+                    checkForInternet(requireContext())
+                )
+                viewModel.getUpcomingMovieList(
+                    checkForInternet(requireContext())
+                )
+                viewModel.getTopRatedMovies(
+                    checkForInternet(requireContext())
                 )
                 binding.homeSwipeRefreshLayout.isRefreshing = false
             }
@@ -81,6 +95,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpStatus() {
+
         viewModel.status?.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
             Log.d("Status", "${it.toString()}")
@@ -88,6 +103,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpGenres() {
+        viewModel.getGenresList(
+            checkForInternet(requireContext())
+        )
+
         viewModel.genres.observe(viewLifecycleOwner) {
             val adapter = GenreAdapter(it) {
                 val direction = HomeFragmentDirections.actionHomeFragmentToTypeFragment(it.id)
@@ -98,6 +117,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpUpcomingMovies() {
+        viewModel.getUpcomingMovieList(
+            checkForInternet(requireContext())
+        )
+
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
             val adapter = UpcomingMovieAdapter(it) {
                 val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
@@ -108,6 +131,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpPopularMovies() {
+        viewModel.getPopularMovies(
+            checkForInternet(requireContext())
+        )
+
         viewModel.popularMovies.observe(viewLifecycleOwner) {
             val adapter = PopularMoviesAdapter(it) {
                 val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
@@ -119,6 +146,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpTopRatedMovies() {
+        viewModel.getTopRatedMovies(
+            checkForInternet(requireContext())
+        )
+
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
             val adapter = TopRatedMoviesAdapter(it) {
                 val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)

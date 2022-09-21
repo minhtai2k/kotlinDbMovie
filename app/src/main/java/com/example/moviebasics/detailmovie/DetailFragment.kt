@@ -1,7 +1,6 @@
 package com.example.moviebasics.detailmovie
 
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.moviebasics.R
-import com.example.moviebasics.database.getDatabase
 import com.example.moviebasics.databinding.FragmentDetailBinding
 import com.example.moviebasics.model.MovieDetail
 import com.example.moviebasics.network.BASE_IMAGE_URL
 import com.example.moviebasics.network.checkForInternet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
@@ -34,7 +34,6 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         viewModel.getMovieDetail(
             checkForInternet(requireContext()),
-            getDatabase(requireContext()),
             movieId)
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             bindData(it)
