@@ -22,10 +22,10 @@ class PopularMoviesAdapter(private val dataSet: Results, val onClick: (Result) -
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)
             }
-            textView.text = item.title
             imageView.setOnClickListener {
                 onClick(item)
             }
+            textView.text = item.title
         }
     }
 
