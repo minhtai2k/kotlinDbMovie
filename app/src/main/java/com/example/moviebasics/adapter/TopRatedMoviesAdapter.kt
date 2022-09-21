@@ -16,7 +16,7 @@ class TopRatedMoviesAdapter(private val dataSet: Results, val onClick: (Result) 
     inner class TopRatedMoviesViewHolder(val binding: ItemNewMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageView = binding.imageviewItem
-        private val cardView = binding.cardviewItem
+        private val cardView = binding.cardViewItem
         fun bind(item: Result) {
             imageView.load(BASE_IMAGE_URL + "" + item.poster_path) {
                 placeholder(R.drawable.loading_img)

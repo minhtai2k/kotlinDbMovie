@@ -15,7 +15,7 @@ class GenreAdapter(private val dataSet: Genres, val onClick: (Genre) -> Unit) :
     inner class GenreGridAdapterViewHolder(val binding: ItemTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val textView: TextView = binding.textviewItem
-        private val cardView: CardView = binding.cardviewItem
+        private val cardView: CardView = binding.cardViewItem
         fun bind(genre: Genre) {
             textView.text = genre.name
             cardView.setOnClickListener {

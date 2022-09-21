@@ -85,13 +85,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_default"
                     android:text="@string/status_movie"
-                    app:layout_constraintEnd_toStartOf="@+id/releasedateMovieDetail"
+                    app:layout_constraintEnd_toStartOf="@+id/reLeaseDateMovieDetail"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/taglineMovieDetail"
                     tools:text="Status: Related" />
 
                 <TextView
-                    android:id="@+id/releasedateMovieDetail"
+                    android:id="@+id/reLeaseDateMovieDetail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_default"
@@ -118,8 +118,8 @@
                     android:layout_margin="@dimen/margin_default"
                     android:lines="3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/releasedateMovieDetail"
-                    tools:text="The Red Ribbon Army, an evil organization that was once destroyed by Goku in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2, and seek vengeance against Goku and his family." />
+                    app:layout_constraintTop_toBottomOf="@+id/reLeaseDateMovieDetail"
+                    tools:text="The Red Ribbon Army, an evil organization that was once destroyed by in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2, and seek vengeance against and his family." />
 
                 <TextView
                     android:id="@+id/countryMovieDetail"

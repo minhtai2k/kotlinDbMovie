@@ -15,7 +15,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="@dimen/card_view_image_movie_width"
             android:layout_height="@dimen/card_view_image_movie_height"
-            android:id="@+id/cardview_item"
+            android:id="@+id/card_view_item"
             android:layout_margin="@dimen/margin_default_item"
             app:cardCornerRadius="@dimen/card_view_radius">
 

@@ -94,7 +94,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpStatus() {
 
-        viewModel.status?.observe(viewLifecycleOwner) {
+        viewModel.status.observe(viewLifecycleOwner) {
             Toast.makeText(this.context, it, Toast.LENGTH_LONG).show()
             Log.d("Status", "${it.toString()}")
         }

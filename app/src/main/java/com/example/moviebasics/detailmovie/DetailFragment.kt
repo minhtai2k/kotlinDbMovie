@@ -52,7 +52,7 @@ class DetailFragment : Fragment() {
         binding.overviewMovieDetail.text = item.overview
 
 //        binding.reLeaseDateMovieDetail.text = Html.fromHtml(getString(R.string.release_date_movie, item.release_date))
-        binding.releasedateMovieDetail.text = HtmlCompat.fromHtml(
+        binding.reLeaseDateMovieDetail.text = HtmlCompat.fromHtml(
             getString(R.string.release_date_movie, item.release_date),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )

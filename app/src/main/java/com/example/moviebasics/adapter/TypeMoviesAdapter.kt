@@ -23,7 +23,7 @@ class TypeMoviesAdapter(
         RecyclerView.ViewHolder(binding.root) {
         //        private val textView: TextView = binding.textviewItem
         private val imgView: ImageView = binding.imageviewItem
-        private val cardView: CardView = binding.cardviewItem
+        private val cardView: CardView = binding.cardViewItem
 
         fun bind(item: Result) {
 //            textView.text = item.title

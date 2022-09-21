@@ -17,7 +17,7 @@ class UpcomingMovieAdapter(private val dataSet: Results, val onClick: (Result) -
 
     inner class NewMovieAdapterViewHolder(val binding: ItemNewMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val cardView: CardView = binding.cardviewItem
+        private val cardView: CardView = binding.cardViewItem
         private val imgView: ImageView = binding.imageviewItem
 //        private val textView : TextView = binding.textviewItem
 
