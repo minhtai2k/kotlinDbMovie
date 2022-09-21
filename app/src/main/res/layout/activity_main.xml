@@ -19,16 +19,15 @@
         app:navGraph="@navigation/navigation_main" />
 
 
-<!--            <com.google.android.material.appbar.MaterialToolbar-->
-<!--                android:id="@+id/topAppBar"-->
-<!--                style="@style/Widget.MaterialComponents.Toolbar.Surface"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                app:menu="@menu/custom_action_bar"-->
-<!--                app:navigationIcon="@drawable/ic_android_icon_home"-->
-<!--                app:title="@string/page_title" />-->
-
+    <!--            <com.google.android.material.appbar.MaterialToolbar-->
+    <!--                android:id="@+id/topAppBar"-->
+    <!--                style="@style/Widget.MaterialComponents.Toolbar.Surface"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="?attr/actionBarSize"-->
+    <!--                android:background="@android:color/transparent"-->
+    <!--                app:menu="@menu/custom_action_bar"-->
+    <!--                app:navigationIcon="@drawable/ic_android_icon_home"-->
+    <!--                app:title="@string/page_title" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

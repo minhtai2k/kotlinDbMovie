@@ -16,10 +16,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview_item"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/cardview_genre_height"
+            android:layout_height="@dimen/card_view_genre_height"
             android:layout_margin="2.5dp"
             app:cardBackgroundColor="@color/green"
-            app:cardCornerRadius="@dimen/cardview_radius"
+            app:cardCornerRadius="@dimen/card_view_radius"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

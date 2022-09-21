@@ -13,11 +13,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="@dimen/cardview_image_movie_width"
-            android:layout_height="@dimen/cardview_image_movie_height"
+            android:layout_width="@dimen/card_view_image_movie_width"
+            android:layout_height="@dimen/card_view_image_movie_height"
             android:id="@+id/cardview_item"
             android:layout_margin="@dimen/margin_default_item"
-            app:cardCornerRadius="@dimen/cardview_radius">
+            app:cardCornerRadius="@dimen/card_view_radius">
 
             <ImageView
                 android:id="@+id/imageview_item"
@@ -26,6 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
+                android:contentDescription="@string/image_content_item_new_movie"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
         </androidx.cardview.widget.CardView>

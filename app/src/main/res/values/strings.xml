@@ -17,4 +17,8 @@
     <string name="title_item_search_action_bar">Search</string>
     <string name="title_item_notification_action_bar">Notification</string>
     <string name="page_title">UI Android</string>
+
+    <string name="image_content_movie_detail">Image Movie Detail</string>
+    <string name="image_content_item_new_movie">Image Item New Movie</string>
+    <string name="image_content_item_popular_movie">Image Item Popular Movie</string>
 </resources>
