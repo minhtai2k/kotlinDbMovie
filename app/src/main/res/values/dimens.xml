@@ -18,6 +18,7 @@
     <!--    TextView Title dimens-->
     <dimen name="textview_title_size">20sp</dimen>
     <dimen name="textview_see_all_size">15sp</dimen>
+    <dimen name="textview_name_popular_movie_size">30sp</dimen>
 
     <!--    Margin-->
     <dimen name="margin_default">10dp</dimen>

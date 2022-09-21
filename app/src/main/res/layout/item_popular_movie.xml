@@ -21,5 +21,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
+        <TextView
+            android:id="@+id/textViewMovieNameItem"
+            android:layout_margin="@dimen/margin_default"
+            tools:text="@string/textview_test"
+            android:textSize="@dimen/textview_name_popular_movie_size"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageviewItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
