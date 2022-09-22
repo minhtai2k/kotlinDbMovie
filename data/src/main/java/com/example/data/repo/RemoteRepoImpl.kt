@@ -4,6 +4,8 @@ import com.example.data.apiservice.API_KEY
 import com.example.data.apiservice.ApiService
 import com.example.data.mappers.toGenreDetailModel
 import com.example.data.mappers.toMovieDetailsModel
+import com.example.data.mappers.toResultDetailsModel
+import com.example.data.mappers.toResultsDetailsModel
 import com.example.domain.models.*
 import com.example.domain.repositories.RemoteRepo
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +35,9 @@ class RemoteRepoImpl @Inject constructor(
     }
 
     override suspend fun getResultsDetail(): Flow<ResultsDetailsModel> {
-        TODO()
+        return apiService.getPopularMovieDetails(API_KEY).map {
+            it.toResultsDetailsModel()
+        }
     }
 
 }

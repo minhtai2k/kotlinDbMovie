@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.data.models.GenreDataModel
 import com.example.data.models.MovieDetailDataModel
 import com.example.data.models.ResultDataModel
+import com.example.data.models.ResultsDataModel
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,10 +30,15 @@ interface ApiService {
 //    suspend fun getGenresDetails(
 //    ): Flow<List<GenreDataModel>>
 
+//    @GET("movie/popular")
+//    suspend fun getPopularMovieDetails(
+//        @Query("api_key") api_key: String = API_KEY
+//    ): Flow<List<ResultDataModel>>
+
     @GET("movie/popular")
     suspend fun getPopularMovieDetails(
         @Query("api_key") api_key: String = API_KEY
-    ): Flow<List<ResultDataModel>>
+    ): Flow<ResultsDataModel>
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovieDetails(
