@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.themoviedb.org/3/"
+const val BASE_URL = "https://api.themoviedb.org/3/"
 const val API_KEY = "ac879a639703afa0f68ae199252bd055"
 const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/"
 
@@ -25,15 +25,6 @@ interface ApiService {
     suspend fun getGenresDetails(
         @Query("api_key") apiKey: String = API_KEY
     ): Flow<List<GenreDataModel>>
-
-//    @GET("genre/movie/list")
-//    suspend fun getGenresDetails(
-//    ): Flow<List<GenreDataModel>>
-
-//    @GET("movie/popular")
-//    suspend fun getPopularMovieDetails(
-//        @Query("api_key") api_key: String = API_KEY
-//    ): Flow<List<ResultDataModel>>
 
     @GET("movie/popular")
     suspend fun getPopularMovieDetails(
@@ -50,6 +41,15 @@ interface ApiService {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY
     ): Flow<MovieDetailDataModel>
+
+//    @GET("genre/movie/list")
+//    suspend fun getGenresDetails(
+//    ): Flow<List<GenreDataModel>>
+
+//    @GET("movie/popular")
+//    suspend fun getPopularMovieDetails(
+//        @Query("api_key") api_key: String = API_KEY
+//    ): Flow<List<ResultDataModel>>
 
 //    interface UpcomingMovieApiService {
 //        @GET("movie/upcoming")
