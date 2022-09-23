@@ -1,6 +1,6 @@
-package com.example.domain.models
+package com.example.domain.model
 
-data class ResultDetailsModel(
+data class ResultDomainModel(
     val adult: Boolean,
     val backdrop_path: String?,
     val genre_ids: List<Int>?,
@@ -16,7 +16,6 @@ data class ResultDetailsModel(
     val vote_average: Float,
     val vote_count: Int
 )
-
-data class ResultsDetailsModel(
-    val results: List<ResultDetailsModel>
+data class ResultsDomainModel(
+    val results: List<ResultDomainModel>
 )

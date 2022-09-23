@@ -1,17 +1,16 @@
 package com.example.data.mappers
 
 import com.example.data.models.GenreDataModel
-import com.example.domain.models.GenreDetailsModel
-import javax.inject.Inject
+import com.example.domain.model.GenreDomainModel
 
-fun GenreDataModel.toGenreDetailModel(): GenreDetailsModel {
-    return GenreDetailsModel(
+fun GenreDataModel.toGenreDetailModel(): GenreDomainModel {
+    return GenreDomainModel(
         id = id,
         name = name
     )
 }
 
-fun GenreDetailsModel.toGenreDataModel(): GenreDataModel {
+fun GenreDomainModel.toGenreDataModel(): GenreDataModel {
     return GenreDataModel(
         id = id,
         name = name

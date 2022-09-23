@@ -1,17 +1,16 @@
-package com.example.moviebasics.database.model
+package com.example.data.db.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.moviebasics.model.*
 
 @Entity(tableName = "detailMovies")
 data class DetailMovieEntity (
     @ColumnInfo(name = "adult") val adult: Boolean,
     @ColumnInfo(name = "backdropPath") val backdrop_path: String?,
-    @ColumnInfo(name = "belongsToCollection") val belongs_to_collection: BelongsToCollection?,
+    @ColumnInfo(name = "belongsToCollection") val belongs_to_collection: BeLongsToCollectionEntity?,
     @ColumnInfo(name = "budget") val budget: Int,
-    @ColumnInfo(name = "genres") val genres: List<Genre>,
+    @ColumnInfo(name = "genres") val genres: List<GenreEntity>,
     @ColumnInfo(name = "homepage") val homepage: String,
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "imdbId") val imdb_id: String,
@@ -20,12 +19,12 @@ data class DetailMovieEntity (
     @ColumnInfo(name = "overview") val overview: String,
     @ColumnInfo(name = "popularity") val popularity: Double,
     @ColumnInfo(name = "posterPath") val poster_path: String,
-    @ColumnInfo(name = "productionCompanies") val production_companies: List<ProductionCompanies>,
-    @ColumnInfo(name = "productionCountries") val production_countries: List<ProductionCountries>,
+    @ColumnInfo(name = "productionCompanies") val production_companies: List<ProductionCompaniesEntity>,
+    @ColumnInfo(name = "productionCountries") val production_countries: List<ProductionCountriesEntity>,
     @ColumnInfo(name = "releaseDate") val release_date: String,
     @ColumnInfo(name = "revenue") val revenue: Int,
     @ColumnInfo(name = "runtime") val runtime: Int,
-    @ColumnInfo(name = "spokenLanguages") val spoken_languages: List<SpokenLanguages>,
+    @ColumnInfo(name = "spokenLanguages") val spoken_languages: List<SpokenLanguagesEntity>,
     @ColumnInfo(name = "status") val status: String,
     @ColumnInfo(name = "tagline") val tagline: String,
     @ColumnInfo(name = "title") val title: String,

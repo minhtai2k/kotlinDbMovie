@@ -1,6 +1,8 @@
 package com.example.data.di
 
 import com.example.data.apiservice.ApiService
+import com.example.data.db.AppDatabase
+import com.example.data.db.DbService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -13,3 +15,4 @@ class ApiModule {
         return retrofit.create(ApiService::class.java)
     }
 }
+

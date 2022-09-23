@@ -1,11 +1,11 @@
-package com.example.domain.models
+package com.example.domain.model
 
-data class MovieDetailsModel(
+data class MovieDomainModel(
     val adult: Boolean,
     val backdrop_path: String?,
-    val belongs_to_collection: BelongsToCollectionDetailsModel?,
+    val belongs_to_collection: BelongsToCollectionDomainModel?,
     val budget: Int,
-    val genres: List<GenreDetailsModel>,
+    val genres: List<GenreDomainModel>,
     val homepage: String,
     val id: Int,
     val imdb_id: String,
@@ -14,12 +14,12 @@ data class MovieDetailsModel(
     val overview: String,
     val popularity: Double,
     val poster_path: String,
-    val production_companies: List<ProductionCompaniesDetailsModel>,
-    val production_countries: List<ProductionCountriesDetailsModel>,
+    val production_companies: List<ProductionCompaniesDomainModel>,
+    val production_countries: List<ProductionCountriesDomainModel>,
     val release_date: String,
     val revenue: Int,
     val runtime: Int,
-    val spoken_languages: List<SpokenLanguagesDetailsModel>,
+    val spoken_languages: List<SpokenLanguagesDomainModel>,
     val status: String,
     val tagline: String,
     val title: String,
@@ -46,21 +46,21 @@ data class MovieDetailsModel(
 //    val vote_count: Int
 //)
 
-data class BelongsToCollectionDetailsModel(
+data class BelongsToCollectionDomainModel(
     val id: Int,
     val name: String,
     val poster_path: String,
     val backdrop_path: String?
 )
 
-data class ProductionCompaniesDetailsModel(
+data class ProductionCompaniesDomainModel(
     val id: Int,
     val logo_path: String?,
     val name: String,
     val original_country: String?
 )
 
-data class ProductionCountriesDetailsModel(val iso_3166_1: String, val name: String)
+data class ProductionCountriesDomainModel(val iso_3166_1: String, val name: String)
 
-data class SpokenLanguagesDetailsModel(val english_name: String, val iso_639_1: String, val name: String)
+data class SpokenLanguagesDomainModel(val english_name: String, val iso_639_1: String, val name: String)
 

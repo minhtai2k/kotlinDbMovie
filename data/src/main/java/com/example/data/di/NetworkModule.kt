@@ -1,6 +1,6 @@
 package com.example.data.di
 
-import com.example.data.apiservice.BASE_URL
+import com.example.data.utils.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
