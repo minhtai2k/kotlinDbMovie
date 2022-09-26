@@ -2,18 +2,17 @@ package com.example.data.db.dao
 
 import androidx.room.*
 import com.example.data.db.model.GenreEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GenreDao {
     @Query("select * from genres")
-    fun getAll(): Flow<List<GenreEntity>>
+    fun getAll(): List<GenreEntity>
 
     @Query("select * from genres where gid in (:genreIds)")
-    fun loadAllByIds(genreIds: IntArray): Flow<List<GenreEntity>>
+    fun loadAllByIds(genreIds: IntArray): List<GenreEntity>
 
     @Query("select * from genres where name like :alphabet limit 1")
-    fun findByName(alphabet: String): Flow<GenreEntity>
+    fun findByName(alphabet: String): GenreEntity
 
 //    @Insert
 //    fun insertAll(vararg genres: GenreEntity)

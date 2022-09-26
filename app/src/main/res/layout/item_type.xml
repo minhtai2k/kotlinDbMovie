@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeFragment"
-            type="com.example.moviebasics.home.HomeFragment" />
+            type="com.example.moviebasics.ui.HomeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

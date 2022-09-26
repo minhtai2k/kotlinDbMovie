@@ -3,12 +3,12 @@ import com.example.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface RemoteRepo {
-    suspend fun getGenresDetail() : Flow<List<GenreDomainModel>>
-    suspend fun getMovieDetail(movieId: Int): Flow<MovieDomainModel>
-    suspend fun getUpComingMoviesDetail() : Flow<List<ResultDomainModel>>
-    suspend fun getPopularMoviesDetail() : Flow<List<ResultDomainModel>>
-    suspend fun getGenreMoviesDetail(genreId: Int) : Flow<List<ResultDomainModel>>
-    suspend fun getTopRatedMoviesDetail() : Flow<List<ResultDomainModel>>
+    suspend fun getGenresDetail() : List<GenreDomainModel>
+    suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel
+    suspend fun getUpComingMoviesDetail() : List<ResultDomainModel>
+    suspend fun getPopularMoviesDetail() : List<ResultDomainModel>
+    suspend fun getGenreMoviesDetail(genreId: Int) : List<ResultDomainModel>
+    suspend fun getTopRatedMoviesDetail() : List<ResultDomainModel>
 }
 
 //    suspend fun getResultDetail() : Flow<ResultDomainModel>

@@ -6,10 +6,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.data.db.converter.DatabaseConverter
 import com.example.data.db.dao.*
-import com.example.data.db.model.GenreEntity
+import com.example.data.db.model.*
 
 @Database(
-    entities = [GenreEntity::class],
+    entities = [GenreEntity::class, MovieDetailEntity::class, GenreMovieEntity::class, UpcomingMovieEntity::class, PopularMovieEntity::class, TopRatedMovieEntity::class],
     exportSchema = true,
     version = 4,
     autoMigrations = [
@@ -22,9 +22,9 @@ import com.example.data.db.model.GenreEntity
 @TypeConverters(DatabaseConverter::class)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun genreDao(): GenreDao
-    abstract fun popularMovieDao(): PopularMovieDao
-    abstract fun upcomingMovieDao(): UpcomingMovieDao
-    abstract fun topRatedMovieDao(): TopRatedMovieDao
-    abstract fun typeMovieDao(): TypeMovieDao
-    abstract fun detailMovieDao(): DetailMovieDao
+    abstract fun movieDetailDao(): MovieDetailDao
+    abstract fun genreMoviesDao(): GenreMovieDao
+    abstract fun upcomingMoviesDao(): UpcomingMovieDao
+    abstract fun popularMoviesDao(): PopularMovieDao
+    abstract fun topRatedMoviesDao(): TopRatedMovieDao
 }

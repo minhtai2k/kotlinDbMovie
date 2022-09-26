@@ -6,13 +6,15 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.data.models.ResultDataModel
+import com.example.data.utils.Constants.BASE_IMAGE_URL
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
-import com.example.moviebasics.model.Result
-import com.example.moviebasics.model.Results
-import com.example.moviebasics.network.BASE_IMAGE_URL
+//import com.example.moviebasics.model.Result
+//import com.example.moviebasics.model.Results
+//import com.example.moviebasics.network.BASE_IMAGE_URL
 
-class UpcomingMovieAdapter(private val dataSet: Results, val onClick: (Result) -> Unit) :
+class UpcomingMovieAdapter(private val dataSet: List<ResultDataModel>, val onClick: (ResultDataModel) -> Unit) :
     RecyclerView.Adapter<UpcomingMovieAdapter.NewMovieAdapterViewHolder>() {
 
     inner class NewMovieAdapterViewHolder(val binding: ItemNewMovieBinding) :
@@ -21,7 +23,7 @@ class UpcomingMovieAdapter(private val dataSet: Results, val onClick: (Result) -
         private val imgView: ImageView = binding.imageviewItem
 //        private val textView : TextView = binding.textviewItem
 
-        fun bind(item: Result) {
+        fun bind(item: ResultDataModel) {
 //            binding.executePendingBindings()
 //            textView.text = item.title
             imgView.load(BASE_IMAGE_URL + "" + item.poster_path) {
@@ -45,11 +47,11 @@ class UpcomingMovieAdapter(private val dataSet: Results, val onClick: (Result) -
     }
 
     override fun onBindViewHolder(holder: NewMovieAdapterViewHolder, position: Int) {
-        val item = dataSet.results[position]
+        val item = dataSet[position]
         holder.bind(item)
     }
 
     override fun getItemCount(): Int {
-        return dataSet.results.size
+        return dataSet.size
     }
 }

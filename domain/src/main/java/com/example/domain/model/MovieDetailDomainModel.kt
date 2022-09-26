@@ -1,6 +1,6 @@
 package com.example.domain.model
 
-data class MovieDomainModel(
+data class MovieDetailDomainModel(
     val adult: Boolean,
     val backdrop_path: String?,
     val belongs_to_collection: BelongsToCollectionDomainModel?,
