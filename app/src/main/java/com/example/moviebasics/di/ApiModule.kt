@@ -17,18 +17,69 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApiModule {
     @Provides
-    fun bindApiService(retrofit: Retrofit) : ApiService {
+    fun bindApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            Constants.DATABASE_NAME
-        ).build()
-    }
+//    @Provides
+//    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+//        return Room.databaseBuilder(
+//            context,
+//            AppDatabase::class.java,
+//            Constants.DATABASE_NAME
+//        ).build()
+//    }
 }
+
+//@Module
+//@InstallIn(SingletonComponent::class)
+
+//object DataRoomApi {
+//    @Provides
+//    fun retrofitGenreService(): GenreApiService {
+//        return retrofit.create(GenreApiService::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun retrofitUpcomingMovieService(): UpcomingMovieApiService {
+//        return retrofit.create(UpcomingMovieApiService::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun retrofitTypeMovieService(): TypeMoviesApiService {
+//        return retrofit.create(TypeMoviesApiService::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun retrofitMovieDetailService(): MovieDetailApiService {
+//        return retrofit.create(MovieDetailApiService::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun retrofitPopularMovieService(): PopularMovieApiService {
+//        return retrofit.create(PopularMovieApiService::class.java)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun retrofitTopRatedService(): TopRatedMovieApiService {
+//        return retrofit.create(TopRatedMovieApiService::class.java)
+//    }
+//
+//
+//    @Provides
+//    @Singleton
+//    fun getDatabase(@ApplicationContext context: Context): AppDatabase {
+//        return Room.databaseBuilder(
+//            context,
+//            AppDatabase::class.java,
+//            DATABASE_NAME
+//        ).build()
+//    }
+//
+//}
 

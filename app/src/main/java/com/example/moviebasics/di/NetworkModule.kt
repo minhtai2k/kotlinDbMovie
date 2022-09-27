@@ -35,11 +35,11 @@ class NetworkModule {
         return okHttpBuilder.build()
     }
 
-    @Provides
-    internal fun provideCache(context: Context): Cache {
-        val httpCacheDirectory = File(context.cacheDir.absolutePath, "HttpCache")
-        return Cache(httpCacheDirectory, CACHE_SIZE_BYTES)
-    }
+//    @Provides
+//    internal fun provideCache(context: Context): Cache {
+//        val httpCacheDirectory = File(context.cacheDir.absolutePath, "HttpCache")
+//        return Cache(httpCacheDirectory, CACHE_SIZE_BYTES)
+//    }
 
 //    @Provides
 //    fun provideContext(application: GenreApplication): Context {
