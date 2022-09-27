@@ -1,10 +1,7 @@
 package com.example.data.repo
 
 import com.example.data.db.AppDatabase
-import com.example.data.db.model.GenreEntity
-import com.example.data.db.model.GenreMovieEntity
-import com.example.data.db.model.MovieDetailEntity
-import com.example.data.db.model.ResultEntity
+import com.example.data.db.model.*
 import com.example.data.mappers.*
 import com.example.domain.model.GenreDomainModel
 import com.example.domain.model.MovieDetailDomainModel
@@ -33,7 +30,7 @@ class LocalRepoImpl(private val dbService: AppDatabase) : LocalRepo {
         }
     }
 
-    override suspend fun insertAllUpComingMovie(list: List<ResultEntity>){
+    override suspend fun insertAllUpComingMovie(list: List<UpcomingMovieEntity>){
         dbService.upcomingMoviesDao().insertAll(list)
     }
 
@@ -43,8 +40,8 @@ class LocalRepoImpl(private val dbService: AppDatabase) : LocalRepo {
         }
     }
 
-    override suspend fun insertAllPopularMovie(list: List<ResultEntity>){
-        dbService.popularMoviesDao().insertAll(list)
+    override suspend fun insertAllPopularMovie(list: List<PopularMovieEntity>) {
+        return dbService.popularMoviesDao().insertAll(list)
     }
 
     override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
@@ -63,7 +60,7 @@ class LocalRepoImpl(private val dbService: AppDatabase) : LocalRepo {
         }
     }
 
-    override suspend fun insertAllTopRatedMovies(list: List<ResultEntity>){
+    override suspend fun insertAllTopRatedMovies(list: List<TopRatedMovieEntity>){
         dbService.topRatedMoviesDao().insertAll(list)
     }
 

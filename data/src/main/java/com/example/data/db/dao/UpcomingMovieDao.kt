@@ -34,7 +34,7 @@ interface UpcomingMovieDao {
     fun findByName(alphabet: String): ResultEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(upcomingMovies: List<ResultEntity>)
+    fun insertAll(upcomingMovies: List<UpcomingMovieEntity>)
 
     @Delete
     fun delete(upcomingMovie: ResultEntity)

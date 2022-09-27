@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.data.models.ResultDataModel
 import com.example.data.utils.Constants.BASE_IMAGE_URL
+import com.example.domain.model.ResultDomainModel
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
 //import com.example.moviebasics.model.Result
 //import com.example.moviebasics.model.Results
 //import com.example.moviebasics.network.BASE_IMAGE_URL
 
-class UpcomingMovieAdapter(private val dataSet: List<ResultDataModel>, val onClick: (ResultDataModel) -> Unit) :
+class UpcomingMovieAdapter(private val dataSet: List<ResultDomainModel>, val onClick: (ResultDomainModel) -> Unit) :
     RecyclerView.Adapter<UpcomingMovieAdapter.NewMovieAdapterViewHolder>() {
 
     inner class NewMovieAdapterViewHolder(val binding: ItemNewMovieBinding) :
@@ -23,7 +24,7 @@ class UpcomingMovieAdapter(private val dataSet: List<ResultDataModel>, val onCli
         private val imgView: ImageView = binding.imageviewItem
 //        private val textView : TextView = binding.textviewItem
 
-        fun bind(item: ResultDataModel) {
+        fun bind(item: ResultDomainModel) {
 //            binding.executePendingBindings()
 //            textView.text = item.title
             imgView.load(BASE_IMAGE_URL + "" + item.poster_path) {

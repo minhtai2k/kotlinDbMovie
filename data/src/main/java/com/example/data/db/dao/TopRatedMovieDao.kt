@@ -16,7 +16,7 @@ interface TopRatedMovieDao {
     fun findByName(alphabet: String): ResultEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(topRatedMovies: List<ResultEntity>)
+    fun insertAll(topRatedMovies: List<TopRatedMovieEntity>)
 
     @Delete
     fun delete(topRatedMovie: ResultEntity)

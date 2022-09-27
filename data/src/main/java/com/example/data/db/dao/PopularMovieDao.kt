@@ -33,7 +33,7 @@ interface PopularMovieDao {
     fun findByName(alphabet: String): ResultEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(popularMovies: List<ResultEntity>)
+    fun insertAll(popularMovies: List<PopularMovieEntity>)
 
     @Delete
     fun delete(popularMovie: ResultEntity)

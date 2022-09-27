@@ -81,7 +81,7 @@ class DataRepository @Inject constructor (
     override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getUpComingMoviesDetail()
-            local.insertAllUpComingMovie(data.map { it.toResultEntity() })
+            local.insertAllUpComingMovie(data.map { it.toUpcomingMovieEntity()})
             data
         } else
             local.getUpComingMoviesDetail()
@@ -90,7 +90,7 @@ class DataRepository @Inject constructor (
     override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getPopularMoviesDetail()
-            local.insertAllUpComingMovie(data.map { it.toResultEntity() })
+            local.insertAllUpComingMovie(data.map { it.toUpcomingMovieEntity() })
             data
         } else
             local.getUpComingMoviesDetail()
@@ -99,7 +99,7 @@ class DataRepository @Inject constructor (
     override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getGenreMoviesDetail(genreId)
-            local.insertAllUpComingMovie(data.map { it.toResultEntity() })
+            local.insertAllGenreMovies(data.map { it.toGenreMovieEntity() })
             data
         } else
             local.getUpComingMoviesDetail()
@@ -108,7 +108,7 @@ class DataRepository @Inject constructor (
     override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getTopRatedMoviesDetail()
-            local.insertAllUpComingMovie(data.map { it.toResultEntity() })
+            local.insertAllTopRatedMovies(data.map { it.toTopRatedMovieEntity() })
             data
         } else
             local.getUpComingMoviesDetail()

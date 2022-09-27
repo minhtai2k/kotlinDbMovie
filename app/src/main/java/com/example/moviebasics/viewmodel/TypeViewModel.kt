@@ -35,7 +35,7 @@ class TypeViewModel @Inject constructor(
     private val _typeMovies = MutableLiveData<List<ResultDomainModel>>()
     val typeMovies: LiveData<List<ResultDomainModel>> = _typeMovies
 
-    fun getTypeMovies(isConnected: Boolean, id: Int) {
+    fun getTypeMovies() {
 //        val typeMovieDao = db.typeMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
 //            UseCase.execute()

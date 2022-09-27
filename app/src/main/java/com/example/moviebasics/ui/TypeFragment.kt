@@ -54,7 +54,7 @@ class TypeFragment : Fragment() {
             }
             binding.fragmentContainerViewTypeMovie.adapter = adapter
         }
-        viewModel.getTypeMovies(checkForInternet(requireContext()), genreId)
+        viewModel.getTypeMovies()
 
         return binding.root
     }

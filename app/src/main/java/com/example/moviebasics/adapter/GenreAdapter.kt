@@ -6,18 +6,19 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.models.GenreDataModel
+import com.example.domain.model.GenreDomainModel
 import com.example.moviebasics.databinding.ItemTypeBinding
 //import com.example.moviebasics.model.Genre
 //import com.example.moviebasics.model.Genres
 
-class GenreAdapter(private val dataSet: List<GenreDataModel>, val onClick: (GenreDataModel) -> Unit) :
+class GenreAdapter(private val dataSet: List<GenreDomainModel>, val onClick: (GenreDomainModel) -> Unit) :
     RecyclerView.Adapter<GenreAdapter.GenreGridAdapterViewHolder>() {
 
     inner class GenreGridAdapterViewHolder(val binding: ItemTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val textView: TextView = binding.textviewItem
         private val cardView: CardView = binding.cardViewItem
-        fun bind(genre: GenreDataModel) {
+        fun bind(genre: GenreDomainModel) {
             textView.text = genre.name
             cardView.setOnClickListener {
                 onClick(genre)

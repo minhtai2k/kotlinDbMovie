@@ -6,20 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.data.models.ResultDataModel
 import com.example.data.utils.Constants.BASE_IMAGE_URL
+import com.example.domain.model.ResultDomainModel
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
 //import com.example.moviebasics.model.Result
 //import com.example.moviebasics.model.Results
 //import com.example.moviebasics.network.BASE_IMAGE_URL
 
-class TopRatedMoviesAdapter(private val dataSet: List<ResultDataModel>, val onClick: (ResultDataModel) -> Unit) :
+class TopRatedMoviesAdapter(private val dataSet: List<ResultDomainModel>, val onClick: (ResultDomainModel) -> Unit) :
     RecyclerView.Adapter<TopRatedMoviesAdapter.TopRatedMoviesViewHolder>() {
 
     inner class TopRatedMoviesViewHolder(val binding: ItemNewMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val imageView = binding.imageviewItem
         private val cardView = binding.cardViewItem
-        fun bind(item: ResultDataModel) {
+        fun bind(item: ResultDomainModel) {
             imageView.load(BASE_IMAGE_URL + "" + item.poster_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)

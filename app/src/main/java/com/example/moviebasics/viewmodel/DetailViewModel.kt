@@ -32,7 +32,7 @@ class DetailViewModel @Inject constructor(
     private val _movieDetail = MutableLiveData<MovieDetailDomainModel>()
     val movieDetail: LiveData<MovieDetailDomainModel> = _movieDetail
 
-    fun getMovieDetail(isConnected: Boolean, id: Int) {
+    fun getMovieDetail() {
 //        val movieDetailDao = db.movieDetailDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
