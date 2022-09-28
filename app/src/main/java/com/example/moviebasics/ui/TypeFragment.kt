@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.moviebasics.adapter.TypeMoviesAdapter
 import com.example.moviebasics.databinding.FragmentTypeMovieBinding
-import com.example.moviebasics.network.checkForInternet
 import com.example.moviebasics.viewmodel.TypeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

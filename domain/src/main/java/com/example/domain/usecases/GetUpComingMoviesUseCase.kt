@@ -1,12 +1,10 @@
 package com.example.domain.usecases
 
 import com.example.domain.model.ResultDomainModel
-import com.example.domain.model.ResultsDomainModel
-import com.example.domain.repositories.RemoteRepo
-import kotlinx.coroutines.flow.Flow
+import com.example.domain.repositories.AppRepo
 
-class GetUpComingMoviesUseCase(private val repo: RemoteRepo) : CommonUseCase<ResultsDomainModel> {
-    override suspend fun execute(): ResultsDomainModel {
+class GetUpComingMoviesUseCase(private val repo: AppRepo) : CommonUseCase<List<ResultDomainModel>> {
+    override suspend fun execute(): List<ResultDomainModel> {
         return repo.getUpComingMoviesDetail()
     }
 }

@@ -9,14 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.data.models.MovieDetailDataModel
 import com.example.data.utils.Constants.BASE_IMAGE_URL
 import com.example.domain.model.MovieDetailDomainModel
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.FragmentDetailBinding
-//import com.example.moviebasics.model.MovieDetail
-//import com.example.moviebasics.network.BASE_IMAGE_URL
-import com.example.moviebasics.network.checkForInternet
 import com.example.moviebasics.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +22,6 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var binding: FragmentDetailBinding
 
-//    private val args: com.example.moviebasics.detailmovie.DetailFragmentArgs by navArgs()
     private val args: DetailFragmentArgs by navArgs()
     private val movieId by lazy { args.movieId }
 

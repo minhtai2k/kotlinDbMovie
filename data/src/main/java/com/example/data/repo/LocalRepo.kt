@@ -15,18 +15,18 @@ interface LocalRepo{
     suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel
     suspend fun insertMovieDetail(data: MovieDetailEntity)
 
-    suspend fun getPopularMoviesDetail() : ResultsDomainModel
+    suspend fun getPopularMoviesDetail() : List<ResultDomainModel>
     suspend fun insertAllPopularMovie(list: List<PopularMovieEntity>)
 
     suspend fun getGenreMoviesDetail(genreId: Int) : List<ResultDomainModel>
     suspend fun insertAllGenreMovies(list: List<GenreMovieEntity>)
 
-    suspend fun insertAllUpComingMovie(list: List<UpcomingMovieEntity>)
-    suspend fun insertAllTopRatedMovies(list: List<TopRatedMovieEntity>)
-
 //    Use ResultsDataModel instead of ResultsDomainModel
-    suspend fun getUpComingMoviesDetail() : ResultsDomainModel
+    suspend fun getUpComingMoviesDetail() : List<ResultDomainModel>
+    suspend fun insertAllUpComingMovie(list: List<UpcomingMovieEntity>)
 
 //    Use ResultsDataModels instead of ResultsDomainModel and use List instead of Results
-    suspend fun getTopRatedMoviesDetail() : List<ResultDataModel>
+    suspend fun getTopRatedMoviesDetail() : List<ResultDomainModel>
+    suspend fun insertAllTopRatedMovies(list: List<TopRatedMovieEntity>)
+
 }

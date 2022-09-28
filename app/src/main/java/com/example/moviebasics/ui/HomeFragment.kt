@@ -14,27 +14,13 @@ import com.example.moviebasics.adapter.TopRatedMoviesAdapter
 import com.example.moviebasics.adapter.UpcomingMovieAdapter
 import com.example.moviebasics.databinding.FragmentHomeBinding
 import com.example.moviebasics.viewmodel.HomeViewModel
-import com.example.moviebasics.network.checkForInternet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    //    @Inject ==> Fail
     private val viewModel: HomeViewModel by viewModels()
-
-    //    @Inject ==> Fail
     private lateinit var binding: FragmentHomeBinding
-
-//    init {
-//        setUpStatus()
-//        setUpGenres()
-//        setUpUpcomingMovies()
-//        setUpPopularMovies()
-//        setUpTopRatedMovies()
-//
-//        refreshLayout()
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,23 +36,6 @@ class HomeFragment : Fragment() {
         setUpTopRatedMovies()
 
         refreshLayout()
-
-//        viewModel.getGenresList(
-//            checkForInternet(requireContext())
-//        )
-
-//        viewModel.getPopularMovies(
-//            checkForInternet(requireContext())
-//        )
-
-//        viewModel.getUpcomingMovieList(
-//            checkForInternet(requireContext())
-//        )
-
-//        viewModel.getTopRatedMovies(
-//            checkForInternet(requireContext())
-//        )
-
 
         return binding.root
     }

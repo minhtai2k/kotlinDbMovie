@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.GenreDomainModel
-import com.example.domain.model.GenreListDomainModel
+//import com.example.domain.model.GenreListDomainModel
 //import com.example.domain.model.GenreListDomainModel
 //import com.example.domain.model.GenresDomainModel
 //import com.example.domain.model.GenresDomainModel
@@ -56,11 +56,11 @@ class HomeViewModel @Inject constructor(
 //    private val _genres = MutableLiveData<Genres>()
 //    val genres: LiveData<Genres> = _genres
 
-//    private val _genres = MutableLiveData<List<GenreDomainModel>>()
-//    val genres: LiveData<List<GenreDomainModel>> = _genres
+    private val _genres = MutableLiveData<List<GenreDomainModel>>()
+    val genres: LiveData<List<GenreDomainModel>> = _genres
 
-    private val _genres = MutableLiveData<GenreListDomainModel>()
-    val genres: LiveData<GenreListDomainModel> = _genres
+//    private val _genres = MutableLiveData<GenreListDomainModel>()
+//    val genres: LiveData<GenreListDomainModel> = _genres
 
     private val _resultsUpcoming = MutableLiveData<List<ResultDomainModel>>()
     val resultsUpcoming: LiveData<List<ResultDomainModel>> = _resultsUpcoming
@@ -120,7 +120,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = upComingMovieUseCase.execute()
-                _resultsUpcoming.postValue(data.results)
+                _resultsUpcoming.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("HomeViewModel", "${e.message}")
@@ -159,7 +159,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = popularMovieUseCase.execute()
-                _popularMovies.postValue(data.results)
+                _popularMovies.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("HomeViewModel", "${e.message}")

@@ -4,24 +4,17 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.example.data.db.model.GenreEntity
 import com.example.data.mappers.*
 import com.example.domain.model.*
 //import com.example.domain.model.GenreListDomainModel
-import com.example.domain.repositories.RemoteRepo
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.currentCoroutineContext
+import com.example.domain.repositories.AppRepo
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 class DataRepository @Inject constructor (
     private val context: Context,
     private val local: LocalRepoImpl,
     private val remote: RemoteRepoImpl
-) : RemoteRepo {
+) : AppRepo {
 
     private fun checkForInternet(context: Context): Boolean {
 
@@ -81,43 +74,31 @@ class DataRepository @Inject constructor (
             local.getMovieDetail(movieId)
     }
 
-    //After Fix
-    override suspend fun getGenresListDetail(): GenreListDomainModel {
-        return if(checkForInternet(context)) {
-            val data = remote.getGenresListDetail()
-            local.insertAllGenre(data.genres.map { it.toGenreEntity() })
-            data
-        } else
-            local.getGenresListDetail()
-    }
-
-    override suspend fun getPopularMoviesDetail(): ResultsDomainModel {
+    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getPopularMoviesDetail()
-            local.insertAllPopularMovie(data.results.map { it.toPopularMovieEntity() })
+            local.insertAllPopularMovie(data.map { it.toPopularMovieEntity() })
             data
         } else
             local.getPopularMoviesDetail()
     }
 
-//    Use DataModel instead of DomainModel
-    override suspend fun getUpComingMoviesDetail(): ResultsDomainModel {
+    override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getUpComingMoviesDetail()
-            local.insertAllUpComingMovie(data.results.map { it.toUpcomingMovieEntity()})
+            local.insertAllUpComingMovie(data.map { it.toUpcomingMovieEntity()})
             data
         } else
             local.getUpComingMoviesDetail()
     }
 
-//    Use List instead of Results
     override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
             val data = remote.getTopRatedMoviesDetail()
             local.insertAllTopRatedMovies(data.map { it.toTopRatedMovieEntity() })
             data
         } else
-            local.getTopRatedMoviesDetail().map { it.toResultDomainModel() }
+            local.getTopRatedMoviesDetail()
     }
 
     override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
@@ -129,3 +110,23 @@ class DataRepository @Inject constructor (
             local.getGenreMoviesDetail(genreId)
     }
 }
+
+//After Fix
+//    override suspend fun getGenresListDetail(): GenreListDomainModel {
+//        return if(checkForInternet(context)) {
+//            val data = remote.getGenresListDetail()
+//            local.insertAllGenre(data.genres.map { it.toGenreEntity() })
+//            data
+//        } else
+//            local.getGenresListDetail()
+//    }
+
+//    Use List instead of Results
+//override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
+//    return if(checkForInternet(context)) {
+//        val data = remote.getTopRatedMoviesDetail()
+//        local.insertAllTopRatedMovies(data.map { it.toTopRatedMovieEntity() })
+//        data
+//    } else
+//        local.getTopRatedMoviesDetail().map { it.toResultDomainModel() }
+//}

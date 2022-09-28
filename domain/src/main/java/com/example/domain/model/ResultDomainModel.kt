@@ -16,6 +16,7 @@ data class ResultDomainModel(
     val vote_average: Float,
     val vote_count: Int
 )
-data class ResultsDomainModel(
-    val results: List<ResultDomainModel>
-)
+
+//data class ResultsDomainModel(
+//    val results: List<ResultDomainModel>
+//)

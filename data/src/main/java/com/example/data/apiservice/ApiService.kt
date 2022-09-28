@@ -11,7 +11,7 @@ interface ApiService {
     @GET("genre/movie/list")
     suspend fun getGenresDetails(
         @Query("api_key") apiKey: String = API_KEY
-    ): List<GenreDataModel>
+    ): GenresDataModel
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovieDetails(
@@ -30,10 +30,10 @@ interface ApiService {
         @Query("with_genres") withGenres: Int
     ): ResultsDataModel
 
-    @GET("genre/movie/list")
-    suspend fun getGenresListDetails(
-        @Query("api_key") apiKey: String = API_KEY
-    ): GenresDataModel
+//    @GET("genre/movie/list")
+//    suspend fun getGenresListDetails(
+//        @Query("api_key") apiKey: String = API_KEY
+//    ): GenresDataModel
 
     @GET("movie/popular")
     suspend fun getPopularMovieDetails(

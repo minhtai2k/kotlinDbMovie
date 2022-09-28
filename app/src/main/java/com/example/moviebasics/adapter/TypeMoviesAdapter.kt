@@ -6,14 +6,10 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.data.models.ResultDataModel
 import com.example.data.utils.Constants.BASE_IMAGE_URL
 import com.example.domain.model.ResultDomainModel
 import com.example.moviebasics.R
 import com.example.moviebasics.databinding.ItemNewMovieBinding
-//import com.example.moviebasics.model.Result
-//import com.example.moviebasics.model.Results
-//import com.example.moviebasics.network.BASE_IMAGE_URL
 
 class TypeMoviesAdapter(
     private val dataSet: List<ResultDomainModel>,
