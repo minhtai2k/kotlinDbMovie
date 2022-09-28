@@ -41,10 +41,10 @@ class TypeFragment : Fragment() {
 
 //        TypeMovies update it ===> results
         viewModel.typeMovies.observe(viewLifecycleOwner) {
-            val adapter = TypeMoviesAdapter(it){
+            val adapter = TypeMoviesAdapter(it){ data ->
                 val direction =
                     TypeFragmentDirections.actionTypeFragmentToDetailFragment(
-                        it.id
+                        data.id
                     )
                 findNavController().navigate(direction)
             }

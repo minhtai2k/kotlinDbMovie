@@ -19,23 +19,20 @@ class TypeViewModel @Inject constructor(
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
-//    private val _isLoading = MutableLiveData<Boolean>()
-//    val isLoading: LiveData<Boolean> = _isLoading
-
     private val _typeMovies = MutableLiveData<List<ResultDomainModel>>()
     val typeMovies: LiveData<List<ResultDomainModel>> = _typeMovies
 
     fun getTypeMovies(genreId: Int) {
-//        val typeMovieDao = db.typeMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
-//            UseCase.execute()
             try {
                 val data = genreMoviesUseCase.execute(genreId)
                 _typeMovies.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)
             }
-//            try {
+        }
+    }
+    //            try {
 //                if (isConnected) {
 //                    val data = retrofitTypeMovie.getTypeMovies(withGenres = id)
 //                    _typeMovies.postValue(data)
@@ -58,8 +55,6 @@ class TypeViewModel @Inject constructor(
 //            } catch (e: InvocationTargetException) {
 //                Log.d("Invocation", "${e.message}")
 //            }
-        }
-    }
 //
 //    private fun Result.toTypeMovieEntity() = TypeMovieEntity(
 //        adult = adult,

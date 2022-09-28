@@ -6,41 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.GenreDomainModel
-//import com.example.domain.model.GenreListDomainModel
-//import com.example.domain.model.GenreListDomainModel
-//import com.example.domain.model.GenresDomainModel
-//import com.example.domain.model.GenresDomainModel
 import com.example.domain.model.ResultDomainModel
 import com.example.domain.usecases.*
-import dagger.Binds
-//import com.example.moviebasics.database.AppDatabase
-//import com.example.moviebasics.database.model.GenreEntity
-//import com.example.moviebasics.database.model.PopularMovieEntity
-//import com.example.moviebasics.database.model.TopRatedMovieEntity
-//import com.example.moviebasics.database.model.UpcomingMovieEntity
-//import com.example.moviebasics.model.Genre
-//import com.example.moviebasics.model.Genres
-//import com.example.moviebasics.model.Result
-//import com.example.moviebasics.model.Results
-//import com.example.moviebasics.network.GenreApiService
-//import com.example.moviebasics.network.PopularMovieApiService
-//import com.example.moviebasics.network.TopRatedMovieApiService
-//import com.example.moviebasics.network.UpcomingMovieApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.reflect.InvocationTargetException
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-//    val db: AppDatabase,
-//    private val retrofitGenre: GenreApiService,
-//    private val retrofitUpcomingMovie: UpcomingMovieApiService,
-//    private val retrofitPopularMovie: PopularMovieApiService,
-//    private val retrofitTopRatedMovie: TopRatedMovieApiService
-//    private val genreUseCase: GetGenreUseCase,
     private val genreUseCase: GetGenresUseCase,
     private val upComingMovieUseCase: GetUpComingMoviesUseCase,
     private val popularMovieUseCase: GetPopularMoviesUseCase,
@@ -90,7 +64,6 @@ class HomeViewModel @Inject constructor(
 
         }
     }
-
 
     fun getPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {

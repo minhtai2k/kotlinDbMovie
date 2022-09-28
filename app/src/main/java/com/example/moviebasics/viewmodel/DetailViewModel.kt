@@ -5,17 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.db.AppDatabase
-import com.example.data.db.model.MovieDetailEntity
-import com.example.data.mappers.*
-import com.example.data.repo.RemoteRepoImpl
 import com.example.domain.model.MovieDetailDomainModel
 import com.example.domain.usecases.GetMovieDetailUseCase
-import dagger.Binds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.reflect.InvocationTargetException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,21 +19,17 @@ class DetailViewModel @Inject constructor(
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
-//    private val _isLoading = MutableLiveData<Boolean>()
-//    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _movieDetail = MutableLiveData<MovieDetailDomainModel>()
-    val movieDetail: LiveData<MovieDetailDomainModel> = _movieDetail
+    private val _movieDetail = MutableLiveData<MovieDetailDomainModel?>()
+    val movieDetail: LiveData<MovieDetailDomainModel?> = _movieDetail
 
     fun getMovieDetail(movieId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = modelUseCase.execute(movieId)
                 _movieDetail.postValue(data)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _status.postValue(e.message)
-                Log.d("MovieDetailViewModel","${e.message}")
+                Log.d("MovieDetailViewModel", "${e.message}")
             }
 
         }
