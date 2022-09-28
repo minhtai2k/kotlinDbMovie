@@ -8,37 +8,39 @@ import com.example.data.models.ResultsDataModel
 import com.example.domain.model.*
 import javax.inject.Inject
 
-class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : LocalRepo {
+class LocalRepoImpl @Inject constructor(
+    private val dbService: AppDatabase
+) : LocalRepo {
 
-    override suspend fun getGenresDetail(): List<GenreDomainModel> {
+    override suspend fun getGenresLocal(): List<GenreDomainModel> {
         return dbService.genreDao().getAll().map {
             it.toListGenreDomainModel()
         }
     }
 
-    override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel {
+    override suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel {
         return dbService.movieDetailDao().loadAllByIds(movieId).toMovieDetailDomainModel()
     }
 
-    override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
+    override suspend fun getGenreMoviesLocal(genreId: Int): List<ResultDomainModel> {
         return dbService.genreMoviesDao().getAll().map {
             it.toResultDomainModel()
         }
     }
 
-    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
+    override suspend fun getPopularMoviesLocal(): List<ResultDomainModel> {
         return dbService.popularMoviesDao().getAll().map {
             it.toResultDomainModel()
         }
     }
 
-    override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
+    override suspend fun getUpComingMoviesLocal(): List<ResultDomainModel> {
         return dbService.upcomingMoviesDao().getAll().map {
             it.toResultDomainModel()
         }
     }
 
-    override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
+    override suspend fun getTopRatedMoviesLocal(): List<ResultDomainModel> {
         return dbService.topRatedMoviesDao().getAll().map {
             it.toResultDomainModel()
         }
@@ -72,12 +74,12 @@ class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : Lo
 }
 
 //Use Result instead of List<>
-//suspend fun getGenresListDetail(): GenreListDomainModel {
+//suspend fun getGenresListLocal(): GenreListDomainModel {
 //    return GenreListDomainModel(
 //        dbService.genreDao().getAll().map { it.toListGenreDomainModel() })
 //}
 
-//override suspend fun getPopularMoviesDetail(): ResultsDomainModel {
+//override suspend fun getPopularMoviesLocal(): ResultsDomainModel {
 //    return ResultsDomainModel(
 //        dbService.popularMoviesDao().getAll().map {
 //            it.toResultDomainModel()

@@ -58,56 +58,56 @@ class DataRepository @Inject constructor (
 
     override suspend fun getGenresDetail(): List<GenreDomainModel> {
         return if(checkForInternet(context)) {
-            val data = remote.getGenresDetail()
+            val data = remote.getGenresRemote()
             local.insertAllGenre(data.map { it.toGenreEntity() })
             data
         } else
-            local.getGenresDetail()
+            local.getGenresLocal()
     }
 
     override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel {
         return if(checkForInternet(context)) {
-            val data = remote.getMovieDetail(movieId)
+            val data = remote.getMovieDetailRemote(movieId)
             local.insertMovieDetail(data.toMovieDetailEntity())
             data
         } else
-            local.getMovieDetail(movieId)
+            local.getMovieDetailLocal(movieId)
     }
 
     override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
-            val data = remote.getPopularMoviesDetail()
+            val data = remote.getPopularMoviesRemote()
             local.insertAllPopularMovie(data.map { it.toPopularMovieEntity() })
             data
         } else
-            local.getPopularMoviesDetail()
+            local.getPopularMoviesLocal()
     }
 
     override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
-            val data = remote.getUpComingMoviesDetail()
+            val data = remote.getUpComingMoviesRemote()
             local.insertAllUpComingMovie(data.map { it.toUpcomingMovieEntity()})
             data
         } else
-            local.getUpComingMoviesDetail()
+            local.getUpComingMoviesLocal()
     }
 
     override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
-            val data = remote.getTopRatedMoviesDetail()
+            val data = remote.getTopRatedMoviesRemote()
             local.insertAllTopRatedMovies(data.map { it.toTopRatedMovieEntity() })
             data
         } else
-            local.getTopRatedMoviesDetail()
+            local.getTopRatedMoviesLocal()
     }
 
     override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
         return if(checkForInternet(context)) {
-            val data = remote.getGenreMoviesDetail(genreId)
+            val data = remote.getGenreMoviesRemote(genreId)
             local.insertAllGenreMovies(data.map { it.toGenreMovieEntity() })
             data
         } else
-            local.getGenreMoviesDetail(genreId)
+            local.getGenreMoviesLocal(genreId)
     }
 }
 

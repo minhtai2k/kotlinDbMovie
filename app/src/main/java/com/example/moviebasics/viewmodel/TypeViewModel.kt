@@ -1,29 +1,18 @@
 package com.example.moviebasics.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.repo.DataRepository
 import com.example.domain.model.ResultDomainModel
 import com.example.domain.usecases.GetGenreMoviesUseCase
-import dagger.Binds
-//import com.example.moviebasics.database.AppDatabase
-//import com.example.moviebasics.database.model.TypeMovieEntity
-//import com.example.moviebasics.model.Result
-//import com.example.moviebasics.model.Results
-//import com.example.moviebasics.network.TypeMoviesApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.reflect.InvocationTargetException
 import javax.inject.Inject
 
 @HiltViewModel
 class TypeViewModel @Inject constructor(
-//    val db: AppDatabase,
-//    private val retrofitTypeMovie: TypeMoviesApiService,
     private val genreMoviesUseCase: GetGenreMoviesUseCase,
 ) : ViewModel() {
 

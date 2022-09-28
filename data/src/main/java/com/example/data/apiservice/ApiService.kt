@@ -9,12 +9,12 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("genre/movie/list")
-    suspend fun getGenresDetails(
+    suspend fun getGenresDetail(
         @Query("api_key") apiKey: String = API_KEY
     ): GenresDataModel
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovieDetails(
+    suspend fun getTopRatedMoviesDetail(
         @Query("api_key") api_key: String = API_KEY
     ): ResultsDataModel
 
@@ -36,12 +36,12 @@ interface ApiService {
 //    ): GenresDataModel
 
     @GET("movie/popular")
-    suspend fun getPopularMovieDetails(
+    suspend fun getPopularMoviesDetail(
         @Query("api_key") api_key: String = API_KEY
     ): ResultsDataModel
 
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovieDetails(
+    suspend fun getUpcomingMoviesDetail(
         @Query("api_key") apiKey: String = API_KEY
     ): ResultsDataModel
 

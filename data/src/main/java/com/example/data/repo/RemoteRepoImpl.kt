@@ -9,52 +9,78 @@ import javax.inject.Inject
 
 class RemoteRepoImpl @Inject constructor(
     private val apiService: ApiService,
-//    private val dbService: AppDatabase
-) : AppRepo {
+) : RemoteRepo {
 
-    override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel {
+//    override suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel {
+//        val dataApi = apiService.getMovieDetail(movieId, API_KEY)
+//        return dataApi.toMovieDomainModel()
+//    }
+//
+//    override suspend fun getPopularMoviesLocal(): List<ResultDomainModel> {
+//        val dataApi = apiService.getPopularMovieDetails()
+//        return dataApi.results.map { it.toResultDomainModel() }
+//    }
+//
+//    override suspend fun getUpComingMoviesLocal(): List<ResultDomainModel> {
+//        val dataApi = apiService.getUpcomingMovieLocals()
+//        return dataApi.results.map { it.toResultDomainModel() }
+//    }
+    
+//    override suspend fun getGenresLocal(): List<GenreDomainModel> {
+//        val dataApi = apiService.getGenresLocals(API_KEY)
+//        return dataApi.genres.map { it.toGenreDomainModel() }
+//    }
+
+//    override suspend fun getTopRatedMoviesLocal(): List<ResultDomainModel> {
+//        val dataApi = apiService.getTopRatedMovieLocals()
+//        return dataApi.results.map { it.toResultDomainModel() }
+//    }
+
+//    override suspend fun getGenreMoviesLocal(genreId: Int): List<ResultDomainModel> {
+//        val dataApi = apiService.getGenreMoviesLocal(API_KEY, genreId)
+//        return dataApi.results.map { it.toResultDomainModel() }
+//    }
+
+    override suspend fun getGenresRemote(): List<GenreDomainModel> {
+        val dataApi = apiService.getGenresDetail(API_KEY)
+        return dataApi.genres.map { it.toGenreDomainModel() }
+    }
+
+    override suspend fun getMovieDetailRemote(movieId: Int): MovieDetailDomainModel {
         val dataApi = apiService.getMovieDetail(movieId, API_KEY)
         return dataApi.toMovieDomainModel()
     }
 
-//    After Fix
-    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
-        val dataApi = apiService.getPopularMovieDetails()
+    override suspend fun getPopularMoviesRemote(): List<ResultDomainModel> {
+        val dataApi = apiService.getPopularMoviesDetail()
         return dataApi.results.map { it.toResultDomainModel() }
     }
 
-//    Use DataModel instead of DomainModel
-    override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
-        val dataApi = apiService.getUpcomingMovieDetails()
-        return dataApi.results.map { it.toResultDomainModel() }
-    }
-
-//    Use List<Result> instead of Results
-    override suspend fun getGenresDetail(): List<GenreDomainModel> {
-        val dataApi = apiService.getGenresDetails(API_KEY)
-        return dataApi.genres.map { it.toGenreDomainModel() }
-    }
-
-    override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
-        val dataApi = apiService.getTopRatedMovieDetails()
-        return dataApi.results.map { it.toResultDomainModel() }
-    }
-
-    override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
+    override suspend fun getGenreMoviesRemote(genreId: Int): List<ResultDomainModel> {
         val dataApi = apiService.getGenreMoviesDetail(API_KEY, genreId)
+        return dataApi.results.map { it.toResultDomainModel() }
+    }
+
+    override suspend fun getUpComingMoviesRemote(): List<ResultDomainModel> {
+        val dataApi = apiService.getUpcomingMoviesDetail()
+        return dataApi.results.map { it.toResultDomainModel() }
+    }
+
+    override suspend fun getTopRatedMoviesRemote(): List<ResultDomainModel> {
+        val dataApi = apiService.getTopRatedMoviesDetail()
         return dataApi.results.map { it.toResultDomainModel() }
     }
 
 }
 
 //Use DataModel instead of DomainModel
-//override suspend fun getUpComingMoviesDetail(): ResultsDomainModel {
-//    val dataApi = apiService.getUpcomingMovieDetails()
+//override suspend fun getUpComingMoviesLocal(): ResultsDomainModel {
+//    val dataApi = apiService.getUpcomingMovieLocals()
 //    return dataApi.toResultsDomainModel()
 //}
 
 //    Use DataModel instead of DomainModel
-//override suspend fun getUpComingMoviesDetail(): ResultsDomainModel {
-//    val dataApi = apiService.getUpcomingMovieDetails()
+//override suspend fun getUpComingMoviesLocal(): ResultsDomainModel {
+//    val dataApi = apiService.getUpcomingMovieLocals()
 //    return dataApi.toResultsDomainModel()
 //}
