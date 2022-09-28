@@ -11,6 +11,7 @@ import com.example.data.mappers.*
 import com.example.data.repo.RemoteRepoImpl
 import com.example.domain.model.MovieDetailDomainModel
 import com.example.domain.usecases.GetMovieDetailUseCase
+import dagger.Binds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,11 +33,13 @@ class DetailViewModel @Inject constructor(
     private val _movieDetail = MutableLiveData<MovieDetailDomainModel>()
     val movieDetail: LiveData<MovieDetailDomainModel> = _movieDetail
 
-    fun getMovieDetail() {
+//    @Binds
+    fun getMovieDetail(movieId: Int) {
 //        val movieDetailDao = db.movieDetailDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                modelUseCase.execute()
+                val data = modelUseCase.execute(movieId)
+                _movieDetail.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("MovieDetailViewModel","${e.message}")

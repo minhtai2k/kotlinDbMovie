@@ -34,10 +34,7 @@ class TypeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTypeMovieBinding.inflate(inflater, container, false)
-//        binding.lifecycleOwner = viewLifecycleOwner
         binding.lifecycleOwner = this
-
-
 //        Status update
         viewModel.status.observe(viewLifecycleOwner){
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -54,7 +51,7 @@ class TypeFragment : Fragment() {
             }
             binding.fragmentContainerViewTypeMovie.adapter = adapter
         }
-        viewModel.getTypeMovies()
+        viewModel.getTypeMovies(genreId)
 
         return binding.root
     }

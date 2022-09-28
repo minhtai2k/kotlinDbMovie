@@ -2,14 +2,24 @@ package com.example.data.mappers
 
 import com.example.data.db.model.GenreEntity
 import com.example.data.db.model.GenreMovieEntity
+//import com.example.data.db.model.GenresEntity
 import com.example.data.models.GenreDataModel
+import com.example.data.models.GenresDataModel
 import com.example.domain.model.GenreDomainModel
+import com.example.domain.model.GenreListDomainModel
+//import com.example.domain.model.GenresDomainModel
 import com.example.domain.model.ResultDomainModel
 
 fun GenreDataModel.toGenreDomainModel(): GenreDomainModel {
     return GenreDomainModel(
         id = id,
         name = name
+    )
+}
+
+fun GenresDataModel.toGenresDomainModel(): GenreListDomainModel {
+    return GenreListDomainModel(
+        genres = genres.map { it.toGenreDomainModel() }
     )
 }
 
@@ -26,15 +36,16 @@ fun GenreDomainModel.toGenreEntity(): GenreEntity {
     )
 }
 
+//fun GenresDomainModel.toGenresEntity(): GenresEntity {
+//    return GenresEntity(
+//        genres = genres.map { it.toGenreEntity() }
+//    )
+//}
+
 fun GenreEntity.toGenreDataModel(): GenreDataModel {
     return GenreDataModel(
         id = gid,
         name = name
-    )
-}
-fun GenreDataModel.toGenreEntity(): GenreEntity {
-    return GenreEntity(
-        id, name
     )
 }
 

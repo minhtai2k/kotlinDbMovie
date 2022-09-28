@@ -1,34 +1,22 @@
 package com.example.data.apiservice
 
+import com.example.data.models.*
 import com.example.data.utils.Constants.API_KEY
-import com.example.data.models.GenreDataModel
-import com.example.data.models.MovieDetailDataModel
-import com.example.data.models.ResultDataModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("movie/upcoming")
-    suspend fun getUpcomingMovieDetails(
-        @Query("api_key") apiKey: String = API_KEY
-    ): List<ResultDataModel>
-
     @GET("genre/movie/list")
     suspend fun getGenresDetails(
         @Query("api_key") apiKey: String = API_KEY
     ): List<GenreDataModel>
 
-    @GET("movie/popular")
-    suspend fun getPopularMovieDetails(
-        @Query("api_key") api_key: String = API_KEY
-    ): List<ResultDataModel>
-
     @GET("movie/top_rated")
     suspend fun getTopRatedMovieDetails(
         @Query("api_key") api_key: String = API_KEY
-    ): List<ResultDataModel>
+    ): ResultsDataModel
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetail(
@@ -40,7 +28,22 @@ interface ApiService {
     suspend fun getGenreMoviesDetail(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("with_genres") withGenres: Int
-    ): List<ResultDataModel>
+    ): ResultsDataModel
+
+    @GET("genre/movie/list")
+    suspend fun getGenresListDetails(
+        @Query("api_key") apiKey: String = API_KEY
+    ): GenresDataModel
+
+    @GET("movie/popular")
+    suspend fun getPopularMovieDetails(
+        @Query("api_key") api_key: String = API_KEY
+    ): ResultsDataModel
+
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovieDetails(
+        @Query("api_key") apiKey: String = API_KEY
+    ): ResultsDataModel
 
 //    @GET("genre/movie/list")
 //    suspend fun getGenresDetails(

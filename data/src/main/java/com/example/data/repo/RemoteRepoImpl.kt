@@ -6,6 +6,10 @@ import com.example.data.mappers.*
 import com.example.data.utils.Constants.API_KEY
 import com.example.domain.model.*
 import com.example.domain.repositories.RemoteRepo
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 class RemoteRepoImpl @Inject constructor(
@@ -15,10 +19,8 @@ class RemoteRepoImpl @Inject constructor(
 
     override suspend fun getGenresDetail(): List<GenreDomainModel> {
         val dataApi = apiService.getGenresDetails(API_KEY)
-//        dbService.genreDao().insertAll(dataApi.map { it.toGenreEntity() })
         return dataApi.map { it.toGenreDomainModel() }
     }
-
 
     override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel {
         val dataApi = apiService.getMovieDetail(movieId, API_KEY)
@@ -26,32 +28,40 @@ class RemoteRepoImpl @Inject constructor(
         return dataApi.toMovieDomainModel()
     }
 
+
+
+//    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
+//        val dataApi = apiService.getPopularMovieDetails()
+////        dbService.popularMoviesDao().insertAll(dataApi.map { it.toResultEntity() })
+//        return dataApi.map { it.toResultDomainModel() }
+//    }
+
+//    After Fix
+    override suspend fun getPopularMoviesDetail(): ResultsDomainModel {
+        val dataApi = apiService.getPopularMovieDetails()
+        return dataApi.toResultsDomainModel()
+    }
+
+    override suspend fun getGenresListDetail(): GenreListDomainModel {
+        val dataApi = apiService.getGenresListDetails(API_KEY)
+        return dataApi.toGenresDomainModel()
+    }
+
+//    Use DataModel instead of DomainModel
+    override suspend fun getUpComingMoviesDetail(): ResultsDomainModel {
+        val dataApi = apiService.getUpcomingMovieDetails()
+        return dataApi.toResultsDomainModel()
+    }
+
+//    Use List<Result> instead of Results
     override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
         val dataApi = apiService.getTopRatedMovieDetails()
-//        dbService.topRatedMoviesDao().insertAll(dataApi.map { it.toResultEntity() })
-        return dataApi.map { it.toResultDomainModel() }
-    }
-
-    override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
-        val dataApi = apiService.getUpcomingMovieDetails()
-//        dbService.upcomingMoviesDao().insertAll(dataApi.map { it.toResultEntity() })
-        return dataApi.map { it.toResultDomainModel() }
-    }
-
-    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
-        val dataApi = apiService.getPopularMovieDetails()
-//        dbService.popularMoviesDao().insertAll(dataApi.map { it.toResultEntity() })
-        return dataApi.map { it.toResultDomainModel() }
+        return dataApi.results.map { it.toResultDomainModel() }
     }
 
     override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
-//        return apiService.getGenreMoviesDetail(API_KEY, genreId).map {
-//            it.toResultDomainModel()
-//        }
-        val dataApi = apiService.getGenreMoviesDetail(API_KEY,genreId)
-//        dbService.genreMoviesDao().insertAll(dataApi.map { it.toResultEntity() })
-        return dataApi.map { it.toResultDomainModel() }
+        val dataApi = apiService.getGenreMoviesDetail(API_KEY, genreId)
+        return dataApi.results.map { it.toResultDomainModel() }
     }
-
 
 }

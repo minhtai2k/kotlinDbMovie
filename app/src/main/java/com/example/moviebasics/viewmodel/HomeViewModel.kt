@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.GenreDomainModel
+import com.example.domain.model.GenreListDomainModel
+//import com.example.domain.model.GenreListDomainModel
+//import com.example.domain.model.GenresDomainModel
+//import com.example.domain.model.GenresDomainModel
 import com.example.domain.model.ResultDomainModel
-import com.example.domain.usecases.GetGenreUseCase
-import com.example.domain.usecases.GetPopularMoviesUseCase
-import com.example.domain.usecases.GetTopRatedMoviesUseCase
-import com.example.domain.usecases.GetUpComingMoviesUseCase
+import com.example.domain.usecases.*
+import dagger.Binds
 //import com.example.moviebasics.database.AppDatabase
 //import com.example.moviebasics.database.model.GenreEntity
 //import com.example.moviebasics.database.model.PopularMovieEntity
@@ -38,7 +40,8 @@ class HomeViewModel @Inject constructor(
 //    private val retrofitUpcomingMovie: UpcomingMovieApiService,
 //    private val retrofitPopularMovie: PopularMovieApiService,
 //    private val retrofitTopRatedMovie: TopRatedMovieApiService
-    private val genreUseCase: GetGenreUseCase,
+//    private val genreUseCase: GetGenreUseCase,
+    private val genreUseCase: GetGenresUseCase,
     private val upComingMovieUseCase: GetUpComingMoviesUseCase,
     private val popularMovieUseCase: GetPopularMoviesUseCase,
     private val topRatedMovieUseCase: GetTopRatedMoviesUseCase
@@ -53,8 +56,11 @@ class HomeViewModel @Inject constructor(
 //    private val _genres = MutableLiveData<Genres>()
 //    val genres: LiveData<Genres> = _genres
 
-    private val _genres = MutableLiveData<List<GenreDomainModel>>()
-    val genres: LiveData<List<GenreDomainModel>> = _genres
+//    private val _genres = MutableLiveData<List<GenreDomainModel>>()
+//    val genres: LiveData<List<GenreDomainModel>> = _genres
+
+    private val _genres = MutableLiveData<GenreListDomainModel>()
+    val genres: LiveData<GenreListDomainModel> = _genres
 
     private val _resultsUpcoming = MutableLiveData<List<ResultDomainModel>>()
     val resultsUpcoming: LiveData<List<ResultDomainModel>> = _resultsUpcoming
@@ -65,11 +71,13 @@ class HomeViewModel @Inject constructor(
     private val _topRatedMovies = MutableLiveData<List<ResultDomainModel>>()
     val topRatedMovies: LiveData<List<ResultDomainModel>> = _topRatedMovies
 
-    fun getGenresList(isConnected: Boolean) {
+
+    fun getGenresList() {
 //        val genreDao = db.genreDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = genreUseCase.execute()
+//                _genres.postValue(data)
                 _genres.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)
@@ -107,12 +115,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getUpcomingMovieList(isConnected: Boolean) {
+    fun getUpcomingMovieList() {
 //        val upComingMovieDao = db.upcomingMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = upComingMovieUseCase.execute()
-                _resultsUpcoming.postValue(data)
+                _resultsUpcoming.postValue(data.results)
             } catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("HomeViewModel", "${e.message}")
@@ -145,12 +153,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getPopularMovies(isConnected: Boolean) {
+
+    fun getPopularMovies() {
 //        val popularMovieDao = db.popularMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = popularMovieUseCase.execute()
-                _popularMovies.postValue(data)
+                _popularMovies.postValue(data.results)
             } catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("HomeViewModel", "${e.message}")
@@ -182,7 +191,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getTopRatedMovies(isConnected: Boolean) {
+    fun getTopRatedMovies() {
 //        val topRatedMovieDao = db.topRatedMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {

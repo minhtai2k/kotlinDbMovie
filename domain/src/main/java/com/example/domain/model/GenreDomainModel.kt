@@ -5,6 +5,6 @@ data class GenreDomainModel(
     val name: String?
 )
 
-//data class GenresDetailsModel(
-//    val genres: List<GenreDomainModel>
-//)
+data class GenreListDomainModel(
+    val genres: List<GenreDomainModel>
+)

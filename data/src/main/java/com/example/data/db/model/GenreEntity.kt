@@ -9,3 +9,4 @@ data class GenreEntity(
     @PrimaryKey val gid: Int,
     @ColumnInfo(name = "name") val name: String?
 )
+

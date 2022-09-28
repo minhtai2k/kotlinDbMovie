@@ -1,6 +1,7 @@
 package com.example.domain.usecases
 
 import com.example.domain.model.GenreDomainModel
+//import com.example.domain.model.GenreListDomainModel
 //import com.example.domain.models.GenresDomainModel
 import com.example.domain.repositories.RemoteRepo
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +14,8 @@ class GetGenreUseCase (private val repo: RemoteRepo) :
 }
 
 //class GetGenresUseCase (private val apiRepo: RemoteRepo) :
-//    CommonUseCase<List<GenreDomainModel>> {
-//    override suspend fun execute(): Flow<List<GenreDomainModel>> {
+//    CommonUseCase<GenresDomainModel> {
+//    override suspend fun execute(): GenresDomainModel {
 //        return apiRepo.getGenresDetail()
 //    }
 //}

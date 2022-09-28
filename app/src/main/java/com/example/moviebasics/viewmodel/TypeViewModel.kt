@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.repo.DataRepository
 import com.example.domain.model.ResultDomainModel
 import com.example.domain.usecases.GetGenreMoviesUseCase
+import dagger.Binds
 //import com.example.moviebasics.database.AppDatabase
 //import com.example.moviebasics.database.model.TypeMovieEntity
 //import com.example.moviebasics.model.Result
@@ -35,12 +36,12 @@ class TypeViewModel @Inject constructor(
     private val _typeMovies = MutableLiveData<List<ResultDomainModel>>()
     val typeMovies: LiveData<List<ResultDomainModel>> = _typeMovies
 
-    fun getTypeMovies() {
+    fun getTypeMovies(genreId: Int) {
 //        val typeMovieDao = db.typeMovieDao()
         viewModelScope.launch(Dispatchers.IO) {
 //            UseCase.execute()
             try {
-                val data = genreMoviesUseCase.execute()
+                val data = genreMoviesUseCase.execute(genreId)
                 _typeMovies.postValue(data)
             } catch (e: Exception) {
                 _status.postValue(e.message)

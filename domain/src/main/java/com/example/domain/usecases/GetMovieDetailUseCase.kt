@@ -4,9 +4,12 @@ import com.example.domain.model.MovieDetailDomainModel
 import com.example.domain.repositories.RemoteRepo
 import kotlinx.coroutines.flow.Flow
 
-class GetMovieDetailUseCase(private val repo: RemoteRepo, private val movieId: Int) :
-    CommonUseCase<MovieDetailDomainModel> {
-    override suspend fun execute(): MovieDetailDomainModel {
-        return repo.getMovieDetail(movieId)
+class GetMovieDetailUseCase(private val repo: RemoteRepo) :
+    CommonUseCaseParam<Int ,MovieDetailDomainModel> {
+    //    override suspend fun execute(): MovieDetailDomainModel {
+//        return repo.getMovieDetail(movieId)
+//    }
+    override suspend fun execute(param: Int): MovieDetailDomainModel {
+        return repo.getMovieDetail(param)
     }
 }

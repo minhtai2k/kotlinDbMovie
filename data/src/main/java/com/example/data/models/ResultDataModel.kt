@@ -17,4 +17,4 @@ data class ResultDataModel(
     val vote_count: Int
 )
 
-//data class ResultsDataModel(val results : List<ResultDataModel>)
+data class ResultsDataModel(val results : List<ResultDataModel>)

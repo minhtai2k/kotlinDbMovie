@@ -7,6 +7,11 @@ import androidx.room.TypeConverters
 import com.example.data.db.converter.DatabaseConverter
 import com.example.data.db.dao.*
 import com.example.data.db.model.*
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Database(
     entities = [GenreEntity::class, MovieDetailEntity::class, GenreMovieEntity::class, UpcomingMovieEntity::class, PopularMovieEntity::class, TopRatedMovieEntity::class, ResultEntity::class],

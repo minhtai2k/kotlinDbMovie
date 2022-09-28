@@ -74,18 +74,10 @@ class HomeFragment : Fragment() {
     private fun refreshLayout() {
         binding.homeSwipeRefreshLayout.setOnRefreshListener {
             if (viewModel.isLoading.value == true) {
-                viewModel.getGenresList(
-                    checkForInternet(requireContext())
-                )
-                viewModel.getPopularMovies(
-                    checkForInternet(requireContext())
-                )
-                viewModel.getUpcomingMovieList(
-                    checkForInternet(requireContext())
-                )
-                viewModel.getTopRatedMovies(
-                    checkForInternet(requireContext())
-                )
+                viewModel.getGenresList()
+                viewModel.getPopularMovies()
+                viewModel.getUpcomingMovieList()
+                viewModel.getTopRatedMovies()
                 binding.homeSwipeRefreshLayout.isRefreshing = false
             }
 //            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
@@ -99,9 +91,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpGenres() {
-        viewModel.getGenresList(
-            checkForInternet(requireContext())
-        )
+        viewModel.getGenresList()
 
         viewModel.genres.observe(viewLifecycleOwner) {
             val adapter = GenreAdapter(it) { data ->
@@ -116,9 +106,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpUpcomingMovies() {
-        viewModel.getUpcomingMovieList(
-            checkForInternet(requireContext())
-        )
+        viewModel.getUpcomingMovieList()
 
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
             val adapter = UpcomingMovieAdapter(it) { data ->
@@ -133,9 +121,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpPopularMovies() {
-        viewModel.getPopularMovies(
-            checkForInternet(requireContext())
-        )
+        viewModel.getPopularMovies()
 
         viewModel.popularMovies.observe(viewLifecycleOwner) {
             val adapter = PopularMoviesAdapter(it) { data ->
@@ -145,15 +131,12 @@ class HomeFragment : Fragment() {
                     )
                 findNavController().navigate(direction)
             }
-//            setUpViewPager()
             binding.viewpagerPopularMovie.adapter = adapter
         }
     }
 
     private fun setUpTopRatedMovies() {
-        viewModel.getTopRatedMovies(
-            checkForInternet(requireContext())
-        )
+        viewModel.getTopRatedMovies()
 
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
             val adapter = TopRatedMoviesAdapter(it) { data ->

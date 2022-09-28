@@ -12,8 +12,14 @@ fun ResultDataModel.toResultDomainModel(): ResultDomainModel {
     )
 }
 
+//Result Entity Mapper
 fun ResultEntity.toResultDomainModel(): ResultDomainModel {
     return ResultDomainModel(
+        adult, backdrop_path, genre_ids, pid, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
+    )
+}
+fun ResultEntity.toResultDataModel(): ResultDataModel {
+    return ResultDataModel(
         adult, backdrop_path, genre_ids, pid, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
     )
 }

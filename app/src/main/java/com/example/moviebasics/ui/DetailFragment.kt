@@ -37,10 +37,10 @@ class DetailFragment : Fragment() {
 //        return inflater.inflate(R.layout.fragment_detail, container, false)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        viewModel.getMovieDetail()
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             bindData(it)
         }
+        viewModel.getMovieDetail(movieId)
         return binding.root
     }
 

@@ -5,8 +5,8 @@
     <dimen name="card_view_genre_height">35dp</dimen>
     <dimen name="textview_genre_padding"></dimen>
 
-    <dimen name="card_view_image_movie_width">150dp</dimen>
-    <dimen name="card_view_image_movie_height">200dp</dimen>
+    <dimen name="card_view_image_movie_width">120dp</dimen>
+    <dimen name="card_view_image_movie_height">160dp</dimen>
     <dimen name="card_view_margin">110dp</dimen>
     <dimen name="card_view_radius">15dp</dimen>
 

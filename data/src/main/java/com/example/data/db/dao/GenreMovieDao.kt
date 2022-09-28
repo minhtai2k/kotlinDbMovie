@@ -15,6 +15,9 @@ interface GenreMovieDao {
     @Query("select * from typeMovies where title like (:alphabet) limit 1")
     fun findByName(alphabet: String): GenreMovieEntity
 
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    fun insertAll(typeMovies: List<GenreMovieEntity>)
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(typeMovies: List<GenreMovieEntity>)
 

@@ -2,12 +2,10 @@ package com.example.data.repo
 
 import com.example.data.db.AppDatabase
 import com.example.data.db.model.*
-import com.example.data.mappers.toListGenreDomainModel
-import com.example.data.mappers.toMovieDetailDomainModel
-import com.example.data.mappers.toResultDomainModel
-import com.example.domain.model.GenreDomainModel
-import com.example.domain.model.MovieDetailDomainModel
-import com.example.domain.model.ResultDomainModel
+import com.example.data.mappers.*
+import com.example.data.models.ResultDataModel
+import com.example.data.models.ResultsDataModel
+import com.example.domain.model.*
 import javax.inject.Inject
 
 class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : LocalRepo {
@@ -26,21 +24,8 @@ class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : Lo
         dbService.movieDetailDao().insert(data)
     }
 
-
-    override suspend fun getUpComingMoviesDetail(): List<ResultDomainModel> {
-        return dbService.upcomingMoviesDao().getAll().map {
-            it.toResultDomainModel()
-        }
-    }
-
     override suspend fun insertAllUpComingMovie(list: List<UpcomingMovieEntity>) {
         dbService.upcomingMoviesDao().insertAll(list)
-    }
-
-    override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
-        return dbService.popularMoviesDao().getAll().map {
-            it.toResultDomainModel()
-        }
     }
 
     override suspend fun insertAllPopularMovie(list: List<PopularMovieEntity>) {
@@ -57,11 +42,7 @@ class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : Lo
         dbService.genreMoviesDao().insertAll(list)
     }
 
-    override suspend fun getTopRatedMoviesDetail(): List<ResultDomainModel> {
-        return dbService.topRatedMoviesDao().getAll().map {
-            it.toResultDomainModel()
-        }
-    }
+
 
     override suspend fun insertAllTopRatedMovies(list: List<TopRatedMovieEntity>) {
         dbService.topRatedMoviesDao().insertAll(list)
@@ -71,5 +52,34 @@ class LocalRepoImpl @Inject constructor(private val dbService: AppDatabase) : Lo
         return dbService.genreDao().insertAll(list)
     }
 
+//    After Fix
+    suspend fun getGenresListDetail(): GenreListDomainModel {
+        return GenreListDomainModel(
+            dbService.genreDao().getAll().map { it.toListGenreDomainModel() })
+    }
+
+    override suspend fun getPopularMoviesDetail(): ResultsDomainModel {
+        return ResultsDomainModel(
+            dbService.popularMoviesDao().getAll().map {
+                it.toResultDomainModel()
+            }
+        )
+    }
+
+    // Use ResultsDataModel
+    override suspend fun getUpComingMoviesDetail(): ResultsDomainModel {
+        return ResultsDomainModel(
+            dbService.upcomingMoviesDao().getAll().map {
+                it.toResultDomainModel()
+            }
+        )
+    }
+
+    //Use ResultsDataModel and List instead of Results
+    override suspend fun getTopRatedMoviesDetail(): List<ResultDataModel> {
+        return dbService.topRatedMoviesDao().getAll().map {
+            it.toResultDataModel()
+        }
+    }
 
 }
