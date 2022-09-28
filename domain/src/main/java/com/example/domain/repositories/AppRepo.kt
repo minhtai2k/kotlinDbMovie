@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AppRepo {
     //    Use List instead of Results
-    suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel
+    suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel?
 
     suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel>
 

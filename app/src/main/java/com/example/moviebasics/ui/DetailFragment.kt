@@ -29,7 +29,6 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        return inflater.inflate(R.layout.fragment_detail, container, false)
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         viewModel.movieDetail.observe(viewLifecycleOwner) {
@@ -91,6 +90,7 @@ class DetailFragment : Fragment() {
             ), HtmlCompat.FROM_HTML_MODE_COMPACT
         )
     }
+}
 
 //    private fun refreshLayout() {
 //        binding.homeSwipeRefreshLayout.setOnRefreshListener {
@@ -112,4 +112,3 @@ class DetailFragment : Fragment() {
 ////            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
 //        }
 //    }
-}

@@ -121,7 +121,7 @@ fun MovieDetailDataModel.toMovieDomainModel() : MovieDetailDomainModel {
     return MovieDetailDomainModel(
         adult = adult,
         backdrop_path = backdrop_path,
-        belongs_to_collection = belongs_to_collection!!.toBeLongToCollectionDomainModel(),
+        belongs_to_collection = belongs_to_collection?.toBeLongToCollectionDomainModel(),
         budget =  budget,
 //            genres = genres.map {
 //                GenreDomainModel(id = it.id, name = it.name)
@@ -157,7 +157,7 @@ fun MovieDetailDomainModel.toMovieDetailEntity() : MovieDetailEntity {
     return MovieDetailEntity(
         adult = adult,
         backdrop_path = backdrop_path,
-        belongs_to_collection = belongs_to_collection!!.toBeLongToCollectionEntity(),
+        belongs_to_collection = belongs_to_collection?.toBeLongToCollectionEntity(),
         budget =  budget,
 //            genres = genres.map {
 //                GenreDomainModel(id = it.id, name = it.name)
@@ -225,11 +225,11 @@ fun MovieDetailDomainModel.toMovieDetailEntity() : MovieDetailEntity {
 //    )
 //}
 
-fun MovieDetailEntity.toMovieDetailDomainModel(): MovieDetailDomainModel {
+fun MovieDetailEntity.toMovieDetailDomainModel(): MovieDetailDomainModel? {
     return MovieDetailDomainModel(
         adult = adult,
         backdrop_path = backdrop_path,
-        belongs_to_collection = belongs_to_collection!!.toBeLongToCollectionDomainModel(),
+        belongs_to_collection = belongs_to_collection?.toBeLongToCollectionDomainModel(),
         budget =  budget,
 //            genres = genres.map {
 //                GenreDomainModel(id = it.id, name = it.name)

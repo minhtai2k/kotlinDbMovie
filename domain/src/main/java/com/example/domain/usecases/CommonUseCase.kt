@@ -13,5 +13,5 @@ interface CommonsUseCaseParam<P, R> {
 }
 
 interface CommonUseCaseParam<P, R> {
-    suspend fun execute(param: P) : R
+    suspend fun execute(param: P) : R?
 }

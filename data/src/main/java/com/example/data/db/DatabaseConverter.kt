@@ -24,8 +24,8 @@ open class DatabaseConverter {
     }
 
 //      DetailMovieDao Converter
-    private val belongsToCollectionType = Types.newParameterizedType(List::class.java, BeLongsToCollectionEntity::class.java)
-    private val belongsToCollectionAdapter = moshi.adapter<BeLongsToCollectionEntity>(belongsToCollectionType)
+//    private val belongsToCollectionType = Types.newParameterizedType(List::class.java, BeLongsToCollectionEntity::class.java)
+    private val belongsToCollectionAdapter = moshi.adapter(BeLongsToCollectionEntity::class.java)
 
     private val genreType = Types.newParameterizedType(List::class.java, GenreEntity::class.java)
     private val genreAdapter = moshi.adapter<List<GenreEntity>>(genreType)
@@ -40,7 +40,7 @@ open class DatabaseConverter {
     private val spokenLanguageAdapter = moshi.adapter<List<SpokenLanguagesEntity>>(spokenLanguageType)
 
     @TypeConverter
-    fun belongsToCollectionToString(value: BeLongsToCollectionEntity) : String {
+    fun belongsToCollectionToString(value: BeLongsToCollectionEntity?) : String? {
         return belongsToCollectionAdapter.toJson(value)
     }
 

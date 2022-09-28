@@ -65,7 +65,7 @@ class DataRepository @Inject constructor (
             local.getGenresLocal()
     }
 
-    override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel {
+    override suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel? {
         return if(checkForInternet(context)) {
             val data = remote.getMovieDetailRemote(movieId)
             local.insertMovieDetail(data.toMovieDetailEntity())
@@ -73,6 +73,15 @@ class DataRepository @Inject constructor (
         } else
             local.getMovieDetailLocal(movieId)
     }
+
+//    override suspend fun getGenreMoviesDetail(genreId: Int): List<ResultDomainModel> {
+//        return if(checkForInternet(context)) {
+//            val data = remote.getGenreMoviesRemote(genreId)
+//            local.insertAllGenreMovies(data.map { it.toGenreMovieEntity() })
+//            data
+//        } else
+//            local.getGenreMoviesLocal(genreId)
+//    }
 
     override suspend fun getPopularMoviesDetail(): List<ResultDomainModel> {
         return if(checkForInternet(context)) {

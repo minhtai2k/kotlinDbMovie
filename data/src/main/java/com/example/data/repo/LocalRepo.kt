@@ -11,7 +11,7 @@ interface LocalRepo{
     suspend fun insertAllGenre(list: List<GenreEntity>)
 
 //    suspend fun getMovieDetail(movieId: Int): MovieDetailDomainModel
-    suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel
+    suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel?
     suspend fun insertMovieDetail(data: MovieDetailEntity)
 
 //    suspend fun getPopularMoviesDetail() : List<ResultDomainModel>

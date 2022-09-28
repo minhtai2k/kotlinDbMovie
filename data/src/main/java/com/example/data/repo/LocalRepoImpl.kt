@@ -18,7 +18,7 @@ class LocalRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel {
+    override suspend fun getMovieDetailLocal(movieId: Int): MovieDetailDomainModel? {
         return dbService.movieDetailDao().loadAllByIds(movieId).toMovieDetailDomainModel()
     }
 

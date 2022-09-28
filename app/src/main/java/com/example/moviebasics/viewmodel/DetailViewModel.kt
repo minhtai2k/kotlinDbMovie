@@ -20,31 +20,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-//    val db: AppDatabase,
-//    private val retrofitDetailMovie: RemoteRepoImpl
     private val modelUseCase: GetMovieDetailUseCase
 ) : ViewModel() {
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
-    private val _isLoading = MutableLiveData<Boolean>()
+//    private val _isLoading = MutableLiveData<Boolean>()
 //    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _movieDetail = MutableLiveData<MovieDetailDomainModel>()
     val movieDetail: LiveData<MovieDetailDomainModel> = _movieDetail
 
-//    @Binds
     fun getMovieDetail(movieId: Int) {
-//        val movieDetailDao = db.movieDetailDao()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val data = modelUseCase.execute(movieId)
                 _movieDetail.postValue(data)
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 _status.postValue(e.message)
                 Log.d("MovieDetailViewModel","${e.message}")
             }
-//            try {
+
+        }
+    }
+
+    //            try {
 //                if (isConnected) {
 //                    val data = retrofitDetailMovie.getMovieDetail(id)
 //                    _movieDetail.postValue(data)
@@ -61,8 +62,6 @@ class DetailViewModel @Inject constructor(
 //            } catch (e: InvocationTargetException) {
 //                Log.d("Invocation", "${e.message}")
 //            }
-        }
-    }
 
 //    fun MovieDetailDomainModel.toMovieDetailEntity(): MovieDetailEntity {
 //        return MovieDetailEntity(
