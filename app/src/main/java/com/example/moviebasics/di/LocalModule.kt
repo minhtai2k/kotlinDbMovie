@@ -2,7 +2,6 @@ package com.example.moviebasics.di
 
 import com.example.data.repo.LocalRepo
 import com.example.data.repo.LocalRepoImpl
-import com.example.domain.repositories.AppRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

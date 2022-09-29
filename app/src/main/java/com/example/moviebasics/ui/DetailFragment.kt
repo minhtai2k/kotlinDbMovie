@@ -39,76 +39,51 @@ class DetailFragment : Fragment() {
     }
 
     private fun bindData(item: MovieDetailDomainModel) {
-        binding.imageviewMovieDetail.load(BASE_IMAGE_URL + "" + item.poster_path) {
-            placeholder(R.drawable.loading_img)
-            error(R.drawable.ic_broken_image)
-        }
-        binding.nameMovieDetail.text = item.title
-        binding.taglineMovieDetail.text = item.tagline
-        binding.overviewMovieDetail.text = item.overview
-
-//        binding.reLeaseDateMovieDetail.text = Html.fromHtml(getString(R.string.release_date_movie, item.release_date))
-        binding.reLeaseDateMovieDetail.text = HtmlCompat.fromHtml(
-            getString(R.string.release_date_movie, item.release_date),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
-//        binding.statusMovieDetail.text = Html.fromHtml(getString(R.string.status_movie, item.status))
-        binding.statusMovieDetail.text = HtmlCompat.fromHtml(
-            getString(R.string.status_movie, item.status),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
-//        binding.reviewMovieDetail.text = Html.fromHtml(getString(R.string.review_movie, item.vote_average, item.vote_count))
-        binding.reviewMovieDetail.text = HtmlCompat.fromHtml(
-            getString(
-                R.string.review_movie,
-                item.vote_average,
-                item.vote_count
-            ), HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
-
         val listProduction: MutableList<String> = mutableListOf()
         for (data in item.production_companies) {
             listProduction.add(data.name)
         }
-//        binding.productionMovieDetail.setText(Html.fromHtml(getString(R.string.companies_production, listProduction.joinToString(" | "))))
-        binding.productionMovieDetail.text = HtmlCompat.fromHtml(
-            getString(
-                R.string.companies_production,
-                listProduction.joinToString(" | ")
-            ), HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
 
         val listCountries: MutableList<String> = mutableListOf()
         for (data in item.production_countries) {
             listCountries.add(data.name)
         }
-//        binding.countryMovieDetail.setText(Html.fromHtml(getString(R.string.companies_countries, listCountries.joinToString(" | "))))
-        binding.countryMovieDetail.text = HtmlCompat.fromHtml(
-            getString(
-                R.string.companies_countries,
-                listCountries.joinToString(" | ")
-            ), HtmlCompat.FROM_HTML_MODE_COMPACT
-        )
+
+        binding.apply {
+            imageviewMovieDetail.load(BASE_IMAGE_URL + "" + item.poster_path) {
+                placeholder(R.drawable.loading_img)
+                error(R.drawable.ic_broken_image)
+            }
+            nameMovieDetail.text = item.title
+            taglineMovieDetail.text = item.tagline
+            overviewMovieDetail.text = item.overview
+            reLeaseDateMovieDetail.text = HtmlCompat.fromHtml(
+                getString(R.string.release_date_movie, item.release_date),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+            statusMovieDetail.text = HtmlCompat.fromHtml(
+                getString(R.string.status_movie, item.status),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+            reviewMovieDetail.text = HtmlCompat.fromHtml(
+                getString(
+                    R.string.review_movie,
+                    item.vote_average,
+                    item.vote_count
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+            productionMovieDetail.text = HtmlCompat.fromHtml(
+                getString(
+                    R.string.companies_production,
+                    listProduction.joinToString(" | ")
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+            countryMovieDetail.text = HtmlCompat.fromHtml(
+                getString(
+                    R.string.companies_countries,
+                    listCountries.joinToString(" | ")
+                ), HtmlCompat.FROM_HTML_MODE_COMPACT
+            )
+        }
     }
 }
-
-//    private fun refreshLayout() {
-//        binding.homeSwipeRefreshLayout.setOnRefreshListener {
-//            if (viewModel.isLoading.value == true) {
-//                viewModel.getGenresList(
-//                    checkForInternet(requireContext())
-//                )
-//                viewModel.getPopularMovies(
-//                    checkForInternet(requireContext())
-//                )
-//                viewModel.getUpcomingMovieList(
-//                    checkForInternet(requireContext())
-//                )
-//                viewModel.getTopRatedMovies(
-//                    checkForInternet(requireContext())
-//                )
-//                binding.homeSwipeRefreshLayout.isRefreshing = false
-//            }
-////            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
-//        }
-//    }

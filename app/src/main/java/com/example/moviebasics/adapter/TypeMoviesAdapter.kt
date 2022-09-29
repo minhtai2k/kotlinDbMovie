@@ -13,19 +13,16 @@ import com.example.moviebasics.databinding.ItemNewMovieBinding
 
 class TypeMoviesAdapter(
     private val dataSet: List<ResultDomainModel>,
-//    val genreId: Int,
     val onClick: (ResultDomainModel) -> Unit
 ) :
     RecyclerView.Adapter<TypeMoviesAdapter.TypeMoviesAdapterViewHolder>() {
 
     inner class TypeMoviesAdapterViewHolder(val binding: ItemNewMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        //        private val textView: TextView = binding.textviewItem
         private val imgView: ImageView = binding.imageviewItem
         private val cardView: CardView = binding.cardViewItem
 
         fun bind(item: ResultDomainModel) {
-//            textView.text = item.title
             imgView.load(BASE_IMAGE_URL + "" + item.poster_path) {
                 placeholder(R.drawable.loading_img)
                 error(R.drawable.ic_broken_image)

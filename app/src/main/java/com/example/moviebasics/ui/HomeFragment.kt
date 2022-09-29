@@ -28,15 +28,12 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
         setUpStatus()
         setUpGenres()
         setUpUpcomingMovies()
         setUpPopularMovies()
         setUpTopRatedMovies()
-
         refreshLayout()
-
         return binding.root
     }
 
@@ -49,7 +46,6 @@ class HomeFragment : Fragment() {
                 viewModel.getTopRatedMovies()
                 binding.homeSwipeRefreshLayout.isRefreshing = false
             }
-//            binding.homeSwipeRefreshLayout.isRefreshing = viewModel.isLoading.value != true
         }
     }
 
@@ -61,7 +57,6 @@ class HomeFragment : Fragment() {
 
     private fun setUpGenres() {
         viewModel.getGenresList()
-
         viewModel.genres.observe(viewLifecycleOwner) {
             val adapter = GenreAdapter(it) { data ->
                 val direction =
@@ -76,7 +71,6 @@ class HomeFragment : Fragment() {
 
     private fun setUpUpcomingMovies() {
         viewModel.getUpcomingMovieList()
-
         viewModel.resultsUpcoming.observe(viewLifecycleOwner) {
             val adapter = UpcomingMovieAdapter(it) { data ->
                 val direction =
@@ -91,7 +85,6 @@ class HomeFragment : Fragment() {
 
     private fun setUpPopularMovies() {
         viewModel.getPopularMovies()
-
         viewModel.popularMovies.observe(viewLifecycleOwner) {
             val adapter = PopularMoviesAdapter(it) { data ->
                 val direction =
@@ -106,7 +99,6 @@ class HomeFragment : Fragment() {
 
     private fun setUpTopRatedMovies() {
         viewModel.getTopRatedMovies()
-
         viewModel.topRatedMovies.observe(viewLifecycleOwner) {
             val adapter = TopRatedMoviesAdapter(it) { data ->
                 val direction =
@@ -118,18 +110,4 @@ class HomeFragment : Fragment() {
             binding.recyclerviewTopRatedMovie.adapter = adapter
         }
     }
-
-//    private val db by lazy {
-//        Room.databaseBuilder(
-//            requireActivity().applicationContext,
-//            AppDatabase::class.java,
-//            DATABASE_NAME
-//        ).build()
-//    }
-
-//    private fun setUpViewPager() {
-//        binding.viewpagerPopularMovie.offscreenPageLimit = 3
-//        binding.viewpagerPopularMovie.clipToPadding = false
-//        binding.viewpagerPopularMovie.clipChildren = false
-//    }
 }

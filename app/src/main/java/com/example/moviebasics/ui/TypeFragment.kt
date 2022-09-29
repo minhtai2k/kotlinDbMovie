@@ -17,16 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TypeFragment : Fragment() {
 
-    // ==> latent property viewModel has not been initialized don't use by viewModels()
     private val viewModel: TypeViewModel by viewModels()
-
-    private lateinit var binding : FragmentTypeMovieBinding
+    private lateinit var binding: FragmentTypeMovieBinding
 
     private val args: TypeFragmentArgs by navArgs()
     private val genreId by lazy { args.genreId }
-
-//    private val argsDetail: DetailFragmentArgs by navArgs()
-//    private val movieId by lazy { argsDetail.movieId }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +29,13 @@ class TypeFragment : Fragment() {
     ): View {
         binding = FragmentTypeMovieBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-//        Status update
-        viewModel.status.observe(viewLifecycleOwner){
+
+        viewModel.status.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
-//        TypeMovies update it ===> results
         viewModel.typeMovies.observe(viewLifecycleOwner) {
-            val adapter = TypeMoviesAdapter(it){ data ->
+            val adapter = TypeMoviesAdapter(it) { data ->
                 val direction =
                     TypeFragmentDirections.actionTypeFragmentToDetailFragment(
                         data.id

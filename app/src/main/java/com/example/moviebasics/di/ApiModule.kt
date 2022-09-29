@@ -35,77 +35,12 @@ class ApiModule {
 
     @Provides
     fun bindApiService(): ApiService {
-//        return retrofit.create(ApiService::class.java)
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
-//            .addCallAdapterFactory()
             .client(provideOkHttpClient())
             .build()
         return retrofit.create(ApiService::class.java)
     }
-
-
 }
-
-//    @Provides
-//    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-//        return Room.databaseBuilder(
-//            context,
-//            AppDatabase::class.java,
-//            Constants.DATABASE_NAME
-//        ).build()
-//    }
-
-//@Module
-//@InstallIn(SingletonComponent::class)
-
-//object DataRoomApi {
-//    @Provides
-//    fun retrofitGenreService(): GenreApiService {
-//        return retrofit.create(GenreApiService::class.java)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun retrofitUpcomingMovieService(): UpcomingMovieApiService {
-//        return retrofit.create(UpcomingMovieApiService::class.java)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun retrofitTypeMovieService(): TypeMoviesApiService {
-//        return retrofit.create(TypeMoviesApiService::class.java)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun retrofitMovieDetailService(): MovieDetailApiService {
-//        return retrofit.create(MovieDetailApiService::class.java)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun retrofitPopularMovieService(): PopularMovieApiService {
-//        return retrofit.create(PopularMovieApiService::class.java)
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun retrofitTopRatedService(): TopRatedMovieApiService {
-//        return retrofit.create(TopRatedMovieApiService::class.java)
-//    }
-//
-//
-//    @Provides
-//    @Singleton
-//    fun getDatabase(@ApplicationContext context: Context): AppDatabase {
-//        return Room.databaseBuilder(
-//            context,
-//            AppDatabase::class.java,
-//            DATABASE_NAME
-//        ).build()
-//    }
-//
-//}
 

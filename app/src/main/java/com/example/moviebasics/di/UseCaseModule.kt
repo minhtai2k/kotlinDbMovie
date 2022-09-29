@@ -28,7 +28,4 @@ object UseCaseModule {
 
     @Provides
     fun provideTopRatedMovieUseCase(repo: AppRepo) = GetTopRatedMoviesUseCase(repo)
-
-//    @Provides
-//    fun provideRetrofit(okHttpClient: OkHttpClient) = NetworkModule().provideRetrofit(okHttpClient)
 }

@@ -4,9 +4,9 @@ interface CommonUseCase<R> {
     suspend fun execute() : R
 }
 
-interface CommonsUseCase<R> {
-    suspend fun execute() : List<R>
-}
+//interface CommonsUseCase<R> {
+//    suspend fun execute() : List<R>
+//}
 
 interface CommonsUseCaseParam<P, R> {
     suspend fun execute(param: P) : List<R>
