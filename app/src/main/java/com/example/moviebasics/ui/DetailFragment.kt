@@ -32,7 +32,7 @@ class DetailFragment : Fragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         viewModel.movieDetail.observe(viewLifecycleOwner) {
-            bindData(it)
+            it?.let { it1 -> bindData(it1) }
         }
         viewModel.getMovieDetail(movieId)
         return binding.root
